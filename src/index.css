@@ -1,0 +1,471 @@
+@import url('https://fonts.googleapis.com/css2?family=Damion&family=Montserrat&family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+
+@tailwind utilities;
+.dark .dark\:text-white {
+  --tw-text-opacity: black !important;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    @apply bg-background;
+    @apply text-content;
+  }
+  :root {
+    --accent: 216 35 42;
+    --content: 0 0 0;
+    --background: 248 248 248;
+    --foreground: 230 230 230;
+    --edge: 200 200 200;
+  }
+}
+@layer utilities {
+  .text-gradient {
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+.theme-dark {
+  --accent: 37 99 235;
+  --content: 255 255 255;
+  --background: 0 0 0;
+  --foreground: 39 39 42;
+  --edge: 59 130 246;
+}
+
+.theme-green {
+  --accent: 0 255 0;
+  --content: 41 75 255;
+  --background: 255 255 255;
+  --foreground: 137 141 84;
+  --edge: 254 0 138;
+}
+.card-zoom {
+  @apply relative flex items-center justify-center overflow-hidden;
+}
+.card-zoom-image {
+  @apply absolute w-full h-full transition-all duration-500 ease-in-out transform bg-center bg-cover;
+}
+
+.card-zoom:hover .card-zoom-image {
+  @apply scale-125;
+}
+
+@layer base {
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+.t414 {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.t412 {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.t514 {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+}
+.t512 {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+}
+.t516 {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+}
+.t518 {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+}
+.t616 {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+}
+.t714 {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+}
+.t730 {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+}
+.heroContainer {
+  background-color: #d2e1fe;
+}
+.heroSectionFeature {
+  background: #7f75ff;
+}
+
+.footerContainer {
+  background-color: #d2e1fe;
+}
+.nav-link {
+  border-radius: 25px !important;
+}
+.heroImageContainer {
+  background: url('https://quer.vercel.app/static/media/herobg.f559c828291ec9dd5b45.png');
+  background-repeat: no-repeat;
+}
+
+.heroSection,
+.doctorHeroSection {
+  background-color: #f2f7ff;
+}
+.FeatureSection,
+.faqSection {
+  padding-top: 5%;
+  background-image: linear-gradient(#f2f7ff 60%, white 50%);
+}
+
+.howItWorksContainer,
+.CStastifactionSection {
+  padding: 5% auto;
+  background: #f2f7ff;
+}
+
+.counterSection {
+  background-color: #ebf2ff;
+  border-radius: 25px;
+}
+
+.counterTitle {
+  color: #1c5bd9;
+  padding-top: 30px;
+  font-family: monospace;
+  font-weight: bolder;
+}
+
+.counterText {
+  padding-bottom: 20px;
+}
+
+.treatmentPageSection {
+  background-image: linear-gradient(#f2f7ff 60%, white 50%);
+}
+
+.LMASection {
+  background-color: #f1f1f1;
+}
+
+.doctorMoreSection {
+  background-color: #f1f1f1;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&display=swap');
+
+.heroContainer {
+  background-color: #d2e1fe;
+}
+.heroSectionFeature {
+  background: #7f75ff;
+}
+
+.footerContainer {
+  background-color: #d2e1fe;
+}
+
+.los {
+  width: 100%;
+  height: 110vh;
+}
+.docabouthome {
+  display: flex;
+  justify-content: space-between;
+  width: 72%;
+}
+.inos {
+  height: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+.inos {
+  width: 90%;
+  margin: 0 auto;
+}
+.grybox1 {
+  font-family: 'Montserrat';
+  font-size: 10px;
+  font-weight: 600;
+  display: block;
+  margin: 12px;
+}
+.docName {
+  height: 50px;
+  width: 160px;
+  font-family: 'Montserrat';
+  font-size: 22px;
+  font-weight: 700;
+}
+.losup {
+  width: 100%;
+  justify-content: space-between;
+  display: flex;
+}
+.losheading {
+  font-family: 'Montserrat';
+  font-size: 32px;
+  font-weight: 700;
+  height: 48px;
+  width: 262px;
+  color: #1c1c1c;
+  display: block;
+}
+.wosbtn {
+  display: none;
+}
+.losdown {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.losdownleft > img {
+  margin-left: 2px;
+}
+.losdownleft > input {
+  position: absolute;
+  bottom: -30px;
+  width: 152px;
+  /* margin: 0 auto; */
+  left: 150px;
+}
+.losdownleft {
+  align-items: flex-end;
+  display: flex;
+  width: 50%;
+  position: relative;
+}
+.doc001 {
+  width: 15%;
+}
+.doc002 {
+  width: 20%;
+}
+.doc003 {
+  width: 50%;
+}
+.losdownright {
+  width: 50%;
+}
+.inldr {
+  padding-top: 18px;
+  padding-bottom: 18px;
+  width: 100%;
+  display: flex;
+  height: 100%;
+  border-top: 0.8px solid #dadada;
+  border-bottom: 0.8px solid #dadada;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.grybox {
+  height: 97px;
+  width: 100%;
+  background: #eceff1;
+  border-radius: 6px;
+  margin-top: 34px;
+  padding-top: 6px;
+}
+.wosbtn {
+  display: none;
+}
+.grybox1 {
+  font-family: 'Montserrat';
+  font-size: 10px;
+  font-weight: 600;
+  display: block;
+  margin: 12px;
+}
+.grybox2 {
+  font-family: 'Montserrat';
+  font-size: 14px;
+  font-weight: 700;
+  margin: 12px;
+  display: block;
+}
+.docabouthome > span {
+  height: 40px;
+  width: 346px;
+  font-family: 'Montserrat';
+  font-size: 13px;
+  font-weight: 500;
+  color: #333333;
+  position: relative;
+  right: 130px;
+}
+.docabouthome > img {
+  width: 18px;
+  height: 18px;
+}
+@media only screen and (max-width: 600px) {
+  .docabouthome > span {
+    width: 375px;
+  }
+  .docabouthome {
+    width: 100%;
+  }
+  .osbtn {
+    display: none;
+  }
+  .wosbtn {
+    display: block;
+    font-family: 'Montserrat';
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid #0d5da7;
+    height: 43px;
+    margin-left: 25%;
+    width: 155px;
+    color: #1c5bd9;
+    border-radius: 100px;
+  }
+  .losdownleft {
+    width: 100%;
+  }
+  .losdownright {
+    background: #f9f9f9;
+    border-radius: 4px;
+    border: none;
+    height: 34%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .losdown {
+    justify-content: space-evenly;
+  }
+  .losdown {
+    height: 80%;
+    flex-direction: column;
+  }
+  .losdownright {
+    width: 100%;
+  }
+  .grybox {
+    display: none;
+  }
+  .grybox {
+    display: none;
+  }
+  .inldr {
+    border: none;
+    width: 79%;
+  }
+  .losdownright {
+    background: #f9f9f9;
+    border-radius: 4px;
+    border: none;
+  }
+}
+.loader {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  border: 3px solid;
+  border-color: #fff #fff transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+.loader::after {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border: 3px solid;
+  border-color: transparent #1c5bd9 #1c5bd9;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  animation: rotationBack 0.5s linear infinite;
+  transform-origin: center center;
+}
+.buttonloader {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  border: 3px solid;
+  border-color: #fff #fff transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+.buttonloader::after {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border: 3px solid;
+  border-color: transparent #1c5bd9 #1c5bd9;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  animation: rotationBack 0.5s linear infinite;
+  transform-origin: center center;
+}
+
+.robotIcon {
+  bottom: 10px;
+  position: relative;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotationBack {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}

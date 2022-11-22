@@ -1,0 +1,203 @@
+/*Features*/
+.featureCard
+{
+    width: 360px !important;
+}
+
+/*How it works*/
+.workCardTitle
+{
+    font-weight: bold;    
+}
+img.workCardImg
+{
+    padding: 10px;    
+}
+.workCard p
+{
+    padding-left:10px;
+}
+.workCard
+{
+    background: white;
+    padding: 10px;
+}
+.howItWorksContainer
+{
+    margin-top:50px;
+}
+
+/*FAQ's*/
+
+.FAQContainer
+{
+    border: 2px solid black;
+    padding: 15px;
+    width: 230px;
+    height: 280px;
+    border-radius: 10px !important;
+
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+/* .faqCardBtn
+{
+    position: absolute;
+    top: 200px;
+    cursor: pointer;
+} */
+.faqCardDash
+{
+    height:20px;
+}
+/*.slick-dots li.slick-active button:before {
+    opacity: 1 !important;
+    color: #000;
+    width: 30px;
+    background: #000;
+    height: 3px;
+}*/
+
+.FaqCardContainer
+{
+    perspective: 1000px;
+    padding:10px;
+}
+
+.FaqCardContainer:hover .FAQContainer 
+{
+    transform: rotateY(180deg);
+}
+
+.flip-box-front, .flip-box-back {
+-webkit-backface-visibility: hidden;
+backface-visibility: hidden;
+}
+
+.flip-box-back {
+    transform: rotateY(180deg);
+    top: 20px;
+    position: absolute;
+    padding-left: 10px;
+}
+
+/*Feedback*/
+.feedBackCircle
+{
+    height: 60px;
+    width: 60px;
+    background: #1c5bd9;
+    border-radius: 50%;
+    top: 30px;
+    position: relative;
+    left: 30px;
+}
+.feedBackTitle
+{
+    font-weight: bold;
+    margin-top: 20px;
+}
+.feedbackContainer
+{
+    border: 1px solid rgb(0 0 0 / 20%);
+    padding: 20px;
+    box-shadow: 2px 2px 0px 0px rgb(0 0 0 / 20%);
+    border-radius: 10px;
+}
+.feedbackPaitentImage
+{
+    padding-right: 10px;    
+}
+.feedbackPaitentName
+{
+    font-weight:bold;
+}
+p.feedbackPatientLocation
+{
+    margin-top:-10px;    
+}
+
+.quoteImage {
+    height: 30px;
+    top: 15px;
+    position: relative;
+    left: 15px;
+}
+
+/*Our Doctors*/
+.doc002
+{
+    height:350px;
+    width:300px;
+}
+.losdownleft
+{
+    padding-left:100px;
+}
+
+
+/*Courses*/
+
+.imgStar
+{
+    display:inherit;
+    width: 15px;
+    height: 15px;
+    margin-top: 4px;
+    margin-right: 7px;
+}
+.CourseDataTitle,.price,.mx-1
+{
+    font-weight: bold;
+    display:inherit;
+}
+.strikedPrice
+{
+    text-decoration: line-through;
+    padding-left:10px;
+}
+.btmSpace
+{
+    padding-bottom:50px;    
+}
+.buyNowText, .buyNowImageArrow
+{
+    font-weight: bold;
+    color: #1c5bd9;
+}
+.courseAuthor
+{
+    text-decoration: underline;
+}
+
+.courseReadBtn
+{
+    background: #613aac;
+    padding: 4px;
+    font-weight: bold;
+    color: white;
+    font-size: 14px;
+}
+
+/*Footer*/
+ul.list-unstyled li
+{
+    font-weight:600;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

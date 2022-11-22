@@ -1,0 +1,89 @@
+{
+  "name": "qurex",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@headlessui/react": "^1.7.4",
+    "@heroicons/react": "^2.0.12",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@videosdk.live/react-sdk": "^0.1.51",
+    "agora-rtc-sdk-ng": "^4.14.2",
+    "axios": "^1.1.3",
+    "bootstrap": "^5.2.2",
+    "chart.js": "^3.9.1",
+    "chartjs-adapter-moment": "^1.0.0",
+    "classnames": "^2.3.2",
+    "filepond": "^4.30.4",
+    "filepond-plugin-image-exif-orientation": "^1.0.11",
+    "filepond-plugin-image-preview": "^4.6.11",
+    "form-serialize": "^0.7.2",
+    "formik": "^2.2.9",
+    "framer-motion": "^7.6.1",
+    "jwt-decode": "^3.1.2",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
+    "next-themes": "^0.2.1",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.5.0",
+    "react-calendar": "^3.9.0",
+    "react-chartjs-2": "^4.3.1",
+    "react-cookie": "^4.1.1",
+    "react-countdown": "^2.3.3",
+    "react-data-table-component": "^7.5.3",
+    "react-dom": "^18.2.0",
+    "react-filepond": "^7.1.2",
+    "react-flatpickr": "^3.10.13",
+    "react-icons": "^4.6.0",
+    "react-player": "^2.11.0",
+    "react-query": "^3.39.2",
+    "react-redux": "^8.0.4",
+    "react-router": "^6.4.3",
+    "react-router-dom": "^6.4.3",
+    "react-scripts": "5.0.1",
+    "react-select": "^5.6.1",
+    "react-slick": "^0.29.0",
+    "react-tailwind-table": "^1.1.1",
+    "react-transition-group": "^4.4.5",
+    "redux": "^4.2.0",
+    "redux-persist": "^6.0.0",
+    "redux-saga": "^1.2.1",
+    "redux-thunk": "^2.4.1",
+    "styled-components": "^5.3.6",
+    "tailwind-scrollbar-hide": "^1.1.7",
+    "web-vitals": "^2.1.4",
+    "yup": "^0.32.11"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "@svgr/webpack": "^6.5.0",
+    "autoprefixer": "^10.4.12",
+    "postcss": "^8.4.18",
+    "tailwindcss": "^3.2.1"
+  }
+}

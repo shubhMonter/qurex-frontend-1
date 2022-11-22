@@ -1,0 +1,9 @@
+.div_loader {
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  background-color: white;
+  display: flex;
+}
