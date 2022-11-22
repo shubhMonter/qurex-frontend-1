@@ -194,7 +194,7 @@ const Features = () => {
               id="profile-tab-pane"
               role="tabpanel"
               aria-labelledby="profile-tab"
-              tabindex="0"
+              tabindex="1"
             >
               Female
             </div>
@@ -203,7 +203,7 @@ const Features = () => {
               id="contact-tab-pane"
               role="tabpanel"
               aria-labelledby="contact-tab"
-              tabindex="0"
+              tabindex="2"
             >
               Couples
             </div>
