@@ -66,9 +66,9 @@ const FeedBack = () => {
                 {/* <img className="quoteImage" src={globe}/> */}
                 <img className="quoteImage" src={doubleQuotes}/>
               </div>
-              <div className="feedbackContainer">
-                <p className="feedBackTitle">Very helpful.</p>
-                <p className="feedBackParagraph">
+              <div className="feedbackContainer w-520">
+                <p className="feedBackTitle p-1.5 pl-5">Very helpful.</p>
+                <p className="feedBackParagraph p-1.5 pl-5 font-['Montserrat'] w-9/12 text-base">
                   Far easier than doing same things on computer. Allows quick
                   and easy search with speedy booking. Even maintains history of
                   doctors visited
@@ -98,9 +98,9 @@ const FeedBack = () => {
                 {/* <img className="quoteImage" src={globe}/> */}
                 <img className="quoteImage" src={doubleQuotes}/>
               </div>
-              <div className="feedbackContainer">
-                <p className="feedBackTitle">Very helpful.</p>
-                <p className="feedBackParagraph">
+              <div className="feedbackContainer w-520">
+                <p className="feedBackTitle p-1.5 pl-5">Very helpful.</p>
+                <p className="feedBackParagraph p-1.5 pl-5 font-['Montserrat'] w-9/12 text-base">
                   Far easier than doing same things on computer. Allows quick
                   and easy search with speedy booking. Even maintains history of
                   doctors visited
@@ -130,9 +130,9 @@ const FeedBack = () => {
                 {/* <img className="quoteImage" src={globe}/> */}
                 <img className="quoteImage" src={doubleQuotes}/>
               </div>
-              <div className="feedbackContainer">
-                <p className="feedBackTitle">Very helpful.</p>
-                <p className="feedBackParagraph">
+              <div className="feedbackContainer w-520">
+                <p className="feedBackTitle p-1.5 pl-5">Very helpful.</p>
+                <p className="feedBackParagraph p-1.5 pl-5 font-['Montserrat'] w-9/12 text-base">
                   Far easier than doing same things on computer. Allows quick
                   and easy search with speedy booking. Even maintains history of
                   doctors visited

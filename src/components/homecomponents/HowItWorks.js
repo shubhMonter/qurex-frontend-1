@@ -1,5 +1,6 @@
 import React from 'react';
 import workCard1 from '../../assets/svgs/workCard1.svg';
+import howItWorks from '../../assets/svgs/howItWorks.svg';
 //import workCard2 from '../../assets/svgs/workCard2.svg'
 //import workCard3 from '../../assets/svgs/workCard3.svg';
 import '../../styles/home.css';
@@ -7,6 +8,9 @@ const HowItWorks = () => {
   return (
     <div className="container-fluid howItWorksContainer">
       <div className="container py-5">
+
+      <img src={howItWorks} className="workCardImg" />
+        {/* 
         <div className="row">
           <div className="col-12">
             <h1 className="howItWorksTitle">How It Works</h1>
@@ -51,6 +55,8 @@ const HowItWorks = () => {
             </p>
           </div>
         </div>
+
+         */}
       </div>
     </div>
   );

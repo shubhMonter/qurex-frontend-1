@@ -4,6 +4,15 @@ import Slider from 'react-slick';
 import cardimage1 from '../../assets/pngs/cardImage1.png';
 import cardImage2 from '../../assets/pngs/cardImage2.png';
 import cardImage3 from '../../assets/pngs/cardImage3.png';
+import mi1 from '../../assets/svgs/mi1.svg';
+import mi2 from '../../assets/svgs/mi2.svg';
+import mi3 from '../../assets/svgs/mi3.svg';
+import mi4 from '../../assets/svgs/mi4.svg';
+import fi1 from '../../assets/svgs/fi1.svg';
+import fi2 from '../../assets/svgs/fi2.svg';
+import fi3 from '../../assets/svgs/fi3.svg';
+import ci1 from '../../assets/svgs/ci1.svg';
+import ci2 from '../../assets/svgs/ci2.svg';
 import '../../styles/home.css';
 // import cardImage4 from "../../assets/pngs/cardImage4.png";
 
@@ -12,22 +21,22 @@ const Features = () => {
     dots: true,
     infinite: false,
     speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 3,
+    slidesToShow: 3.5,
+    slidesToScroll: 4,
     initialSlide: 0,
     responsive: [
       {
-        breakpoint: 1424,
+        breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToShow: 3.5,
+          slidesToScroll: 4,
           infinite: true,
           dots: true,
         },
       },
 
       {
-        breakpoint: 1124,
+        breakpoint: 624,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
@@ -36,11 +45,11 @@ const Features = () => {
         },
       },
       {
-        breakpoint: 800,
+        breakpoint: 400,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          initialSlide: 2,
+          initialSlide: 0,
         },
       },
     ],
@@ -82,7 +91,7 @@ const Features = () => {
                 aria-controls="home-tab-pane"
                 aria-selected="true"
               >
-                Male
+                His
               </button>
             </li>
             <li className="nav-item" role="presentation">
@@ -96,7 +105,7 @@ const Features = () => {
                 aria-controls="profile-tab-pane"
                 aria-selected="false"
               >
-                Female
+                Her
               </button>
             </li>
             <li className="nav-item" role="presentation">
@@ -123,10 +132,12 @@ const Features = () => {
               tabindex="0"
             >
               <Slider {...settings} className="mb-5">
+
+                {/* Male tab */}
                 <div className="CardContainer featureCard">
                   <div className="card">
                     <img
-                      src={cardimage1}
+                      src={mi1}
                       className="card-img-top featureCardImage"
                     />
                     <div className="card-body">
@@ -142,7 +153,7 @@ const Features = () => {
                 <div className="CardContainer featureCard">
                   <div className="card">
                     <img
-                      src={cardImage2}
+                      src={mi2}
                       className="card-img-top featureCardImage"
                     />
                     <div className="card-body">
@@ -157,7 +168,7 @@ const Features = () => {
                 <div className="CardContainer featureCard">
                   <div className="card">
                     <img
-                      src={cardImage3}
+                      src={mi3}
                       className="card-img-top featureCardImage"
                     />
                     <div className="card-body">
@@ -175,7 +186,7 @@ const Features = () => {
                 <div className="CardContainer featureCard">
                   <div className="card">
                     <img
-                      src={cardimage1}
+                      src={mi4}
                       className="card-img-top featureCardImage"
                     /> 
                     <div className="card-body">
@@ -196,7 +207,56 @@ const Features = () => {
               aria-labelledby="profile-tab"
               tabindex="1"
             >
-              Female
+              <Slider {...settings} className="mb-5">
+              {/* Female tab */}
+              <div className="CardContainer featureCard">
+                  <div className="card">
+                    <img
+                      src={fi1}
+                      className="card-img-top featureCardImage"
+                    />
+                    <div className="card-body">
+                      <h3 className="featureCardTitle">Painful Sex</h3>
+                      <p className="featureCardText">
+                        It is defined by difficulty getting and keeping an
+                        erection.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="CardContainer featureCard">
+                  <div className="card">
+                    <img
+                      src={fi2}
+                      className="card-img-top featureCardImage"
+                    />
+                    <div className="card-body">
+                      <h3 className="featureCardTitle">Low Sex Drive</h3>
+                      <p className="featureCardText">
+                        People with hypogonadism may have low sex drives.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="CardContainer featureCard">
+                  <div className="card">
+                    <img
+                      src={fi3}
+                      className="card-img-top featureCardImage"
+                    />
+                    <div className="card-body">
+                      <h3 className="featureCardTitle">No Orgasm</h3>
+                      <p className="featureCardText">
+                        It is defined by difficulty getting and keeping an
+                        erection.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                </Slider>
             </div>
             <div
               className="tab-pane fade"
@@ -205,17 +265,49 @@ const Features = () => {
               aria-labelledby="contact-tab"
               tabindex="2"
             >
-              Couples
+              <Slider {...settings} className="mb-5">
+              {/* Couples tab */}
+              <div className="CardContainer featureCard">
+                  <div className="card">
+                    <img
+                      src={ci1}
+                      className="card-img-top featureCardImage"
+                    />
+                    <div className="card-body">
+                      <h3 className="featureCardTitle">Painful Sex</h3>
+                      <p className="featureCardText">
+                      Sexless Relationship
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="CardContainer featureCard">
+                  <div className="card">
+                    <img
+                      src={ci2}
+                      className="card-img-top featureCardImage"
+                    />
+                    <div className="card-body">
+                      <h3 className="featureCardTitle">Low Sex Drive</h3>
+                      <p className="featureCardText">
+                        Sexless Issue
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                </Slider>
             </div>
           </div>
-          <div className="mb-5 text-center d-block d-md-none">
+          {/* <div className="mb-5 text-center d-block d-md-none">
             <button
               type="button"
               className="btn btn-outline-primary featureViewBtn rounded-pill "
             >
               View All
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

@@ -1,9 +1,45 @@
+/*Hero*/
+
+ul.slick-dots li {
+    width: 10px !important;
+}
+
+.heroContainer ul.slick-dots {
+    position: absolute;
+    bottom: 10px;
+    width: 100px;
+    right: 10px;
+}
+
+.heroSectionFeature
+{
+    bottom: 100px;
+    position: relative;
+}
+
+.heroSectionArrowMobile, .heroSectionPrivateImageMobile
+{
+    position: relative;
+    left:150px;
+}
 /*Features*/
 .featureCard
 {
-    width: 360px !important;
+    width: 350px !important;
 }
-
+.slick-track
+{
+    display: block;
+    margin: auto;
+}
+.featureCard img
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    height: 200px;
+}
 /*How it works*/
 .workCardTitle
 {
@@ -33,8 +69,8 @@ img.workCardImg
 {
     border: 2px solid black;
     padding: 15px;
-    width: 230px;
-    height: 280px;
+    width: 255px;
+    height: 283px;
     border-radius: 10px !important;
 
     transition: transform 0.8s;
@@ -101,7 +137,7 @@ backface-visibility: hidden;
 {
     border: 1px solid rgb(0 0 0 / 20%);
     padding: 20px;
-    box-shadow: 2px 2px 0px 0px rgb(0 0 0 / 20%);
+    box-shadow: 2px 2px 20px 0px rgb(0 0 0 / 20%);
     border-radius: 10px;
 }
 .feedbackPaitentImage
@@ -127,14 +163,30 @@ p.feedbackPatientLocation
 /*Our Doctors*/
 .doc002
 {
-    height:350px;
-    width:300px;
+    height:400px;
+    width:80%;
 }
 .losdownleft
 {
     padding-left:100px;
 }
+.qurexCust
+{
+    font-size: 12px;
+    font-weight: bold;
+    width: 78px;
+    position: absolute;
+    padding-left: 10px;
+    margin-top: -5px;
+}
 
+.btnConsult
+{
+    width: 135px;
+    display: block;
+    margin-left: 75%;
+    margin-top: -30px;
+}
 
 /*Courses*/
 
