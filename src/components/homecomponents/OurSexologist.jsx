@@ -81,66 +81,75 @@ const LandingOs = () => {
             </span>
           </div>
           <div className="lopupright">
-            <button className="osbtn btn btn-outline-primary featureViewBtn rounded-pill"> View All Doctors</button>
+          <div className="py-2 col text-end d-none d-md-block">
+          <button
+            type="button"
+            className="btn btn-outline-primary rounded-pill"
+          >
+            View All
+          </button>
+        </div>
           </div>
         </div>
-        <div className="losdown">
-          <div className="losdownleft">
-            {allDoctorData.slice(0, 3).map((item,index) => (
-              <>
-                <img
-                  className={index == 0 ? rangeDoc1 + " " + rangeDoc2 : rangeDoc1}
-                  src={index == 0 ? doc1 : index == 1 ? doc2 : index == 2 ? doc3 : doc1}
-                  alt=""
-                  onClick={() => doctorDetail(item?._id)}
-                />
-              </>
-            ))}
+        <div className="container">
+          <div className="losdown row">
+            <div className="losdownleft col-md-6 col-lg-6 col-sm-6">
+              {allDoctorData.slice(0, 3).map((item,index) => (
+                <>
+                  <img
+                    className={index == 0 ? rangeDoc1 + " " + rangeDoc2 : rangeDoc1}
+                    src={index == 0 ? doc1 : index == 1 ? doc2 : index == 2 ? doc3 : doc1}
+                    alt=""
+                    onClick={() => doctorDetail(item?._id)}
+                  />
+                </>
+              ))}
 
-            <input
-              type="range"
-              className="form-range"
-              defaultValue="0"
-              min="0"
-              max="2"
-              step="1"
-              id="customRange3"
-              onChange={() => sliderDocUpdate()}
-            />
-          </div>
-          <div className="losdownright">
-            <div className="inldr">
-              <span className="docName">Dr. Saravanan</span>
-              <div className="docabouthome">
-                <img src={star} alt="" />
-                <span>Specialised in Sexual & Relationship Psychotherapy</span>
-              </div>
-              <div className="docabouthome">
-                <img src={hat} alt="" />
-                <span>MBBS, MD (Psychiatry)</span>
-              </div>
-              <div className="docabouthome">
-                <img src={globe} alt="" />
-                <span>Language known English, Tamil, Hindi</span>
-              </div>
-              <div className="docabouthome">
-                <img src={cal} alt="" />
-                <span>8+ years of experience</span>
-              </div>
+              <input
+                type="range"
+                className="form-range"
+                defaultValue="0"
+                min="0"
+                max="2"
+                step="1"
+                id="customRange3"
+                onChange={() => sliderDocUpdate()}
+              />
+            </div>
+            <div className="losdownright col-md-6 col-lg-6 col-sm-6">
+              <div className="p-2">
+                <span className="docName">Dr. Saravanan</span><span className="p-1.5">MBBS, MD (Psychiatry)</span>
+                <div className="inldr">
+                  <span className="pb-1.5 font-['Montserrat']">Psychiatry (Sexology)</span>
+                  <p><span className="font-bold pr-1.5 text-[#0d6efd]">500+</span> Cases Solved</p>
+                </div>
+                <div className="inldr">
+                  <p><span className="font-semibold">Availability : </span> 2 pm to 4 pm</p>
+                  <p><span className="line-through font-bold text-gray-400"> ₹ 1500</span><span className="line-through text-gray-400"> Cons Fees</span> <span className="font-bold"> | ₹ 1200</span> <span className="qurexCust">For Qurex Customer</span></p>
+                </div>
+                <div className="inldr">
+                  <span className="font-bold pr-1.5 text-[#0d6efd]">View Details</span>
+                  <button className="osbtn btn btn-primary featureViewBtn rounded-pill btnConsult">Consult Now</button>
+                </div>
 
-              <div className="grybox">
-                <span className="grybox1">
-                  "Sexual health in India is commonly neglected and medical help
-                  for intimacy and relationship issues is sought very late.
-                </span>
+                {/* <div className="grybox">
+                  <span className="grybox1">
+                    "Sexual health in India is commonly neglected and medical help
+                    for intimacy and relationship issues is sought very late.
+                  </span>
 
-                <span className="grybox2">Dr. Saravanan </span>
+                  <span className="grybox2">Dr. Saravanan </span>
+                </div> */}
               </div>
             </div>
           </div>
         </div>
 
-        <button className="wosbtn"> View All Doctors</button>
+        <div className="py-2 pb-3 text-center col d-block d-md-none">
+        <button type="button" className="btn btn-outline-primary rounded-pill">
+        View All Doctors
+        </button>
+      </div>
       </section>
     </section>
   );

@@ -5,6 +5,9 @@ import star from '../../assets/star.png';
 import courseImage1 from '../../assets/pngs/courseImage1.png';
 import courseImage2 from '../../assets/pngs/courseImage2.png';
 //import star from '../../assets/svgs/star.svg';
+import course1 from '../../assets/svgs/course1.svg';
+import course2 from '../../assets/svgs/course2.svg';
+import playBtn from '../../assets/svgs/playBtn.svg';
 import buynowArrow from '../../assets/svgs/buynowArrow.svg';
 import Slider from 'react-slick';
 
@@ -76,7 +79,8 @@ const CoursesVideos = () => {
         <div className="row justify-content-center">
           <div className="col CourseContainer d-none d-md-block">
             <div className="card rounded-0">
-              <img src={courseImage1} className="CourseImage" />
+              <img src={course1} className="CourseImage" />
+              <img src={playBtn} className="playBtn" />
               <div className="card-body">
                 <div className="rating d-flex">
                   {/* <img src={star} /> */}
@@ -91,7 +95,7 @@ const CoursesVideos = () => {
                 </p>
               </div>
               <div className="mx-3 d-flex justify-content-between authorBox">
-                <p className="my-auto courseAuthor">By Henry King</p>
+                <p className="my-auto text-gray-600">By Henry King</p>
                 <button className="courseReadBtn">124 read this</button>
               </div>
               <span className="mx-3">
@@ -103,7 +107,7 @@ const CoursesVideos = () => {
                   <p className="strikedPrice">₹ 1400</p>
                 </div>
                 <div className="px-3 d-flex">
-                  <p className="buyNowText">Buy Now </p>
+                  <p className="buyNowText underline">Buy Now </p>
                   <div>
                     <p className="buyNowImageArrow">{'>'}</p>
                   </div>
@@ -114,7 +118,8 @@ const CoursesVideos = () => {
 
           <div className="col CourseContainer d-none d-md-block">
             <div className="card rounded-0">
-              <img src={courseImage2} className="CourseImage" />
+              <img src={course2} className="CourseImage" />
+              <img src={playBtn} className="playBtn" />
               <div className="card-body">
                 <div className="rating d-flex">
                   {/* <img src={star} /> */}
@@ -129,7 +134,7 @@ const CoursesVideos = () => {
                 </p>
               </div>
               <div className="mx-3 d-flex justify-content-between authorBox">
-                <p className="my-auto courseAuthor">By Henry King</p>
+                <p className="my-auto text-gray-600">By Henry King</p>
                 <button className="courseReadBtn">124 read this</button>
               </div>
               <span className="mx-3">
@@ -141,7 +146,7 @@ const CoursesVideos = () => {
                   <p className="strikedPrice">₹ 1400</p>
                 </div>
                 <div className="px-3 d-flex">
-                  <p className="buyNowText">Buy Now </p>
+                  <p className="buyNowText underline">Buy Now </p>
                   <div>
                     <p className="buyNowImageArrow">{'>'}</p>
                   </div>
@@ -156,7 +161,8 @@ const CoursesVideos = () => {
           <Slider {...settings}>
             <div className="col CourseContainer">
               <div className="card rounded-0">
-                <img src={courseImage1} className="CourseImage" />
+                <img src={course1} className="CourseImage" />
+                <img src={playBtn} className="playBtn" />
                 <div className="card-body">
                   <div className="rating d-flex">
                     {/* <img src={star} /> */}
@@ -194,7 +200,8 @@ const CoursesVideos = () => {
 
             <div className="col CourseContainer">
               <div className="card rounded-0">
-                <img src={courseImage2} className="CourseImage" />
+                <img src={course2} className="CourseImage" />
+                <img src={playBtn} className="playBtn" />
                 <div className="card-body">
                   <div className="rating d-flex">
                     {/* <img src={star} /> */}

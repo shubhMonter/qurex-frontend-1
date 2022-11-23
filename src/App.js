@@ -8,6 +8,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import Loader from './assets/svgs/Loader.svg';
 import { CookiesProvider } from 'react-cookie';
+import React, { Component }  from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 const App = () => {
   const persistConfig = {

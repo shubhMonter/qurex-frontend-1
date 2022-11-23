@@ -65,7 +65,7 @@ const Features = () => {
                 
                     <div className="flip-box-front">
                       <img src={faqCardLine} className="faqCardDash" />
-                      <h2>What is sexology?</h2>
+                      <h3>What is sexology?</h3>
                     </div>
                     <div className="flip-box-back">
                       <img src={faqCardLine} className="faqCardDash" />
@@ -82,7 +82,7 @@ const Features = () => {
 
                 <div className="flip-box-front">
                   <img src={faqCardLine} className="faqCardDash" />
-                  <h2>Can I give my baby fruit and vegetables during weaning?</h2>
+                  <h3>Can I give my baby fruit and vegetables during weaning?</h3>
                 </div>
                 <div className="flip-box-back">
                   <img src={faqCardLine} className="faqCardDash" />
@@ -98,7 +98,7 @@ const Features = () => {
 
                   <div className="flip-box-front">
                     <img src={faqCardLine} className="faqCardDash" />
-                    <h2>Do potatoes count as one of my 5 A Day?</h2>
+                    <h3>Do potatoes count as one of my 5 A Day?</h3>
                   </div>
                   <div className="flip-box-back">
                     <img src={faqCardLine} className="faqCardDash" />
@@ -115,7 +115,7 @@ const Features = () => {
 
                   <div className="flip-box-front">
                     <img src={faqCardLine} className="faqCardDash" />
-                    <h2>Can I just eat five portions of my favourite fruit or vegetable?</h2>
+                    <h3>Can I just eat five portions of my favourite fruit or vegetable?</h3>
                   </div>
                   <div className="flip-box-back">
                     <img src={faqCardLine} className="faqCardDash" />
@@ -131,7 +131,7 @@ const Features = () => {
                 
                 <div className="flip-box-front">
                       <img src={faqCardLine} className="faqCardDash" />
-                      <h2>What is sexology?</h2>
+                      <h3>What is sexology?</h3>
                     </div>
                     <div className="flip-box-back">
                       <img src={faqCardLine} className="faqCardDash" />
@@ -145,10 +145,178 @@ const Features = () => {
             </Slider>
           </Tab>
           <Tab eventKey="female" title="Female">
-            Female
+          <Slider {...settings} className="mb-5 btmSpace">
+
+<div className="FaqCardContainer">
+  <div className="mx-auto rounded FAQContainer">
+  
+      <div className="flip-box-front">
+        <img src={faqCardLine} className="faqCardDash" />
+        <h3>What is sexology?</h3>
+      </div>
+      <div className="flip-box-back">
+        <img src={faqCardLine} className="faqCardDash" />
+          <h4>What is sexology?</h4>
+          Our experience in deploying healthcare chabots give us an
+          edge in understanding industry specific challenges.
+      </div>
+
+  </div>
+</div>
+
+<div className="FaqCardContainer">
+  <div className="mx-auto rounded FAQContainer">
+
+  <div className="flip-box-front">
+    <img src={faqCardLine} className="faqCardDash" />
+    <h3>Can I give my baby fruit and vegetables during weaning?</h3>
+  </div>
+  <div className="flip-box-back">
+    <img src={faqCardLine} className="faqCardDash" />
+    <h4>Can I give my baby fruit and vegetables during weaning?</h4>
+    Our experience in deploying healthcare chabots give us.
+  </div>
+
+  </div>
+</div>
+
+<div className="FaqCardContainer">
+  <div className="mx-auto rounded FAQContainer">
+
+    <div className="flip-box-front">
+      <img src={faqCardLine} className="faqCardDash" />
+      <h3>Do potatoes count as one of my 5 A Day?</h3>
+    </div>
+    <div className="flip-box-back">
+      <img src={faqCardLine} className="faqCardDash" />
+      <h4>Do potatoes count as one of my 5 A Day?</h4>
+      Our experience in deploying healthcare chabots give us.
+    </div>
+
+  </div>
+</div>
+
+<div className="FaqCardContainer">
+  <div className="mx-auto rounded FAQContainer">
+    
+
+    <div className="flip-box-front">
+      <img src={faqCardLine} className="faqCardDash" />
+      <h3>Can I just eat five portions of my favourite fruit or vegetable?</h3>
+    </div>
+    <div className="flip-box-back">
+      <img src={faqCardLine} className="faqCardDash" />
+      <h4>Can I just eat five portions of my favourite fruit or vegetable?</h4>
+      Our experience in deploying healthcare chabots give us.
+    </div>
+
+  </div>
+</div>
+
+<div className="FaqCardContainer">
+  <div className="mx-auto rounded FAQContainer">
+  
+  <div className="flip-box-front">
+        <img src={faqCardLine} className="faqCardDash" />
+        <h3>What is sexology?</h3>
+      </div>
+      <div className="flip-box-back">
+        <img src={faqCardLine} className="faqCardDash" />
+          <h4>What is sexology?</h4>
+          Our experience in deploying healthcare chabots give us an
+          edge in understanding industry specific challenges.
+      </div>
+
+  </div>
+</div>
+</Slider>
           </Tab>
           <Tab eventKey="couples" title="Couples">
-            Couples
+          <Slider {...settings} className="mb-5 btmSpace">
+
+<div className="FaqCardContainer">
+  <div className="mx-auto rounded FAQContainer">
+  
+      <div className="flip-box-front">
+        <img src={faqCardLine} className="faqCardDash" />
+        <h3>What is sexology?</h3>
+      </div>
+      <div className="flip-box-back">
+        <img src={faqCardLine} className="faqCardDash" />
+          <h4>What is sexology?</h4>
+          Our experience in deploying healthcare chabots give us an
+          edge in understanding industry specific challenges.
+      </div>
+
+  </div>
+</div>
+
+<div className="FaqCardContainer">
+  <div className="mx-auto rounded FAQContainer">
+
+  <div className="flip-box-front">
+    <img src={faqCardLine} className="faqCardDash" />
+    <h3>Can I give my baby fruit and vegetables during weaning?</h3>
+  </div>
+  <div className="flip-box-back">
+    <img src={faqCardLine} className="faqCardDash" />
+    <h4>Can I give my baby fruit and vegetables during weaning?</h4>
+    Our experience in deploying healthcare chabots give us.
+  </div>
+
+  </div>
+</div>
+
+<div className="FaqCardContainer">
+  <div className="mx-auto rounded FAQContainer">
+
+    <div className="flip-box-front">
+      <img src={faqCardLine} className="faqCardDash" />
+      <h3>Do potatoes count as one of my 5 A Day?</h3>
+    </div>
+    <div className="flip-box-back">
+      <img src={faqCardLine} className="faqCardDash" />
+      <h4>Do potatoes count as one of my 5 A Day?</h4>
+      Our experience in deploying healthcare chabots give us.
+    </div>
+
+  </div>
+</div>
+
+<div className="FaqCardContainer">
+  <div className="mx-auto rounded FAQContainer">
+    
+
+    <div className="flip-box-front">
+      <img src={faqCardLine} className="faqCardDash" />
+      <h3>Can I just eat five portions of my favourite fruit or vegetable?</h3>
+    </div>
+    <div className="flip-box-back">
+      <img src={faqCardLine} className="faqCardDash" />
+      <h4>Can I just eat five portions of my favourite fruit or vegetable?</h4>
+      Our experience in deploying healthcare chabots give us.
+    </div>
+
+  </div>
+</div>
+
+<div className="FaqCardContainer">
+  <div className="mx-auto rounded FAQContainer">
+  
+  <div className="flip-box-front">
+        <img src={faqCardLine} className="faqCardDash" />
+        <h3>What is sexology?</h3>
+      </div>
+      <div className="flip-box-back">
+        <img src={faqCardLine} className="faqCardDash" />
+          <h4>What is sexology?</h4>
+          Our experience in deploying healthcare chabots give us an
+          edge in understanding industry specific challenges.
+      </div>
+
+  </div>
+</div>
+</Slider>
           </Tab>
         </Tabs>
       </div>

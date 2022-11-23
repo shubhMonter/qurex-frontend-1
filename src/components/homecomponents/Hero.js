@@ -1,37 +1,132 @@
 import React from 'react'
+import Slider from 'react-slick';
 import privately from '../../assets/svgs/Privately.svg';
 import arrow from '../../assets/svgs/arrow.svg'
 
 const Hero = () => {
+
+    var settings = {
+        dots: true,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        initialSlide: 0,
+        responsive: [
+          {
+            breakpoint: 1424,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              infinite: true,
+              dots: true,
+            },
+          },
+    
+          {
+            breakpoint: 1124,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              infinite: true,
+              dots: true,
+            },
+          },
+          {
+            breakpoint: 800,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              initialSlide: 2,
+            },
+          },
+        ],
+      };
+
   return (<>
   <div className='heroSection'>
     <div className="container-fluid  heroContainer">
-    <div className='row d-flex justify-content-end'>
-    <div className="col-12 d-md-none text-center my-3">
-            <h1 className="heroContainerTitle mx-auto">Sexual issues are normal</h1>
-            <p className='heroContainerParagraph mx-auto'>1 out of 5 indians encouter sexual health issue in their lifetime</p>
-            <div>
-            <button className="btn btn-lg-large btn-primary rounded-pill  heroContainerContactBtn">Contact an expert</button>
-            <img className='heroSectionArrowMobile' src={arrow}/>
-            <img className='heroSectionPrivateImageMobile' src={privately}/>
 
+    <Slider {...settings} className="mb-5">
+    {/* Slide 1 */}
+    <div className='row d-flex justify-content-end'>
+        <div className="col-12 d-md-none text-center my-3">
+                <h1 className="heroContainerTitle mx-auto">Sexual issues are normal</h1>
+                <p className='heroContainerParagraph mx-auto'>1 out of 5 indians encouter sexual health issue in their lifetime</p>
+                <div>
+                <button className="btn btn-lg-large btn-primary rounded-pill  heroContainerContactBtn">Contact an expert</button>
+                <img className='heroSectionArrowMobile' src={arrow}/>
+                <img className='heroSectionPrivateImageMobile' src={privately}/>
             </div>
         </div>
-    <div className='col-12 col-md-6'>
-        <img className='img-fluid heroImageContainer' src="https://quer.vercel.app/static/media/allgroup.a02e67bd2a4cdccecc02.png"/>
-    </div>
+        <div className='col-12 col-md-6'>
+            <img className='img-fluid heroImageContainer' src="https://quer.vercel.app/static/media/allgroup.a02e67bd2a4cdccecc02.png"/>
+        </div>
         <div className="col-12 d-none d-md-block col-md-6 my-auto text-md-start">
             <h1 className="heroContainerTitle mx-auto mx-md-0">Sexual Issues are Normal</h1>
             <p className='heroContainerParagraph'>1 out of 5 indians encouter <br/>sexual health issue in their lifetime</p>
             <div>
-            <button className="btn btn-lg-large btn-primary rounded-pill  heroContainerContactBtn">Contact an expert</button>
-            <img className='heroSectionArrow' src={arrow}/>
-            <img className='heroSectionPrivateImage' src={privately}/>
-
-            </div>
-           
+                <button className="btn btn-lg-large btn-primary rounded-pill  heroContainerContactBtn">Contact an expert</button>
+                <img className='heroSectionArrow' src={arrow}/>
+                <img className='heroSectionPrivateImage' src={privately}/>
+            </div>  
         </div>
     </div>
+
+    {/* Slide 2 */}
+    <div className='row d-flex justify-content-end'>
+        <div className="col-12 d-md-none text-center my-3">
+                <h1 className="heroContainerTitle mx-auto">Your issue needs to be addressed</h1>
+                <p className='heroContainerParagraph mx-auto'>1 out of 5 indians encouter sexual health issue in their lifetime</p>
+                <div>
+                <button className="btn btn-lg-large btn-primary rounded-pill  heroContainerContactBtn">Contact an expert</button>
+                <img className='heroSectionArrowMobile' src={arrow}/>
+                <img className='heroSectionPrivateImageMobile' src={privately}/>
+            </div>
+        </div>
+        <div className='col-12 col-md-6'>
+            <img className='img-fluid heroImageContainer' src="https://quer.vercel.app/static/media/allgroup.a02e67bd2a4cdccecc02.png"/>
+        </div>
+        <div className="col-12 d-none d-md-block col-md-6 my-auto text-md-start">
+            <h1 className="heroContainerTitle mx-auto mx-md-0">Your issue needs to be addressed</h1>
+            <p className='heroContainerParagraph'>1 out of 5 indians encouter <br/>sexual health issue in their lifetime</p>
+            <div>
+                <button className="btn btn-lg-large btn-primary rounded-pill  heroContainerContactBtn">Contact an expert</button>
+                <img className='heroSectionArrow' src={arrow}/>
+                <img className='heroSectionPrivateImage' src={privately}/>
+            </div>  
+        </div>
+    </div>
+
+    {/* Slide 3 */}
+    <div className='row d-flex justify-content-end'>
+        <div className="col-12 d-md-none text-center my-3">
+                <h1 className="heroContainerTitle mx-auto">Consult about your problems</h1>
+                <p className='heroContainerParagraph mx-auto'>1 out of 5 indians encouter sexual health issue in their lifetime</p>
+                <div>
+                <button className="btn btn-lg-large btn-primary rounded-pill  heroContainerContactBtn">Contact an expert</button>
+                <img className='heroSectionArrowMobile' src={arrow}/>
+                <img className='heroSectionPrivateImageMobile' src={privately}/>
+            </div>
+        </div>
+        <div className='col-12 col-md-6'>
+            <img className='img-fluid heroImageContainer' src="https://quer.vercel.app/static/media/allgroup.a02e67bd2a4cdccecc02.png"/>
+        </div>
+        <div className="col-12 d-none d-md-block col-md-6 my-auto text-md-start">
+            <h1 className="heroContainerTitle mx-auto mx-md-0">Consult about your problems</h1>
+            <p className='heroContainerParagraph'>1 out of 5 indians encouter <br/>sexual health issue in their lifetime</p>
+            <div>
+                <button className="btn btn-lg-large btn-primary rounded-pill  heroContainerContactBtn">Contact an expert</button>
+                <img className='heroSectionArrow' src={arrow}/>
+                <img className='heroSectionPrivateImage' src={privately}/>
+            </div>  
+        </div>
+    </div>
+
+
+    </Slider>
+
+
     </div>
     <div className='container'>
     <div className='row py-lg-2 text-white text-center mx-5 mx-md-0 heroSectionFeature rounded shadow'>

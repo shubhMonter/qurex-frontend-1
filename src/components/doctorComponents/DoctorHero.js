@@ -48,7 +48,7 @@ const DoctorHero = ({ drDetailData }) => {
               type="button"
               className="mr-2 btn btn-outline-primary rounded-pill"
             >
-              <BsPlayCircleFill className="playBtn" color="#0d6efd" /> Watch Now
+              <BsPlayCircleFill className="playBtnHero" color="#0d6efd" /> Watch Now
             </button>
             <Link to={'/booking-calendar'}>
               <button
