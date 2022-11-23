@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
-import {
-  AiOutlineDelete,
-  AiOutlinePlus,
-  AiOutlineDownload,
-  AiOutlineUpload,
-} from 'react-icons/ai';
+// import {
+//   AiOutlineDelete,
+//   AiOutlinePlus,
+//   AiOutlineDownload,
+//   AiOutlineUpload,
+// } from 'react-icons/ai';
 import { BsEye, BsPencilSquare } from 'react-icons/bs';
 const SEO = () => {
   const [filterText, setFilterText] = useState('');

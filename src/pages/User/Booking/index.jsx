@@ -107,11 +107,9 @@ const AppointmentComponent = ({ booking }) => {
     return x.replace(/ /g, '').toLowerCase();
   };
   const doctorDetail = async (id) => {
-    // console.log(allDoctorData);
     let filterDr = allDoctorData.filter((item) => {
       return item.userId === id;
     });
-    // console.log({ filterDr });
     let drDetailData = filterDr[0];
 
     let response = await doctorApi.getDrByUserId(id);
@@ -119,10 +117,6 @@ const AppointmentComponent = ({ booking }) => {
       dispatch(addData({ ...drDetailData, drUserData: response }));
       navigate('/doctor/' + slug(response?.name));
     }
-    // setName(response?.name)
-    // setSpec(drDetailData?.professionalDetail?.specializations[0])
-    //console.log(filterDr);
-    // dispatch(addData(filterDr));
   };
   const channel = 'test';
   const timeOngoing =
@@ -164,7 +158,7 @@ const AppointmentComponent = ({ booking }) => {
                   className="font-semibold cursor-pointer"
                   onClick={() => doctorDetail(booking?.sessionId?.doctorId)}
                 >
-                  Dr Anita Shyam
+                  {booking?.doctorId.name}
                 </div>
                 <div className="ml-3 px-5 py-1 bg-opacity-30 text-xs bg-[#655af4] text-[#655af4] rounded-5 font-bold">
                   Gynecologist
@@ -205,7 +199,7 @@ const AppointmentComponent = ({ booking }) => {
                     <path d="M13 6h-2v3H8v2h3v3h2v-3h3V9h-3z"></path>
                   </svg>
                 </div>
-                <div className="pl-1 ">Join Call with Doctor</div>
+                <div className="pl-1 ">Join Video Call with Doctor</div>
               </Link>
             ) : (
               <></>
