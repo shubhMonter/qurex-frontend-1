@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { get, headers, post } from '../../../api';
 import { BaseSetting } from '../../../utils/common';
 import { useDispatch } from 'react-redux';
-import { setAuth } from '../../../state/auth/Actions';
+import { emptyAuth, setAuth } from '../../../state/auth/Actions';
 
 const UPComp = () => {
   const dispatch = useDispatch();
@@ -84,7 +84,10 @@ const UPComp = () => {
           const res = response2?.data?.data;
           const drData = response3?.data?.data;
           // console.log(response3?.data?.data);
-
+          
+          dispatch(
+            emptyAuth(res)
+          );
           dispatch(setAuth({ ...res, drData: drData, token: token }));
           navigate('/');
         } else {
