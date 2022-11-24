@@ -10,6 +10,7 @@ import hat from '../../assets/hat.png';
 import globe from '../../assets/globe.png';
 import cal from '../../assets/cal.png';
 import doctorApi from '../../api/doctorAPI';
+import { Link, useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addData } from '../../state/doctor/Actions';
@@ -19,6 +20,7 @@ const LandingOs = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [allDoctorData, setAllDoctorData] = useState([]);
+  let [selectedDoc,setSelectedDoc] = useState([]);
   let rangeDoc1 = "cursor-pointer doc001";
   let rangeDoc2 = "doc002";
   let docImage = doc1;
@@ -28,6 +30,10 @@ const LandingOs = () => {
     console.log(response);
     if (response.length > 0) {
       setAllDoctorData(response);
+
+      let responseDoc = response[0];
+      let selectedDocData = await doctorApi.getDrByUserId(responseDoc?.userId);
+      setSelectedDoc(selectedDocData);
     }
   };
   // console.log(allDoctorData);
@@ -60,6 +66,11 @@ const LandingOs = () => {
 
   const sliderDocUpdate = async() => {
     let rangeVal = document.getElementById("customRange3").value;
+    let responseDoc = allDoctorData[rangeVal];
+    let selectedDocData = await doctorApi.getDrByUserId(responseDoc?.userId);
+    setSelectedDoc(selectedDocData);
+    console.log(selectedDoc);
+    console.log(selectedDoc.name);
     for(let i =0;i<document.getElementsByClassName("doc001").length; i++)
     {
       if(document.getElementsByClassName("doc001")[i].classList.contains(rangeDoc2))
@@ -118,7 +129,7 @@ const LandingOs = () => {
             </div>
             <div className="losdownright col-md-6 col-lg-6 col-sm-6">
               <div className="p-2">
-                <span className="docName">Dr. Saravanan</span><span className="p-1.5">MBBS, MD (Psychiatry)</span>
+                <span className="docName"> {selectedDoc.name} </span><span className="p-1.5">MBBS, MD (Psychiatry)</span>
                 <div className="inldr">
                   <span className="pb-1.5 font-['Montserrat']">Psychiatry (Sexology)</span>
                   <p><span className="font-bold pr-1.5 text-[#0d6efd]">500+</span> Cases Solved</p>
@@ -128,8 +139,8 @@ const LandingOs = () => {
                   <p><span className="line-through font-bold text-gray-400"> ₹ 1500</span><span className="line-through text-gray-400"> Cons Fees</span> <span className="font-bold"> | ₹ 1200</span> <span className="qurexCust">For Qurex Customer</span></p>
                 </div>
                 <div className="inldr">
-                  <span className="font-bold pr-1.5 text-[#0d6efd]">View Details</span>
-                  <button className="osbtn btn btn-primary featureViewBtn rounded-pill btnConsult">Consult Now</button>
+                  <span onClick={() => doctorDetail(selectedDoc?._id)} className="cursor-pointer font-bold pr-1.5 text-[#0d6efd]">View Details</span>
+                  <Link to={'/booking-calendar'}><button className="osbtn btn btn-primary featureViewBtn rounded-pill btnConsult">Consult Now</button></Link>
                 </div>
 
                 {/* <div className="grybox">
