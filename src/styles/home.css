@@ -71,10 +71,11 @@ img.workCardImg
     padding: 15px;
     width: 255px;
     height: 283px;
-    border-radius: 10px !important;
-
+    border-radius: 30px;
     transition: transform 0.8s;
+    box-shadow: 1px 0px 14px -10px black;
     transform-style: preserve-3d;
+    background: white;
 }
 /* .faqCardBtn
 {
@@ -229,6 +230,10 @@ p.feedbackPatientLocation
     font-weight: bold;
     color: white;
     font-size: 14px;
+}
+.col.CourseContainer .card {
+    width: 550px;
+    margin: auto;
 }
 
 /*Footer*/

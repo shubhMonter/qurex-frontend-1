@@ -61,7 +61,7 @@ const Features = () => {
           <Slider {...settings} className="mb-5 btmSpace">
 
               <div className="FaqCardContainer">
-                <div className="mx-auto rounded FAQContainer">
+                <div className="mx-auto FAQContainer">
                 
                     <div className="flip-box-front">
                       <img src={faqCardLine} className="faqCardDash" />
@@ -78,7 +78,7 @@ const Features = () => {
               </div>
 
               <div className="FaqCardContainer">
-                <div className="mx-auto rounded FAQContainer">
+                <div className="mx-auto FAQContainer">
 
                 <div className="flip-box-front">
                   <img src={faqCardLine} className="faqCardDash" />
@@ -94,7 +94,7 @@ const Features = () => {
               </div>
 
               <div className="FaqCardContainer">
-                <div className="mx-auto rounded FAQContainer">
+                <div className="mx-auto FAQContainer">
 
                   <div className="flip-box-front">
                     <img src={faqCardLine} className="faqCardDash" />
@@ -110,7 +110,7 @@ const Features = () => {
               </div>
 
               <div className="FaqCardContainer">
-                <div className="mx-auto rounded FAQContainer">
+                <div className="mx-auto FAQContainer">
                   
 
                   <div className="flip-box-front">
@@ -127,7 +127,7 @@ const Features = () => {
               </div>
 
               <div className="FaqCardContainer">
-                <div className="mx-auto rounded FAQContainer">
+                <div className="mx-auto FAQContainer">
                 
                 <div className="flip-box-front">
                       <img src={faqCardLine} className="faqCardDash" />
@@ -148,7 +148,7 @@ const Features = () => {
           <Slider {...settings} className="mb-5 btmSpace">
 
 <div className="FaqCardContainer">
-  <div className="mx-auto rounded FAQContainer">
+  <div className="mx-auto FAQContainer">
   
       <div className="flip-box-front">
         <img src={faqCardLine} className="faqCardDash" />
@@ -165,7 +165,7 @@ const Features = () => {
 </div>
 
 <div className="FaqCardContainer">
-  <div className="mx-auto rounded FAQContainer">
+  <div className="mx-auto FAQContainer">
 
   <div className="flip-box-front">
     <img src={faqCardLine} className="faqCardDash" />
@@ -181,7 +181,7 @@ const Features = () => {
 </div>
 
 <div className="FaqCardContainer">
-  <div className="mx-auto rounded FAQContainer">
+  <div className="mx-auto FAQContainer">
 
     <div className="flip-box-front">
       <img src={faqCardLine} className="faqCardDash" />
@@ -197,7 +197,7 @@ const Features = () => {
 </div>
 
 <div className="FaqCardContainer">
-  <div className="mx-auto rounded FAQContainer">
+  <div className="mx-auto FAQContainer">
     
 
     <div className="flip-box-front">
@@ -214,7 +214,7 @@ const Features = () => {
 </div>
 
 <div className="FaqCardContainer">
-  <div className="mx-auto rounded FAQContainer">
+  <div className="mx-auto FAQContainer">
   
   <div className="flip-box-front">
         <img src={faqCardLine} className="faqCardDash" />
@@ -235,7 +235,7 @@ const Features = () => {
           <Slider {...settings} className="mb-5 btmSpace">
 
 <div className="FaqCardContainer">
-  <div className="mx-auto rounded FAQContainer">
+  <div className="mx-auto FAQContainer">
   
       <div className="flip-box-front">
         <img src={faqCardLine} className="faqCardDash" />
@@ -252,7 +252,7 @@ const Features = () => {
 </div>
 
 <div className="FaqCardContainer">
-  <div className="mx-auto rounded FAQContainer">
+  <div className="mx-auto FAQContainer">
 
   <div className="flip-box-front">
     <img src={faqCardLine} className="faqCardDash" />
@@ -268,7 +268,7 @@ const Features = () => {
 </div>
 
 <div className="FaqCardContainer">
-  <div className="mx-auto rounded FAQContainer">
+  <div className="mx-auto FAQContainer">
 
     <div className="flip-box-front">
       <img src={faqCardLine} className="faqCardDash" />
@@ -284,7 +284,7 @@ const Features = () => {
 </div>
 
 <div className="FaqCardContainer">
-  <div className="mx-auto rounded FAQContainer">
+  <div className="mx-auto FAQContainer">
     
 
     <div className="flip-box-front">
@@ -301,7 +301,7 @@ const Features = () => {
 </div>
 
 <div className="FaqCardContainer">
-  <div className="mx-auto rounded FAQContainer">
+  <div className="mx-auto FAQContainer">
   
   <div className="flip-box-front">
         <img src={faqCardLine} className="faqCardDash" />
