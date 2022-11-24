@@ -93,11 +93,11 @@ const Sidebar = ({ isMobileOpen, toggleSidebar, isFixedSidebar }) => {
       {isOpen ? (
         <div className="px-6 py-7 w-64" onMouseLeave={mytoggle}>
           <div className="bg-white fixed flex justify-between">
-            <Link to="/dashboard" className="flex flex-row">
+            <Link to="/dashboard" className="no-underline flex flex-row">
               <div>
                 <img className="h-10 w-10" src={logo} alt="" />
               </div>
-              <div className="pt-1 pl-3 text-xl font-montserrat font-semibold text-[#655af4]">
+              <div className="no-underline pt-1 pl-3 text-xl font-montserrat font-semibold text-[#655af4]">
                 Qurex
               </div>
             </Link>
@@ -407,7 +407,7 @@ const Sidebar = ({ isMobileOpen, toggleSidebar, isFixedSidebar }) => {
                 </div>
                 <Link
                   to="/dashboard/business-dashboard"
-                  className="hover:translate-x-3 transition duration-700 ease-in-out flex flex-row pl-1.5 pt-6 "
+                  className="no-underline text-black hover:translate-x-3 transition duration-700 ease-in-out flex flex-row pl-1.5 pt-6 "
                 >
                   <div className="cursor-pointer text-xl">
                     <BsClipboard className="ml-[2px]" />
@@ -418,18 +418,18 @@ const Sidebar = ({ isMobileOpen, toggleSidebar, isFixedSidebar }) => {
                 </Link>
                 <Link
                   to="/dashboard/practise-dashboard"
-                  className="hover:translate-x-3 transition duration-700 ease-in-out flex flex-row pl-1.5 pt-6 "
+                  className="no-underline text-black hover:translate-x-3 transition duration-700 ease-in-out flex flex-row pl-1.5 pt-6 "
                 >
                   <div className="cursor-pointer text-xl">
                     <BsClipboard className="ml-[2px]" />
                   </div>
                   <div className="cursor-pointer truncate text-[15px] font-medium pl-4">
-                    Practise Dashboard
+                    Practice Dashboard
                   </div>
                 </Link>
                 <div className="flex flex-row pl-1.5 pt-8 ">
                   <div className="uppercase pl-1 text-[12px] text-[#999999] font-semibold">
-                    settings
+                    Settings
                   </div>
                 </div>
 
@@ -453,7 +453,7 @@ const Sidebar = ({ isMobileOpen, toggleSidebar, isFixedSidebar }) => {
                   <>
                     <Link
                       to="/dashboard/profile-view"
-                      className="hover:translate-x-3 transition duration-700 ease-in-out flex justify-between pl-1.5 pt-6 "
+                      className="no-underline text-black hover:translate-x-3 transition duration-700 ease-in-out flex justify-between pl-1.5 pt-6 "
                     >
                       <div className="cursor-pointer flex fle x-row">
                         <div className="text-xl">
@@ -466,7 +466,7 @@ const Sidebar = ({ isMobileOpen, toggleSidebar, isFixedSidebar }) => {
                     </Link>
                     <Link
                       to="/dashboard/profile-update"
-                      className="hover:translate-x-3 transition duration-700 ease-in-out flex justify-between pl-1.5 pt-6 "
+                      className="no-underline text-black hover:translate-x-3 transition duration-700 ease-in-out flex justify-between pl-1.5 pt-6 "
                     >
                       <div className="cursor-pointer flex fle x-row">
                         <div className="text-xl">
@@ -479,7 +479,7 @@ const Sidebar = ({ isMobileOpen, toggleSidebar, isFixedSidebar }) => {
                     </Link>
                     <Link
                       to="/dashboard/profile-delete"
-                      className="hover:translate-x-3 transition duration-700 ease-in-out flex justify-between pl-1.5 pt-6 "
+                      className="no-underline text-black hover:translate-x-3 transition duration-700 ease-in-out flex justify-between pl-1.5 pt-6 "
                     >
                       <div className="cursor-pointer flex fle x-row">
                         <div className="text-xl">
@@ -513,7 +513,7 @@ const Sidebar = ({ isMobileOpen, toggleSidebar, isFixedSidebar }) => {
                 {practise ? (
                   <Link
                     to="/dashboard/availability"
-                    className="transition duration-700 ease-in-out flex justify-between pl-1.5 pt-6 "
+                    className="no-underline text-black transition duration-700 ease-in-out flex justify-between pl-1.5 pt-6 "
                   >
                     <div className="cursor-pointer flex fle x-row">
                       <div className="text-xl">
@@ -535,7 +535,7 @@ const Sidebar = ({ isMobileOpen, toggleSidebar, isFixedSidebar }) => {
                 </div>
                 <Link
                   to="/dashboard/appointments"
-                  className="hover:translate-x-3 transition duration-700 ease-in-out flex flex-row pl-1.5 pt-6 "
+                  className="no-underline text-black hover:translate-x-3 transition duration-700 ease-in-out flex flex-row pl-1.5 pt-6 "
                 >
                   <div className="cursor-pointer text-xl">
                     <BiCalendar className="ml-[2px]" />
@@ -546,7 +546,7 @@ const Sidebar = ({ isMobileOpen, toggleSidebar, isFixedSidebar }) => {
                 </Link>
                 <Link
                   to="/dashboard/consultation-history"
-                  className="hover:translate-x-3 transition duration-700 ease-in-out flex flex-row pl-1.5 pt-6 "
+                  className="no-underline text-black hover:translate-x-3 transition duration-700 ease-in-out flex flex-row pl-1.5 pt-6 "
                 >
                   <div className="cursor-pointer text-xl">
                     <BsWatch className="ml-[2px]" />
@@ -563,7 +563,7 @@ const Sidebar = ({ isMobileOpen, toggleSidebar, isFixedSidebar }) => {
                 </div>
                 <Link
                   to="/dashboard/tickets"
-                  className="hover:translate-x-3 transition duration-700 ease-in-out cursor-pointer flex flex-row pl-1.5 pt-6 "
+                  className="no-underline text-black hover:translate-x-3 transition duration-700 ease-in-out cursor-pointer flex flex-row pl-1.5 pt-6 "
                 >
                   <div className="text-xl">
                     <TbTicket className="ml-[2px]" />
@@ -584,7 +584,7 @@ const Sidebar = ({ isMobileOpen, toggleSidebar, isFixedSidebar }) => {
                 </div>
                 <Link
                   to="/dashboard/user-profile"
-                  className="hover:translate-x-3 transition duration-700 ease-in-out flex flex-row pl-1.5 pt-6 "
+                  className="no-underline text-black hover:translate-x-3 transition duration-700 ease-in-out flex flex-row pl-1.5 pt-6 "
                 >
                   <div className="cursor-pointer text-xl">
                     <BsClipboard className="ml-[2px]" />
@@ -595,7 +595,7 @@ const Sidebar = ({ isMobileOpen, toggleSidebar, isFixedSidebar }) => {
                 </Link>
                 <Link
                   to="/dashboard/my-bookings"
-                  className="hover:translate-x-3 transition duration-700 ease-in-out flex flex-row pl-1.5 pt-6 "
+                  className="no-underline text-black hover:translate-x-3 transition duration-700 ease-in-out flex flex-row pl-1.5 pt-6 "
                 >
                   <div className="cursor-pointer text-xl">
                     <BsClipboard className="ml-[2px]" />
@@ -612,7 +612,7 @@ const Sidebar = ({ isMobileOpen, toggleSidebar, isFixedSidebar }) => {
                 </div>
                 <Link
                   to="/dashboard/tickets"
-                  className="hover:translate-x-3 transition duration-700 ease-in-out cursor-pointer flex flex-row pl-1.5 pt-6 "
+                  className="no-underline text-black hover:translate-x-3 transition duration-700 ease-in-out cursor-pointer flex flex-row pl-1.5 pt-6 "
                 >
                   <div className="text-xl">
                     <TbTicket className="ml-[2px]" />
