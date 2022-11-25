@@ -27,6 +27,8 @@ const PersonalDetail = () => {
   };
   const updateData = async () => {
     //console.log(inputs);
+    headers['x-auth-token'] = authData.token;
+    console.log(headers);
     try {
       const response = await put(
         BaseSetting.userApiDomain + `/${authData?._id}`,
@@ -37,6 +39,7 @@ const PersonalDetail = () => {
       const result = response.data;
       console.log(result.data);
       if (result.status === 1) {
+        result.data.token = authData.token;
         disptch(setAuth(result.data));
 
         alert('Succesfully Updated');

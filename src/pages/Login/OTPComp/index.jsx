@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { headers, post } from '../../../api';
+import { get, headers, post } from '../../../api';
 import UserApi from '../../../api/UserAPI';
 import { BaseSetting } from '../../../utils/common';
 import Countdown from 'react-countdown';
@@ -77,13 +77,28 @@ const OTPComp = () => {
       );
       const result = response?.data;
       const token = response?.headers['x-auth-token'];
+      let header2 = {
+        Accept: 'application/json',
+        'Access-Control-Allow-Headers': '*',
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+        'x-auth-token': token,
+      };
       const drData = await UserApi.getByUserId(result.data?._id);
-
-      if (result.status === 1) {
+      const response2 = await get(BaseSetting.userApiDomain + '/me', header2);
+      if (response2?.data?.status === 1) {
+        // response2?.data?.data?._id
+        // const response3 = await get(
+        //   BaseSetting.userApiDomain +
+        //     '/getByUserId/' +
+        //     response2?.data?.data?._id
+        // );
+        const res = response2?.data?.data;
+        //const drData = response3?.data?.data;
+          console.log({response2});
         dispatch(
           setAuth({
-            ...result.data,
-            drData: drData,
+           ...res,
             token: token,
           })
         );
