@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router';
 
 const APP_ID = '6c3a0d0482ec419cb08f21a19e0a900c';
 const TOKEN =
-  '007eJxTYHB7cDj7BC+XJ4t4glGNwH9/la53HzQ75iSJGWkXuV1drqLAYJZsnGiQYmBiYZSabGJomZxkYJFmZJhoaJlqkGhpYJA8cWpNckMgI0PBzr2MjAwQCOKzMgSWFqVWMDAAAJvqHaA=';
+  '007eJxTYJj54Lpg245racHfuFM/yJw+qTMtYIsNB9/Me4++3l93+3OlAoNZsnGiQYqBiYVRarKJoWVykoFFmpFhoqFlqkGipYFBctWWhuSGQEaGAIXfzIwMEAjiszIElhalVjAwAABIlSKY';
 
 const CHANNEL = 'Qurex';
 

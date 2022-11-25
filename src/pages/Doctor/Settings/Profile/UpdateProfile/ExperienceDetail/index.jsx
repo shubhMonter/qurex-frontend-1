@@ -37,17 +37,41 @@ const ExperienceDetail = () => {
       }
     } catch (error) {}
   };
-
-  let hospitalName = data?.experience?.map((item) => item.hospitalName)[0];
-  let from = data?.experience?.map((item) => item.from)[0];
-  let to = data?.experience?.map((item) => item.to)[0];
-  let designation = data?.experience?.map((item) => item.designation)[0];
+  const updateData = async (experience) => {
+    experience.map(x=> x._id && delete x._id)
+    return put(
+      BaseSetting.doctorApiDomain + `/${data?._id}`,
+      {
+        experience
+      },
+      headers)
+  }
+  const deleteExpirience = async(id) => {
+    const index = data.experience.findIndex(x => x._id == id);
+    const experience = data.experience;
+    experience.splice(index, 1);
+    try {
+      if (navigator.onLine) {
+        const response = await updateData(experience)
+        const result = response.data;
+        
+        if (result.status == 1) {
+          getData();
+          
+        }
+      } else {
+      }
+    } catch (error) {
+      alert('Error Updating Data');
+    }
+  }
+  
   const formik = useFormik({
     initialValues: {
-      hospitalName: hospitalName,
-      from: from,
-      to: to,
-      designation: designation,
+      hospitalName: '',
+      from: '',
+      to: '',
+      designation: '',
     },
     validationSchema: Yup.object({
       hospitalName: Yup.string()
@@ -56,7 +80,7 @@ const ExperienceDetail = () => {
       from: Yup.string().required('Required'),
       to: Yup.string().required('Required'),
     }),
-    onSubmit: async (values) => {
+    onSubmit: async (values,{resetForm}) => {
       const postUpdatedData = {
         hospitalName: values.hospitalName,
         from: values.from,
@@ -67,18 +91,12 @@ const ExperienceDetail = () => {
       //dispatch(postActions.updatePost(postUpdatedData));
       try {
         if (navigator.onLine) {
-          const response = await put(
-            BaseSetting.doctorApiDomain + `/${data?._id}`,
-            {
-              experience: postUpdatedData,
-            },
-            headers
-          );
+          const response = await updateData([...data.experience,postUpdatedData])
           const result = response.data;
           console.log(result);
           if (result.status == 1) {
             getData();
-            alert('Succesfully Updated');
+            resetForm();
           }
         } else {
         }
@@ -91,7 +109,7 @@ const ExperienceDetail = () => {
   return (
     <div className="text-[#626262] mt-6 px-9 col-span-3 md:col-span-2 lg:col-span-2 xl:col-span-2 flex flex-col">
       <div className="mt-5 text-lg font-semibold flex flex-col">Experience</div>
-      {[1].map((item) => (
+     
         <>
           <div className="grid grid-cols-9 gap-1 md:gap-5 lg:gap-5 xl:gap-5 ">
             <div className="col-span-9 md:col-span-2 lg:col-span-2 xl:col-span-2  mt-5 flex flex-col">
@@ -165,15 +183,84 @@ const ExperienceDetail = () => {
                   {formik.errors.designation}
                 </p>
               ) : null}
+          </div>
+          
+          {
+            data?.experience?.map(x => {
+              return (
+                <>
+                  <div className="col-span-9 md:col-span-2 lg:col-span-2 xl:col-span-2  mt-5 flex flex-col">
+              
+              <div className=" border-gray-200 border rounded-md mt-1">
+                <input
+                  className="text-xs py-3 pl-3 w-full outline-none"
+                  id="hospitalName"
+                  name="hospitalName"
+                  type="text"
+                  placeholder="hospitalName"
+                  defaultValue={x.hospitalName}
+                  disabled
+                />
+              </div>
+             
             </div>
-            <div className=" mt-10  text-white cursor-pointer flex justify-center items-center col-span-9 md:col-span-1 lg:col-span-1 xl:col-span-1 ">
-              <div className="bg-[#ea5455] px-6 py-2 rounded-md">
+            <div className="col-span-9 md:col-span-2 lg:col-span-2 xl:col-span-2  mt-5 flex flex-col">
+             
+              <div className=" border-gray-200 border rounded-md mt-1">
+                <input
+                  className="text-xs py-3 pl-3 w-full outline-none"
+                  id="from"
+                  name="from"
+                  type="text"
+                  value={new Date(x.from).toLocaleDateString()}
+                  disabled
+                />
+              </div>
+             
+            </div>
+            <div className="col-span-9 md:col-span-2 lg:col-span-2 xl:col-span-2  mt-5 flex flex-col">
+             
+              <div className=" border-gray-200 border rounded-md mt-1">
+                <input
+                  className="text-xs py-3 pl-3 w-full outline-none"
+                  id="to"
+                  name="to"
+                  type="text"
+                  placeholder="to"
+                  value={new Date(x.to).toLocaleDateString()}
+                  disabled
+                />
+              </div>
+             
+            </div>
+            <div className="col-span-9 md:col-span-2 lg:col-span-2 xl:col-span-2  mt-5 flex flex-col">
+              
+              <div className=" border-gray-200 border rounded-md mt-1">
+                <input
+                  className="text-xs py-3 pl-3 w-full outline-none"
+                  id="designation"
+                  name="designation"
+                  type="text"
+                  placeholder="designation"
+                  value={x.designation}
+                  disabled
+                />
+              </div>
+             
+                  </div>
+                  <div className=" mt-10  text-white cursor-pointer flex justify-center items-center col-span-9 md:col-span-1 lg:col-span-1 xl:col-span-1 ">
+              <div className="bg-[#ea5455] px-6 py-2 rounded-md" onClick={()=> deleteExpirience(x._id)}>
                 <RiDeleteBinLine className="h-5 w-5" />
               </div>
             </div>
+                </>
+              )
+            })
+          }
+            
           </div>
         </>
-      ))}
+    
 
       <div className="my-10 flex justify-end">
         <div
