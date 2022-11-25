@@ -231,7 +231,6 @@
 .losup {
   width: 100%;
   justify-content: space-between;
-  display: flex;
 }
 .losheading {
   font-family: 'Montserrat';
@@ -463,4 +462,76 @@
   100% {
     transform: rotate(-360deg);
   }
+}
+
+/*Calendar*/
+
+.react-calendar__tile:enabled:focus
+{
+  background: black !important;
+  border-radius: 20px;
+  color:white;
+}
+
+.react-calendar__tile--active
+{
+  border-radius: 20px;
+}
+
+.react-calendar__tile:disabled, .react-calendar__navigation button:disabled
+{
+  color: #ababab;
+  background-color:white !important;
+}
+
+.bookingCalendar
+{
+  text-align: center;
+  padding: 50px;
+  background: white;
+  margin-top: 20px;
+}
+
+.timeSlots button {
+  width: 164px;
+  margin-top: 20px;
+}
+/* 
+.bookingCalendar .timeBtn
+{
+  margin-top: 20px;  
+  width: 150px;
+} */
+
+button.opacity-50 {
+  pointer-events: none;
+}
+
+.btnDisabled
+{
+  pointer-events: none;
+}
+
+.react-calendar
+{
+  border-radius: 20px;
+  padding: 10px;
+  padding-bottom: 20px;
+}
+
+.notAvl
+{
+  margin: auto;
+  display: block;
+  padding: 40px;
+}
+
+.bookingSection
+{
+  background:#F2F7FF;
+  height:700px;
+}
+
+.react-calendar abbr, span.react-calendar__navigation__label__labelText.react-calendar__navigation__label__labelText--from {
+  font-family: 'Montserrat';
 }

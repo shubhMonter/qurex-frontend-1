@@ -143,8 +143,72 @@ const Consult = () => {
   // console.log(dateTime);
 
   return (
-    <section className="consultsec">
-      <div className="innerconsult">
+    <section className="bookingSection">
+      <div className="container bookingCalendar">
+        <div className="row">
+
+          <div className="col-md-2">
+          </div>
+
+          <div className="col-md-4">
+            <Calendar minDate={new Date()} onChange={changeSelectedDate} value={new Date()} />
+          </div>
+
+          <div className="col-md-6">
+            <span className="slot">Slots Available Today</span>
+            <span className="gryline"></span>
+            <div className="container">
+              <div className="row timeSlots pb-32">
+              
+                    {dateTime?.length > 0
+                      ? dateTime?.map((item, index) => (
+                        
+                        <div className="col-md-4 col-sm-3">
+                            <button
+                              className={` ${
+                                selected[index] ? 'bg-[#000000] timeBtn text-white' : ''
+                              } ${
+                                item?.isAvailable ? '' : 'opacity-50'
+                              }  hover:bg-[#000000] hover:text-white shadow-md hover:shadow-xl duration-500 ease-in-out border rounded-md px-2 py-1 col-span-1`}
+                              onClick={() => {
+                                setTime(item?.time);
+                                SelezionaTab(index);
+                              }}
+                            >
+                              {tConvert(item?.time)}
+                            </button>
+                            </div>
+                        ))
+                      : <span className="notAvl">Not Available</span>}
+                    </div>
+                </div>
+
+                
+                <div className="row">
+                  <div className="col-md-3"></div>
+                    <div className="col-md-3">
+                      <button onClick={() => navigate(-1)} className="back shadow-md hover:shadow-2xl duration-500 ease-in-out">Back</button>
+                    </div>
+                    <div className="col-md-3">
+                      
+                      <button 
+                      className={dateTime?.length > 0 ? 
+                        "book bg-[#006edc] opacity-100 shadow-md hover:shadow-2xl duration-500 ease-in-out" :
+                        "book btnDisabled bg-[#ababab] opacity-100 shadow-md hover:shadow-2xl duration-500 ease-in-out" }
+                          onClick={handleSubmit}>
+                        Book now
+                      </button>
+                      
+                  </div>
+                  <div className="col-md-3"></div>
+                </div>
+
+            </div>
+          </div>
+      </div>
+
+      
+      {/* <div className="innerconsult">
         <div className="conleft">
           <div className="inconleft">
             <span className="slot"> Available Slots</span>
@@ -178,7 +242,7 @@ const Consult = () => {
         </div>
 
         <div className="conright">
-          <Calendar onChange={changeSelectedDate} value={new Date()} />
+          <Calendar minDate={new Date()} onChange={changeSelectedDate} value={new Date()} />
 
           <div className="bitdiv">
             <button className="back shadow-md hover:shadow-2xl duration-500 ease-in-out">
@@ -192,7 +256,7 @@ const Consult = () => {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 };
