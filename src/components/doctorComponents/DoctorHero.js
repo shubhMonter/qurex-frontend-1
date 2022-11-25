@@ -11,6 +11,12 @@ import { addData } from '../../state/doctor/Actions';
 import '../../styles/doctor.css';
 
 const DoctorHero = ({ drDetailData }) => {
+const auth = useSelector((state) => state.auth);
+var userData = auth?.data;
+
+useEffect(() => {
+  window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+});
 
   return (
     <div className="py-5 container-fluid doctorHeroSection">
@@ -50,7 +56,8 @@ const DoctorHero = ({ drDetailData }) => {
             >
               <BsPlayCircleFill className="playBtnHero" color="#0d6efd" /> Watch Now
             </button>
-            <Link to={'/booking-calendar'}>
+            {/* <Link to={() => userData?.name ? '/booking-calendar': '/login'}> */}
+            <Link to={userData?.name ? '/booking-calendar': '/login'}>
               <button
                 type="button"
                 className="mx-2 btn btn-primary rounded-pill"

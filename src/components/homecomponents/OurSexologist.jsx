@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import doc1 from '../../assets/svgs/doc1.svg';
 import doc2 from '../../assets/svgs/doc2.svg';
 import doc3 from '../../assets/svgs/doc3.svg';
+import loader from '../../assets/loader.gif';
 import star from '../../assets/star.png';
 import hat from '../../assets/hat.png';
 import globe from '../../assets/globe.png';
@@ -12,7 +13,7 @@ import cal from '../../assets/cal.png';
 import doctorApi from '../../api/doctorAPI';
 import { Link, useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { addData } from '../../state/doctor/Actions';
 import '../../index.css';
 import '../../styles/home.css';
@@ -21,11 +22,17 @@ const LandingOs = () => {
   const dispatch = useDispatch();
   const [allDoctorData, setAllDoctorData] = useState([]);
   let [selectedDoc,setSelectedDoc] = useState([]);
+  // let [showLoader,setShowLoader] = useState([]);
   let rangeDoc1 = "cursor-pointer doc001";
   let rangeDoc2 = "doc002";
   let docImage = doc1;
+  const auth = useSelector((state) => state.auth);
+  var userData = auth?.data;
 
   const getAllDoctors = async () => {
+
+    // setShowLoader(false);
+    
     let response = await doctorApi.getAllDoctors();
     console.log(response);
     if (response.length > 0) {
@@ -38,12 +45,14 @@ const LandingOs = () => {
   };
   // console.log(allDoctorData);
   useEffect(() => {
-    getAllDoctors();
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+    getAllDoctors();    
   }, []);
   const slug = (x) => {
     return x.replace(/ /g, '').toLowerCase();
   };
   const doctorDetail = async (id) => {
+    // setShowLoader(true);
     // console.log(id);
     let filterDr = allDoctorData.filter((item) => {
       return item._id === id;
@@ -60,6 +69,7 @@ const LandingOs = () => {
     } else {
     }
 
+    // setShowLoader(false);
     //console.log(filterDr);
     // dispatch(addData(filterDr));
   };
@@ -139,8 +149,10 @@ const LandingOs = () => {
                   <p><span className="line-through font-bold text-gray-400"> ₹ 1500</span><span className="line-through text-gray-400"> Cons Fees</span> <span className="font-bold"> | ₹ 1200</span> <span className="qurexCust">For Qurex Customer</span></p>
                 </div>
                 <div className="inldr">
-                  <span onClick={() => doctorDetail(selectedDoc?._id)} className="cursor-pointer font-bold pr-1.5 text-[#0d6efd]">View Details</span>
-                  <Link to={'/booking-calendar'}><button className="osbtn btn btn-primary featureViewBtn rounded-pill btnConsult">Consult Now</button></Link>
+                  <span 
+                  onClick={() => doctorDetail(selectedDoc?._id)} className="cursor-pointer font-bold pr-1.5 text-[#0d6efd]">View Details</span>
+                  <Link to={userData?.name ? '/booking-calendar': '/login'}><button className="osbtn btn btn-primary featureViewBtn rounded-pill btnConsult">Consult Now</button></Link>
+                  {/* <img src={loader} className={showLoader ? "showContent" : "hideContent"} /> */}
                 </div>
 
                 {/* <div className="grybox">

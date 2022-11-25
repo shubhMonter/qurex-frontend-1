@@ -104,6 +104,7 @@ const Consult = () => {
     return time.join(''); // return adjusted time or original string
   }
   const changeSelectedDate = (date) => {
+    console.log(date);
     let date1 = moment(date).format('DD-MM-YYYY');
     var date2 = moment(date).format('MM-DD-YYYY'); // Or your date here
 
@@ -151,7 +152,7 @@ const Consult = () => {
           </div>
 
           <div className="col-md-4">
-            <Calendar minDate={new Date()} onChange={changeSelectedDate} value={new Date()} />
+            <Calendar minDate={new Date()} onChange={changeSelectedDate} />
           </div>
 
           <div className="col-md-6">
@@ -195,7 +196,8 @@ const Consult = () => {
                       className={dateTime?.length > 0 ? 
                         "book bg-[#006edc] opacity-100 shadow-md hover:shadow-2xl duration-500 ease-in-out" :
                         "book btnDisabled bg-[#ababab] opacity-100 shadow-md hover:shadow-2xl duration-500 ease-in-out" }
-                          onClick={handleSubmit}>
+                        // onClick={() => authData?.name ? handleSubmit : navigate("/login")}>
+                        onClick={handleSubmit}>
                         Book now
                       </button>
                       

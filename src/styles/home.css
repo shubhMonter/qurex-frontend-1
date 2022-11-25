@@ -242,7 +242,14 @@ ul.list-unstyled li
     font-weight:600;
 }
 
+.showContent {
+display:block;
+}
 
+.hideContent {
+    display:none;
+}
+    
 
 
 
