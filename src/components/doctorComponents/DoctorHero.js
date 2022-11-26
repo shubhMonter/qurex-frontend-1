@@ -24,11 +24,6 @@ useEffect(() => {
         <div className="col-12 col-md-6 d-flex justify-content-center">
           <img
             src="https://quer.vercel.app/static/media/dranita.66f4e152a5afe7abebb0.png"
-            // src={drDetailData?.userId?.profilePic}
-            // style="width: 300px;
-            // height: 80%;
-            // margin-top: 46px;"
-            // src={doc3}
             className="rounded-circle"
           />
         </div>
@@ -61,7 +56,7 @@ useEffect(() => {
               <BsPlayCircleFill className="playBtnHero" color="#0d6efd" /> Watch Now
             </button>
             {/* <Link to={() => userData?.name ? '/booking-calendar': '/login'}> */}
-            <Link to={userData?.name ? '/booking-calendar': '/login'}>
+            <Link to={userData?.userId.name ? '/booking-calendar': '/login'}>
               <button
                 type="button"
                 className="mx-2 btn btn-primary rounded-pill"
