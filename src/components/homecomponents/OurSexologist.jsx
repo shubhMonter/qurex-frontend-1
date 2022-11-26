@@ -28,7 +28,7 @@ const LandingOs = () => {
   const [selDocDesig,setSelDocDesig] = useState([]);
   const [selDocAvl,setSelDocAvl] = useState([]);
   // let [selectedDocDetails,setSelectedDocDetails] = useState([]);
-  // let [showLoader,setShowLoader] = useState([]);
+  let [showLoader,setShowLoader] = useState(false);
   let rangeDoc1 = "cursor-pointer doc001";
   let rangeDoc2 = "doc002";
   let docImage = doc1;
@@ -37,7 +37,7 @@ const LandingOs = () => {
 
   const getAllDoctors = async() => {
 
-    // setShowLoader(false);
+    // setShowLoader(true);
     
     // let response = await doctorApi.getAllDoctors();
     let response = await doctorApi.getHomeDoctors();
@@ -50,22 +50,31 @@ const LandingOs = () => {
       // let selectedDocData = await doctorApi.getDrByUserId(responseDoc?.userId);
       setSelectedDoc(responseDoc);
       setSelDocName(responseDoc.userId.name);
+      // let docDegrees = responseDoc?.education.reduce((result, item) => { return `${result}${item.degree} | `});
+      // setSelDocDegree(docDegrees);
+      // let docDesig = responseDoc?.experience.reduce((result, item) => { return `${result}${item.designation} | `});
+      // setSelDocDesig(docDesig);
+      // let docHours = responseDoc?.businessHours.reduce((result, item) => { return `${result}${item.from + " to " + item.to} | `});
+      // setSelDocAvl(docHours);
       setSelDocDegree(responseDoc?.education[0].degree);
       setSelDocDesig(responseDoc?.experience[0]?.designation);
       setSelDocAvl(responseDoc?.businessHours[0]?.slots[0]?.from + " to " + responseDoc?.businessHours[0]?.slots[0]?.to);
       console.log("default doc.");
     }
+    // setShowLoader(false);
   };
   // console.log(allDoctorData);
   useEffect(() => {
     window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
     getAllDoctors();    
   }, []);
+
   const slug = (x) => {
     return x.replace(/ /g, '').toLowerCase();
   };
+
   const doctorDetail = async (id) => {
-    // setShowLoader(true);
+    setShowLoader(true);
     // console.log(id);
     let filterDr = allDoctorData.filter((item) => {
       return item._id === id;
@@ -83,7 +92,7 @@ const LandingOs = () => {
     } else {
     }
 
-    // setShowLoader(false);
+    setShowLoader(false);
     //console.log(filterDr);
     // dispatch(addData(filterDr));
   };
@@ -114,6 +123,10 @@ const LandingOs = () => {
 
     <section className="los">
       <section className="inos">
+        {showLoader? 
+        <div className="losup"><img src={loader}/></div>
+         :
+         <div>
         <div className="losup">
           <div className="lopupleft">
             <span className="losheading ml-5">Our Sexologist</span>
@@ -139,8 +152,8 @@ const LandingOs = () => {
                 <>
                   <img
                     className={index == 0 ? rangeDoc1 + " " + rangeDoc2 : rangeDoc1}
-                    src={index == 0 ? doc1 : index == 1 ? doc2 : index == 2 ? doc3 : doc1}
-                    // src={item.userId.profilePic}
+                    // src={index == 0 ? doc1 : index == 1 ? doc2 : index == 2 ? doc3 : doc1}
+                    src={item.userId.profilePic}
                     alt=""
                     onClick={() => doctorDetail(item?._id)}
                   />
@@ -162,8 +175,8 @@ const LandingOs = () => {
               <div className="p-2">
                 <span className="docName"> {selDocName} </span><span className="p-1.5">{selDocDegree}</span>
                 <div className="inldr">
-                  <span className="pb-1.5 font-['Montserrat']">{selDocDesig}</span>
-                  <p><span className="font-bold pr-1.5 text-[#0d6efd]">500+</span> Cases Solved</p>
+                  <span className="pb-2 font-['Montserrat']">{selDocDesig}</span>
+                  <p><span className="pb-1.5 font-bold pr-1.5 text-[#0d6efd]">500+</span> Cases Solved</p>
                 </div>
                 <div className="inldr">
                   <p><span className="font-semibold">Availability : </span> {selDocAvl} </p>
@@ -197,6 +210,8 @@ const LandingOs = () => {
         View All Doctors
         </button>
       </div>
+      </div>
+      }
       </section>
     </section>
               

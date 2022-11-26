@@ -53,10 +53,10 @@ const Features = () => {
       <div className="mb-5 container container-fluid">
         <div className="row">
           <div className="col">
-            <h1 className="faqTitle">Frequently Asked Questions</h1>
+            <h1 className="faqTitle ml-10 font-bold">Frequently Asked Questions</h1>
           </div>
         </div>
-        <Tabs variant="pills" defaultActiveKey="male" className="mx-4 my-5">
+        <Tabs variant="pills" defaultActiveKey="male" className="mx-10 my-5">
           <Tab eventKey="male" title="Male">
           <Slider {...settings} className="mb-5 btmSpace">
 

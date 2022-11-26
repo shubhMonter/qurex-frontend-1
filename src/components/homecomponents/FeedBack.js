@@ -45,7 +45,7 @@ const FeedBack = () => {
     <div className="container FeedBackContainer">
       <div className="row">
         <div className="col">
-          <h1 className="FeedBackTitle">Patient’s Feedback</h1>
+          <h1 className="FeedBackTitle font-bold ml-4">Patient’s Feedback</h1>
         </div>
         <div className="py-2 col text-end d-none d-md-block">
           <button

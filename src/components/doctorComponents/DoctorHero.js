@@ -27,8 +27,9 @@ useEffect(() => {
       <div className="row">
         <div className="col-12 col-md-6 d-flex justify-content-center">
           <img
-            src="https://quer.vercel.app/static/media/dranita.66f4e152a5afe7abebb0.png"
-            className="rounded-circle"
+            // src="https://quer.vercel.app/static/media/dranita.66f4e152a5afe7abebb0.png"
+            src={drDetailData.userId.profilePic}
+            className="rounded-circle drHeroImg"
           />
         </div>
         <div className="mt-3 col-12 col-md-6 d-flex flex-column justify-content-center align-items-center align-items-md-start ">

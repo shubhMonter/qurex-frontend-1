@@ -196,10 +196,6 @@
   background-color: #d2e1fe;
 }
 
-.los {
-  width: 100%;
-  height: 110vh;
-}
 .docabouthome {
   display: flex;
   justify-content: space-between;
@@ -257,15 +253,13 @@
 .losdownleft > input {
   position: relative;
   right: 50%;
+  width:200px;
 }
 .losdownleft {
   align-items: flex-end;
   display: flex;
   width: 50%;
   position: relative;
-}
-.doc001 {
-  width: 15%;
 }
 .losdownright {
   width: 50%;
@@ -535,4 +529,10 @@ button.opacity-50 {
 
 .react-calendar abbr, span.react-calendar__navigation__label__labelText.react-calendar__navigation__label__labelText--from {
   font-family: 'Montserrat';
+}
+
+.drHeroImg
+{
+  width: 250px;
+  height: 250px;
 }

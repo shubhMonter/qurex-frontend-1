@@ -51,7 +51,7 @@ const Hero = () => {
     {/* Slide 1 */}
     <div className='row d-flex justify-content-end'>
         <div className="col-12 d-md-none text-center my-3">
-                <h1 className="heroContainerTitle mx-auto">Sexual issues are normal</h1>
+                <h1 className="heroContainerTitle mx-auto font-bold">Sexual issues are normal</h1>
                 <p className='heroContainerParagraph mx-auto'>1 out of 5 indians encouter sexual health issue in their lifetime</p>
                 <div>
                 <button className="btn btn-lg-large btn-primary rounded-pill  heroContainerContactBtn">Contact an expert</button>
@@ -63,7 +63,7 @@ const Hero = () => {
             <img className='img-fluid heroImageContainer' src="https://quer.vercel.app/static/media/allgroup.a02e67bd2a4cdccecc02.png"/>
         </div>
         <div className="col-12 d-none d-md-block col-md-6 my-auto text-md-start">
-            <h1 className="heroContainerTitle mx-auto mx-md-0">Sexual Issues are Normal</h1>
+            <h1 className="heroContainerTitle mx-auto mx-md-0 font-bold">Sexual Issues are Normal</h1>
             <p className='heroContainerParagraph'>1 out of 5 indians encouter <br/>sexual health issue in their lifetime</p>
             <div>
                 <button className="btn btn-lg-large btn-primary rounded-pill  heroContainerContactBtn">Contact an expert</button>
@@ -76,7 +76,7 @@ const Hero = () => {
     {/* Slide 2 */}
     <div className='row d-flex justify-content-end'>
         <div className="col-12 d-md-none text-center my-3">
-                <h1 className="heroContainerTitle mx-auto">Your issue needs to be addressed</h1>
+                <h1 className="heroContainerTitle mx-auto font-bold">Your issue needs to be addressed</h1>
                 <p className='heroContainerParagraph mx-auto'>1 out of 5 indians encouter sexual health issue in their lifetime</p>
                 <div>
                 <button className="btn btn-lg-large btn-primary rounded-pill  heroContainerContactBtn">Contact an expert</button>
@@ -88,7 +88,7 @@ const Hero = () => {
             <img className='img-fluid heroImageContainer' src="https://quer.vercel.app/static/media/allgroup.a02e67bd2a4cdccecc02.png"/>
         </div>
         <div className="col-12 d-none d-md-block col-md-6 my-auto text-md-start">
-            <h1 className="heroContainerTitle mx-auto mx-md-0">Your issue needs to be addressed</h1>
+            <h1 className="heroContainerTitle mx-auto mx-md-0 font-bold">Your issue needs to be addressed</h1>
             <p className='heroContainerParagraph'>1 out of 5 indians encouter <br/>sexual health issue in their lifetime</p>
             <div>
                 <button className="btn btn-lg-large btn-primary rounded-pill  heroContainerContactBtn">Contact an expert</button>
@@ -101,7 +101,7 @@ const Hero = () => {
     {/* Slide 3 */}
     <div className='row d-flex justify-content-end'>
         <div className="col-12 d-md-none text-center my-3">
-                <h1 className="heroContainerTitle mx-auto">Consult about your problems</h1>
+                <h1 className="heroContainerTitle mx-auto font-bold">Consult about your problems</h1>
                 <p className='heroContainerParagraph mx-auto'>1 out of 5 indians encouter sexual health issue in their lifetime</p>
                 <div>
                 <button className="btn btn-lg-large btn-primary rounded-pill  heroContainerContactBtn">Contact an expert</button>
@@ -113,7 +113,7 @@ const Hero = () => {
             <img className='img-fluid heroImageContainer' src="https://quer.vercel.app/static/media/allgroup.a02e67bd2a4cdccecc02.png"/>
         </div>
         <div className="col-12 d-none d-md-block col-md-6 my-auto text-md-start">
-            <h1 className="heroContainerTitle mx-auto mx-md-0">Consult about your problems</h1>
+            <h1 className="heroContainerTitle mx-auto mx-md-0 font-bold">Consult about your problems</h1>
             <p className='heroContainerParagraph'>1 out of 5 indians encouter <br/>sexual health issue in their lifetime</p>
             <div>
                 <button className="btn btn-lg-large btn-primary rounded-pill  heroContainerContactBtn">Contact an expert</button>

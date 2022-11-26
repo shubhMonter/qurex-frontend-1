@@ -15,6 +15,8 @@ const Consult = () => {
   const auth = useSelector((state) => state.auth);
   let authData = auth?.data;
   const drDetail = useSelector((state) => state.drDetail);
+  console.log("drDetail");
+  console.log(drDetail);
   let drDetailData = drDetail?.data;
 
   useEffect(() => {
@@ -53,7 +55,7 @@ const Consult = () => {
     //console.log(resdate + 'T' + time + ':00.000Z');
     console.log(
       authData?._id,
-      drDetailData?.userId,
+      drDetailData?._id,
       resdate + 'T' + time + ':00.000Z'
     );
     try {
@@ -61,7 +63,7 @@ const Consult = () => {
         BaseSetting.doctorApiDomain + '/bookAppointment',
         {
           patientId: authData?._id,
-          doctorId: drDetailData?.userId,
+          doctorId: drDetailData?._id,
           meta: 'test',
           from: resdate + 'T' + time + ':00.000Z',
         },
@@ -132,10 +134,13 @@ const Consult = () => {
 
   const getData = async () => {
     try {
+      console.log("drdata");
+      console.log(drDetailData);
       const slotResp = await get(
-        BaseSetting.doctorApiDomain + '/availableSlots/' + drDetailData?.userId
+        BaseSetting.doctorApiDomain + '/availableSlots/' + drDetailData?._id
       );
-
+      console.log("slotResp");
+      console.log(slotResp);
       // setApiData(response.data.data);
       const slotRes = slotResp?.data;
       console.log({ slotRes });
