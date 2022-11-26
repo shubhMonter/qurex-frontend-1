@@ -24,13 +24,17 @@ useEffect(() => {
         <div className="col-12 col-md-6 d-flex justify-content-center">
           <img
             src="https://quer.vercel.app/static/media/dranita.66f4e152a5afe7abebb0.png"
+            // src={drDetailData?.userId?.profilePic}
+            // style="width: 300px;
+            // height: 80%;
+            // margin-top: 46px;"
             // src={doc3}
             className="rounded-circle"
           />
         </div>
         <div className="mt-3 col-12 col-md-6 d-flex flex-column justify-content-center align-items-center align-items-md-start ">
           <div className="d-flex align-items-center">
-            <h1 className="fw-bolder">{drDetailData?.drUserData?.name}</h1>
+            <h1 className="fw-bolder">{drDetailData?.userId["name"]}</h1>
             <p className="mx-2 mt-2 btn btn-primary btn-sm rounded-pill">
               {/* {drDetailData?.professionalDetail?.specializations[0]} */}
               Gynaecologist

@@ -17,6 +17,7 @@
   body {
     @apply bg-background;
     @apply text-content;
+    font-family: 'Montserrat' !important;
   }
   :root {
     --accent: 216 35 42;

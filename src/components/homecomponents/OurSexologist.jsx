@@ -21,7 +21,9 @@ const LandingOs = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [allDoctorData, setAllDoctorData] = useState([]);
+  let [selectedHomeDoc,setSelectedHomeDoc] = useState([]);
   let [selectedDoc,setSelectedDoc] = useState([]);
+  // let [selectedDocDetails,setSelectedDocDetails] = useState([]);
   // let [showLoader,setShowLoader] = useState([]);
   let rangeDoc1 = "cursor-pointer doc001";
   let rangeDoc2 = "doc002";
@@ -33,14 +35,17 @@ const LandingOs = () => {
 
     // setShowLoader(false);
     
+    // let response = await doctorApi.getAllDoctors();
     let response = await doctorApi.getAllDoctors();
+    console.log("all doctors..");
     console.log(response);
     if (response.length > 0) {
       setAllDoctorData(response);
 
       let responseDoc = response[0];
-      let selectedDocData = await doctorApi.getDrByUserId(responseDoc?.userId);
-      setSelectedDoc(selectedDocData);
+      // let selectedDocData = await doctorApi.getDrByUserId(responseDoc?.userId);
+      setSelectedDoc(responseDoc);
+      console.log("default doc.")
     }
   };
   // console.log(allDoctorData);
@@ -60,11 +65,12 @@ const LandingOs = () => {
     let drDetailData = filterDr[0];
 
     if (drDetailData && Object.keys(drDetailData).length > 0) {
-      let response = await doctorApi.getDrByUserId(drDetailData?.userId);
+      // let response = await doctorApi.getDrByUserId(drDetailData?.userId);
+      let response = drDetailData;
       if (response && Object.keys(response).length > 0) {
         // console.log(response);
         dispatch(addData({ ...drDetailData, drUserData: response }));
-        navigate('/doctor/' + slug(response?.name));
+        navigate('/doctor/' + slug(response?.userId.name));
       }
     } else {
     }
@@ -77,10 +83,11 @@ const LandingOs = () => {
   const sliderDocUpdate = async() => {
     let rangeVal = document.getElementById("customRange3").value;
     let responseDoc = allDoctorData[rangeVal];
-    let selectedDocData = await doctorApi.getDrByUserId(responseDoc?.userId);
-    setSelectedDoc(selectedDocData);
+    setSelectedDoc(responseDoc);
+    // let selectedDocData = await doctorApi.getDrByUserId(responseDoc?.userId);
+    // setSelectedDoc(selectedDocData);
     console.log(selectedDoc);
-    console.log(selectedDoc.name);
+    console.log(selectedDoc.userId.name);
     for(let i =0;i<document.getElementsByClassName("doc001").length; i++)
     {
       if(document.getElementsByClassName("doc001")[i].classList.contains(rangeDoc2))
@@ -96,8 +103,8 @@ const LandingOs = () => {
       <section className="inos">
         <div className="losup">
           <div className="lopupleft">
-            <span className="losheading">Our Sexologist</span>
-            <span className="lossubheading">
+            <span className="losheading ml-5">Our Sexologist</span>
+            <span className="lossubheading ml-5">
               Best sexual health experts from India & USA
             </span>
           </div>
@@ -119,7 +126,8 @@ const LandingOs = () => {
                 <>
                   <img
                     className={index == 0 ? rangeDoc1 + " " + rangeDoc2 : rangeDoc1}
-                    src={index == 0 ? doc1 : index == 1 ? doc2 : index == 2 ? doc3 : doc1}
+                    // src={index == 0 ? doc1 : index == 1 ? doc2 : index == 2 ? doc3 : doc1}
+                    src={item.userId.profilePic}
                     alt=""
                     onClick={() => doctorDetail(item?._id)}
                   />
@@ -139,14 +147,14 @@ const LandingOs = () => {
             </div>
             <div className="losdownright col-md-6 col-lg-6 col-sm-6">
               <div className="p-2">
-                <span className="docName"> {selectedDoc.name} </span><span className="p-1.5">MBBS, MD (Psychiatry)</span>
+                <span className="docName"> {selectedDoc?.userId.name} </span><span className="p-1.5">{selectedDoc?.education[0].degree}</span>
                 <div className="inldr">
-                  <span className="pb-1.5 font-['Montserrat']">Psychiatry (Sexology)</span>
+                  <span className="pb-1.5 font-['Montserrat']">{selectedDoc?.experience[0].designation}</span>
                   <p><span className="font-bold pr-1.5 text-[#0d6efd]">500+</span> Cases Solved</p>
                 </div>
                 <div className="inldr">
-                  <p><span className="font-semibold">Availability : </span> 2 pm to 4 pm</p>
-                  <p><span className="line-through font-bold text-gray-400"> ₹ 1500</span><span className="line-through text-gray-400"> Cons Fees</span> <span className="font-bold"> | ₹ 1200</span> <span className="qurexCust">For Qurex Customer</span></p>
+                  <p><span className="font-semibold">Availability : </span> {selectedDoc?.businessHours[0].slots[0].from} to {selectedDoc?.businessHours[0].slots[0].to}</p>
+                  <p><span className="line-through font-bold text-gray-400"> ₹ 1500</span><span className="line-through text-gray-400"> Cons Fees</span> <span className="font-bold"> | ₹ {selectedDoc?.feeCharge}</span> <span className="qurexCust">For Qurex Customer</span></p>
                 </div>
                 <div className="inldr">
                   <span 

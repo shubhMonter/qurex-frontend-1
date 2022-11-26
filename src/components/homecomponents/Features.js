@@ -61,7 +61,7 @@ const Features = () => {
         <div className="container">
           <div className="row">
             <div className="col">
-              <h1 className="featureTitle ms-5 ms-md-0">
+            <h1 className="featureTitle font-bold ms-5 ms-md-0">
                 Sexual Issues we Treat
               </h1>
             </div>
@@ -141,8 +141,8 @@ const Features = () => {
                       className="card-img-top featureCardImage"
                     />
                     <div className="card-body">
-                      <h3 className="featureCardTitle">Erectile Dysfunction</h3>
-                      <p className="featureCardText">
+                    <span className="featureCardTitle text-2xl font-bold ms-5 ms-md-0 text-2xl font-bold ms-5 ms-md-0">Erectile Dysfunction</span>
+                      <p className="featureCardText mt-2">
                         It is defined by difficulty getting and keeping an
                         erection.
                       </p>
@@ -157,8 +157,8 @@ const Features = () => {
                       className="card-img-top featureCardImage"
                     />
                     <div className="card-body">
-                      <h3 className="featureCardTitle">Low Sex Drive</h3>
-                      <p className="featureCardText">
+                      <span className="featureCardTitle text-2xl font-bold ms-5 ms-md-0">Low Sex Drive</span>
+                      <p className="featureCardText mt-2">
                         People with hypogonadism may have low sex drives.
                       </p>
                     </div>
@@ -172,10 +172,10 @@ const Features = () => {
                       className="card-img-top featureCardImage"
                     />
                     <div className="card-body">
-                      <h3 className="featureCardTitle">
+                      <span className="featureCardTitle text-2xl font-bold ms-5 ms-md-0">
                         Premature Ejaculation
-                      </h3>
-                      <p className="featureCardText">
+                      </span>
+                      <p className="featureCardText mt-2">
                         It is defined by difficulty getting and keeping an
                         erection.
                       </p>
@@ -190,8 +190,8 @@ const Features = () => {
                       className="card-img-top featureCardImage"
                     /> 
                     <div className="card-body">
-                      <h3 className="featureCardTitle">Male Infertility</h3>
-                      <p className="featureCardText">
+                      <span className="featureCardTitle text-2xl font-bold ms-5 ms-md-0">Male Infertility</span>
+                      <p className="featureCardText mt-2">
                         A man is not able to start a pregnancy with his female
                         partner.
                       </p>
@@ -216,8 +216,8 @@ const Features = () => {
                       className="card-img-top featureCardImage"
                     />
                     <div className="card-body">
-                      <h3 className="featureCardTitle">Painful Sex</h3>
-                      <p className="featureCardText">
+                      <span className="featureCardTitle text-2xl font-bold ms-5 ms-md-0">Painful Sex</span>
+                      <p className="featureCardText mt-2">
                         It is defined by difficulty getting and keeping an
                         erection.
                       </p>
@@ -232,8 +232,8 @@ const Features = () => {
                       className="card-img-top featureCardImage"
                     />
                     <div className="card-body">
-                      <h3 className="featureCardTitle">Low Sex Drive</h3>
-                      <p className="featureCardText">
+                      <span className="featureCardTitle text-2xl font-bold ms-5 ms-md-0">Low Sex Drive</span>
+                      <p className="featureCardText mt-2">
                         People with hypogonadism may have low sex drives.
                       </p>
                     </div>
@@ -247,8 +247,8 @@ const Features = () => {
                       className="card-img-top featureCardImage"
                     />
                     <div className="card-body">
-                      <h3 className="featureCardTitle">No Orgasm</h3>
-                      <p className="featureCardText">
+                      <span className="featureCardTitle text-2xl font-bold ms-5 ms-md-0">No Orgasm</span>
+                      <p className="featureCardText mt-2">
                         It is defined by difficulty getting and keeping an
                         erection.
                       </p>
@@ -274,8 +274,8 @@ const Features = () => {
                       className="card-img-top featureCardImage"
                     />
                     <div className="card-body">
-                      <h3 className="featureCardTitle">Painful Sex</h3>
-                      <p className="featureCardText">
+                      <span className="featureCardTitle text-2xl font-bold ms-5 ms-md-0">Painful Sex</span>
+                      <p className="featureCardText mt-2">
                       Sexless Relationship
                       </p>
                     </div>
@@ -289,8 +289,8 @@ const Features = () => {
                       className="card-img-top featureCardImage"
                     />
                     <div className="card-body">
-                      <h3 className="featureCardTitle">Low Sex Drive</h3>
-                      <p className="featureCardText">
+                      <span className="featureCardTitle text-2xl font-bold ms-5 ms-md-0">Low Sex Drive</span>
+                      <p className="featureCardText mt-2">
                         Sexless Issue
                       </p>
                     </div>

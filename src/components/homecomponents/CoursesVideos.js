@@ -59,13 +59,32 @@ const CoursesVideos = () => {
     ],
   };
   return (
-    <div className="my-5 container-fluid">
+
+    // <div className="container-fluid FeatureSection">
+    //     <div className="container">
+    //       <div className="row">
+    //         <div className="col">
+    //         <h1 className="featureTitle font-bold ms-5 ms-md-0">
+    //             Sexual Issues we Treat
+    //           </h1>
+    //         </div>
+    //         <div className="py-2 col text-end d-none d-md-block">
+    //           <button
+    //             type="button"
+    //             className="btn btn-outline-primary featureViewBtn rounded-pill"
+    //           >
+    //             View All
+    //           </button>
+    //         </div>
+    //       </div>
+
+    <div className="container-fluid">
       <div className="container">
         <div className="row">
-          <div className="col-12 ">
-            <h1 className="CourseTitle">Sex-Ed Courses For Kids</h1>
+          <div className="col">
+            <h1 className="font-bold ml-10">Sex-Ed Courses For Kids</h1>
           </div>
-          <div className="col-12 d-none d-md-block">
+          <div className="col-12 d-none d-md-block ml-10">
             <p className="CourseSubTitle">
               First time in India in animated story format
             </p>

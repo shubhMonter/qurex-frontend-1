@@ -35,6 +35,7 @@ const Consult = () => {
   }, []);
   const [mydate, setMyDate] = useState(new Date());
   const [time, setTime] = useState('');
+  const [dateChanged, setDateChanged] = useState(true);
   const [dateData, setDateData] = useState({});
   const [dateTime, setDateTime] = useState([]);
   const [selected, setSelected] = useState({});
@@ -104,6 +105,7 @@ const Consult = () => {
     return time.join(''); // return adjusted time or original string
   }
   const changeSelectedDate = (date) => {
+    setDateChanged(false);
     console.log(date);
     let date1 = moment(date).format('DD-MM-YYYY');
     var date2 = moment(date).format('MM-DD-YYYY'); // Or your date here
@@ -167,13 +169,14 @@ const Consult = () => {
                         <div className="col-md-4 col-sm-3">
                             <button
                               className={` ${
-                                selected[index] ? 'bg-[#000000] timeBtn text-white' : ''
+                                dateChanged && selected[index] ? 'bg-[#000000] timeBtn text-white' : ''
                               } ${
                                 item?.isAvailable ? '' : 'opacity-50'
                               }  hover:bg-[#000000] hover:text-white shadow-md hover:shadow-xl duration-500 ease-in-out border rounded-md px-2 py-1 col-span-1`}
                               onClick={() => {
                                 setTime(item?.time);
                                 SelezionaTab(index);
+                                setDateChanged(true);
                               }}
                             >
                               {tConvert(item?.time)}
