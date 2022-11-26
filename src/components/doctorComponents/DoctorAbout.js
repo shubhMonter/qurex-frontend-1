@@ -10,7 +10,7 @@ import floatCall from '../../assets/svgs/floatCall.svg';
 const DoctorAbout = ({ drDetailData }) => {
   return (
     <div className="container mt-3 mb-5">
-      <h3>About {drDetailData?.drUserData?.name}</h3>
+      <h3 className="font-bold ml-10 pt-1.5">About {drDetailData?.drUserData?.name}</h3>
 
       <div className="row justify-content-between">
         <div className="col-12 col-lg-8">

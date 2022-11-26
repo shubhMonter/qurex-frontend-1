@@ -9,7 +9,7 @@ const DoctorcoursesVideo = () => {
       <div className="container">
         <div className="row">
           <div className="col-12">
-            <h1>Blogs From Doctor</h1>
+            <h1 className="font-bold">Blogs From Doctor</h1>
           </div>
           <div className="col-12">
             <p>First time in India in animated story format</p>

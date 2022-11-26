@@ -7,6 +7,7 @@ import { get, headers, post } from '../api';
 import { BaseSetting } from '../utils/common';
 import '../styles/Confirm.css';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const Consult = () => {
   const [currentTime, setCurrentTime] = useState('');
@@ -56,7 +57,7 @@ const Consult = () => {
     //console.log(resdate + 'T' + time + ':00.000Z');
     console.log(
       authData?._id,
-      drDetailData?._id,
+      drDetailData?.userId._id,
       resdate + 'T' + time + ':00.000Z'
     );
     try {
@@ -208,7 +209,7 @@ const Consult = () => {
                         "book btnDisabled bg-[#ababab] opacity-100 shadow-md hover:shadow-2xl duration-500 ease-in-out" }
                         // onClick={() => authData?.name ? handleSubmit : navigate("/login")}>
                         onClick={handleSubmit}>
-                        Book now
+                          Book now
                       </button>
                       
                   </div>
