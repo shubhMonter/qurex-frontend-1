@@ -10,6 +10,15 @@ const apis = {
       return error;
     }
   },
+  getHomeDoctors: async () => {
+    try {
+      const response = await get(BaseSetting.homeDoctorApiDomain);
+
+      return response?.data?.status === 1 ? response?.data?.data : false;
+    } catch (error) {
+      return error;
+    }
+  },
   getDrByUserId: async (id) => {
     // id = '635acdb6d73dc75ae04a8217'
     try {

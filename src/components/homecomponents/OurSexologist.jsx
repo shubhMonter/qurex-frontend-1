@@ -21,8 +21,12 @@ const LandingOs = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [allDoctorData, setAllDoctorData] = useState([]);
-  let [selectedHomeDoc,setSelectedHomeDoc] = useState([]);
-  let [selectedDoc,setSelectedDoc] = useState([]);
+  // let [selectedHomeDoc,setSelectedHomeDoc] = useState([]);
+  const [selectedDoc,setSelectedDoc] = useState([]);
+  const [selDocName,setSelDocName] = useState([]);
+  const [selDocDegree,setSelDocDegree] = useState([]);
+  const [selDocDesig,setSelDocDesig] = useState([]);
+  const [selDocAvl,setSelDocAvl] = useState([]);
   // let [selectedDocDetails,setSelectedDocDetails] = useState([]);
   // let [showLoader,setShowLoader] = useState([]);
   let rangeDoc1 = "cursor-pointer doc001";
@@ -31,12 +35,12 @@ const LandingOs = () => {
   const auth = useSelector((state) => state.auth);
   var userData = auth?.data;
 
-  const getAllDoctors = async () => {
+  const getAllDoctors = async() => {
 
     // setShowLoader(false);
     
     // let response = await doctorApi.getAllDoctors();
-    let response = await doctorApi.getAllDoctors();
+    let response = await doctorApi.getHomeDoctors();
     console.log("all doctors..");
     console.log(response);
     if (response.length > 0) {
@@ -45,7 +49,11 @@ const LandingOs = () => {
       let responseDoc = response[0];
       // let selectedDocData = await doctorApi.getDrByUserId(responseDoc?.userId);
       setSelectedDoc(responseDoc);
-      console.log("default doc.")
+      setSelDocName(responseDoc.userId.name);
+      setSelDocDegree(responseDoc?.education[0].degree);
+      setSelDocDesig(responseDoc?.experience[0]?.designation);
+      setSelDocAvl(responseDoc?.businessHours[0]?.slots[0]?.from + " to " + responseDoc?.businessHours[0]?.slots[0]?.to);
+      console.log("default doc.");
     }
   };
   // console.log(allDoctorData);
@@ -84,6 +92,10 @@ const LandingOs = () => {
     let rangeVal = document.getElementById("customRange3").value;
     let responseDoc = allDoctorData[rangeVal];
     setSelectedDoc(responseDoc);
+    setSelDocName(responseDoc.userId.name);
+    setSelDocDegree(responseDoc?.education[0].degree);
+    setSelDocDesig(responseDoc?.experience[0]?.designation);
+    setSelDocAvl(responseDoc?.businessHours[0]?.slots[0]?.from + " to " + responseDoc?.businessHours[0]?.slots[0]?.to);
     // let selectedDocData = await doctorApi.getDrByUserId(responseDoc?.userId);
     // setSelectedDoc(selectedDocData);
     console.log(selectedDoc);
@@ -99,6 +111,7 @@ const LandingOs = () => {
   };
 
   return (
+
     <section className="los">
       <section className="inos">
         <div className="losup">
@@ -126,8 +139,8 @@ const LandingOs = () => {
                 <>
                   <img
                     className={index == 0 ? rangeDoc1 + " " + rangeDoc2 : rangeDoc1}
-                    // src={index == 0 ? doc1 : index == 1 ? doc2 : index == 2 ? doc3 : doc1}
-                    src={item.userId.profilePic}
+                    src={index == 0 ? doc1 : index == 1 ? doc2 : index == 2 ? doc3 : doc1}
+                    // src={item.userId.profilePic}
                     alt=""
                     onClick={() => doctorDetail(item?._id)}
                   />
@@ -147,18 +160,21 @@ const LandingOs = () => {
             </div>
             <div className="losdownright col-md-6 col-lg-6 col-sm-6">
               <div className="p-2">
-                <span className="docName"> {selectedDoc?.userId.name} </span><span className="p-1.5">{selectedDoc?.education[0].degree}</span>
+                <span className="docName"> {selDocName} </span><span className="p-1.5">{selDocDegree}</span>
                 <div className="inldr">
-                  <span className="pb-1.5 font-['Montserrat']">{selectedDoc?.experience[0].designation}</span>
+                  <span className="pb-1.5 font-['Montserrat']">{selDocDesig}</span>
                   <p><span className="font-bold pr-1.5 text-[#0d6efd]">500+</span> Cases Solved</p>
                 </div>
                 <div className="inldr">
-                  <p><span className="font-semibold">Availability : </span> {selectedDoc?.businessHours[0].slots[0].from} to {selectedDoc?.businessHours[0].slots[0].to}</p>
+                  <p><span className="font-semibold">Availability : </span> {selDocAvl} </p>
                   <p><span className="line-through font-bold text-gray-400"> ₹ 1500</span><span className="line-through text-gray-400"> Cons Fees</span> <span className="font-bold"> | ₹ {selectedDoc?.feeCharge}</span> <span className="qurexCust">For Qurex Customer</span></p>
                 </div>
                 <div className="inldr">
+                {/* <Link to={doctorDetail(selectedDoc?._id)}> */}
                   <span 
-                  onClick={() => doctorDetail(selectedDoc?._id)} className="cursor-pointer font-bold pr-1.5 text-[#0d6efd]">View Details</span>
+                  onClick={() => doctorDetail(selectedDoc?._id)} 
+                  className="cursor-pointer font-bold pr-1.5 text-[#0d6efd]">View Details</span>
+                  {/* </Link> */}
                   <Link to={userData?.name ? '/booking-calendar': '/login'}><button className="osbtn btn btn-primary featureViewBtn rounded-pill btnConsult">Consult Now</button></Link>
                   {/* <img src={loader} className={showLoader ? "showContent" : "hideContent"} /> */}
                 </div>
@@ -183,6 +199,7 @@ const LandingOs = () => {
       </div>
       </section>
     </section>
+              
   );
 };
 

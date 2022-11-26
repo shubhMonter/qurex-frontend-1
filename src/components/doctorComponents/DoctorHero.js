@@ -12,6 +12,10 @@ import '../../styles/doctor.css';
 
 const DoctorHero = ({ drDetailData }) => {
 const auth = useSelector((state) => state.auth);
+const docName = drDetailData?.userId.name;
+const docDesig = drDetailData?.experience[0]?.designation;
+const docDegree = drDetailData?.education[0].degree;
+const docAvl = drDetailData?.businessHours[0]?.slots[0]?.from + " to " + drDetailData?.businessHours[0]?.slots[0]?.to
 var userData = auth?.data;
 
 useEffect(() => {
@@ -29,10 +33,10 @@ useEffect(() => {
         </div>
         <div className="mt-3 col-12 col-md-6 d-flex flex-column justify-content-center align-items-center align-items-md-start ">
           <div className="d-flex align-items-center">
-            <h1 className="fw-bolder">{drDetailData?.userId["name"]}</h1>
+            <h1 className="fw-bolder">{docName}</h1>
             <p className="mx-2 mt-2 btn btn-primary btn-sm rounded-pill">
               {/* {drDetailData?.professionalDetail?.specializations[0]} */}
-              Gynaecologist
+              {docDesig}
             </p>
           </div>
           <p className="flex fw-bolder">
@@ -55,8 +59,7 @@ useEffect(() => {
             >
               <BsPlayCircleFill className="playBtnHero" color="#0d6efd" /> Watch Now
             </button>
-            {/* <Link to={() => userData?.name ? '/booking-calendar': '/login'}> */}
-            <Link to={userData?.userId.name ? '/booking-calendar': '/login'}>
+            <Link to={userData?.name ? '/booking-calendar': '/login'}>
               <button
                 type="button"
                 className="mx-2 btn btn-primary rounded-pill"
