@@ -22,7 +22,7 @@ const LandingOs = () => {
   const dispatch = useDispatch();
   const [allDoctorData, setAllDoctorData] = useState([]);
   let [selectedHomeDoc,setSelectedHomeDoc] = useState([]);
-  let [selectedDoc,setSelectedDoc] = useState([]);
+  let [selectedDoc,setSelectedDoc] = useState();
   // let [selectedDocDetails,setSelectedDocDetails] = useState([]);
   // let [showLoader,setShowLoader] = useState([]);
   let rangeDoc1 = "cursor-pointer doc001";
