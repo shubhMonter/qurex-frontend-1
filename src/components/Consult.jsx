@@ -20,6 +20,7 @@ const Consult = () => {
   let drDetailData = drDetail?.data;
 
   useEffect(() => {
+    console.log(drDetail);
     getData();
 
     const today = new Date(
@@ -133,11 +134,12 @@ const Consult = () => {
   };
 
   const getData = async () => {
+
     try {
       console.log("drdata");
       console.log(drDetailData);
       const slotResp = await get(
-        BaseSetting.doctorApiDomain + '/availableSlots/' + drDetailData?._id
+        BaseSetting.doctorApiDomain + '/availableSlots/' + drDetailData?.userId._id
       );
       console.log("slotResp");
       console.log(slotResp);
