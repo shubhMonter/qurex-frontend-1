@@ -20,7 +20,7 @@ const HowItWorks = () => {
         <div className="row mt-20">
           <div className="col-md-6 col-sm-12 block m-auto">
             <img src={step1}/>
-            <img src={stepProcess}/>
+            {/* <img src={stepProcess}/> */}
           </div>
           <div className="col-md-6 col-sm-12 block m-auto">
             <p className="hiwStepTitle font-bold">Step - 1</p>
