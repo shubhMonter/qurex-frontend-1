@@ -3,6 +3,7 @@ import Slider from 'react-slick';
 import privately from '../../assets/svgs/Privately.svg';
 import arrow from '../../assets/svgs/arrow.svg';
 import { Link, useNavigate } from 'react-router-dom';
+import { Container, Nav, Navbar, NavDropdown, Button } from 'react-bootstrap';
 
 const Hero = () => {
 
@@ -55,7 +56,7 @@ const Hero = () => {
                 <h1 className="heroContainerTitle mx-auto font-bold">Sexual issues are normal</h1>
                 <p className='heroContainerParagraph mx-auto'>1 out of 5 indians encouter sexual health issue in their lifetime</p>
                 <div>
-                <a href="/#doctorsSection"><button className="btn btn-lg-large btn-primary rounded-pill  heroContainerContactBtn">Contact an expert</button></a>
+                <Nav.Link href="#doctorsSection"><button className="btn btn-lg-large btn-primary rounded-pill  heroContainerContactBtn">Contact an expert</button></Nav.Link>
                 <img className='heroSectionArrowMobile' src={arrow}/>
                 <img className='heroSectionPrivateImageMobile' src={privately}/>
             </div>
@@ -67,7 +68,7 @@ const Hero = () => {
             <h1 className="heroContainerTitle mx-auto mx-md-0 font-bold">Sexual Issues are Normal</h1>
             <p className='heroContainerParagraph'>1 out of 5 indians encouter <br/>sexual health issue in their lifetime</p>
             <div>
-                <button className="btn btn-lg-large btn-primary rounded-pill  heroContainerContactBtn">Contact an expert</button>
+                <Nav.Link href="#doctorsSection"><button className="btn btn-lg-large btn-primary rounded-pill  heroContainerContactBtn">Contact an expert</button></Nav.Link>
                 <img className='heroSectionArrow' src={arrow}/>
                 <img className='heroSectionPrivateImage' src={privately}/>
             </div>  
@@ -80,7 +81,7 @@ const Hero = () => {
                 <h1 className="heroContainerTitle mx-auto font-bold">Your issue needs to be addressed</h1>
                 <p className='heroContainerParagraph mx-auto'>1 out of 5 indians encouter sexual health issue in their lifetime</p>
                 <div>
-                <button className="btn btn-lg-large btn-primary rounded-pill  heroContainerContactBtn">Contact an expert</button>
+                <Nav.Link href="#doctorsSection"><button className="btn btn-lg-large btn-primary rounded-pill  heroContainerContactBtn">Contact an expert</button></Nav.Link>
                 <img className='heroSectionArrowMobile' src={arrow}/>
                 <img className='heroSectionPrivateImageMobile' src={privately}/>
             </div>
@@ -92,7 +93,7 @@ const Hero = () => {
             <h1 className="heroContainerTitle mx-auto mx-md-0 font-bold">Your issue needs to be addressed</h1>
             <p className='heroContainerParagraph'>1 out of 5 indians encouter <br/>sexual health issue in their lifetime</p>
             <div>
-                <button className="btn btn-lg-large btn-primary rounded-pill  heroContainerContactBtn">Contact an expert</button>
+                <Nav.Link href="#doctorsSection"><button className="btn btn-lg-large btn-primary rounded-pill  heroContainerContactBtn">Contact an expert</button></Nav.Link>
                 <img className='heroSectionArrow' src={arrow}/>
                 <img className='heroSectionPrivateImage' src={privately}/>
             </div>  
@@ -105,7 +106,7 @@ const Hero = () => {
                 <h1 className="heroContainerTitle mx-auto font-bold">Consult about your problems</h1>
                 <p className='heroContainerParagraph mx-auto'>1 out of 5 indians encouter sexual health issue in their lifetime</p>
                 <div>
-                <button className="btn btn-lg-large btn-primary rounded-pill  heroContainerContactBtn">Contact an expert</button>
+                <Nav.Link href="#doctorsSection"><button className="btn btn-lg-large btn-primary rounded-pill  heroContainerContactBtn">Contact an expert</button></Nav.Link>
                 <img className='heroSectionArrowMobile' src={arrow}/>
                 <img className='heroSectionPrivateImageMobile' src={privately}/>
             </div>
@@ -117,7 +118,7 @@ const Hero = () => {
             <h1 className="heroContainerTitle mx-auto mx-md-0 font-bold">Consult about your problems</h1>
             <p className='heroContainerParagraph'>1 out of 5 indians encouter <br/>sexual health issue in their lifetime</p>
             <div>
-                <Link to="#doctorsSection"><button className="btn btn-lg-large btn-primary rounded-pill  heroContainerContactBtn">Contact an expert</button></Link>
+                <Nav.Link href="#doctorsSection"><button className="btn btn-lg-large btn-primary rounded-pill  heroContainerContactBtn">Contact an expert</button></Nav.Link>
                 <img className='heroSectionArrow' src={arrow}/>
                 <img className='heroSectionPrivateImage' src={privately}/>
             </div>  
