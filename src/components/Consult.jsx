@@ -158,14 +158,14 @@ const Consult = () => {
       <div className="container bookingCalendar">
         <div className="row">
 
-          <div className="col-md-2">
+          <div className="col-md-2 col-sm-12">
           </div>
 
-          <div className="col-md-4">
+          <div className="col-md-4 col-sm-12">
             <Calendar minDate={new Date()} onChange={changeSelectedDate} />
           </div>
 
-          <div className="col-md-6">
+          <div className="col-md-6 col-sm-12">
             <span className="slot pt-5">Slots Available Today</span>
             <span className="gryline"></span>
             <div className="container">
@@ -197,11 +197,11 @@ const Consult = () => {
 
                 
                 <div className="row">
-                  <div className="col-md-3"></div>
-                    <div className="col-md-3">
+                  <div className="col-md-3 col-sm-12"></div>
+                    <div className="col-md-3 col-sm-6">
                       <button onClick={() => navigate(-1)} className="back shadow-md hover:shadow-2xl duration-500 ease-in-out">Back</button>
                     </div>
-                    <div className="col-md-3">
+                    <div className="col-md-3 col-sm-6">
                       
                       <button 
                       className={dateTime?.length > 0 ? 
@@ -213,7 +213,7 @@ const Consult = () => {
                       </button>
                       
                   </div>
-                  <div className="col-md-3"></div>
+                  <div className="col-md-3 col-sm-12"></div>
                 </div>
 
             </div>

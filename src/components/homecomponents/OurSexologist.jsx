@@ -121,7 +121,7 @@ const LandingOs = () => {
 
   return (
 
-    <section className="los">
+    <section className="los" id="doctorsSection">
       <section className="inos">
 
       <div className="container-fluid my-5">

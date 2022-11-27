@@ -313,6 +313,11 @@
   width: 18px;
   height: 18px;
 }
+.courseSectionTitle{
+  margin-left: 5px;
+  font-size:32px;
+}
+
 @media only screen and (max-width: 600px) {
   .docabouthome > span {
     width: 375px;
@@ -357,9 +362,6 @@
   }
   .courseSectionTitle, .CourseSubTitle {
     margin-left: -20px;
-  }
-  .courseSectionTitle{
-    margin-left: 5px;
   }
   .courseSection .slick-dots
   {
@@ -406,6 +408,11 @@
   .playBtn
   {
     left: -20%;
+  }
+  .bookingCalendar .row > *
+  {
+    width: fit-content;
+    padding-right: 0px;
   }
 }
 .loader {

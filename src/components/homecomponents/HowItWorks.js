@@ -1,10 +1,11 @@
 import React from 'react';
-import howItWorks from '../../assets/svgs/howItWorks.svg';
 import step1 from '../../assets/svgs/step1.svg';
 import step2 from '../../assets/svgs/step2.svg';
 import step3 from '../../assets/svgs/step3.svg';
 import stepProcess from '../../assets/svgs/stepProcess.svg';
 import '../../styles/home.css';
+import '../../index.css';
+
 const HowItWorks = () => {
   return (
     
@@ -19,8 +20,8 @@ const HowItWorks = () => {
 
         <div className="row mt-20">
           <div className="col-md-6 col-sm-12 block m-auto">
-            <img src={step1}/>
-            {/* <img src={stepProcess}/> */}
+            <img className="relative z-10" src={step1}/>
+            <img className="osbtn absolute z-0 -mt-36 ml-28" src={stepProcess}/>
           </div>
           <div className="col-md-6 col-sm-12 block m-auto">
             <p className="hiwStepTitle font-bold">Step - 1</p>
@@ -39,13 +40,13 @@ const HowItWorks = () => {
             <p className="hiwStepDescp">There are many variations of passages of Lorem Ipsum available, but the majority have suffered.</p>
           </div>
           <div className="col-md-6 col-sm-12 block m-auto">
-            <img src={step2}/>
+            <img className="relative" src={step2}/>
           </div>
         </div>
 
         <div className="row mt-20">
           <div className="col-md-6 col-sm-12 block m-auto">
-            <img src={step3}/>
+            <img className="relative" src={step3}/>
           </div>
           <div className="col-md-6 col-sm-12 block m-auto">
             <p className="hiwStepTitle font-bold">Step - 3</p>
