@@ -1,30 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Nav, Navbar, NavDropdown, Button } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
-import { Fragment } from 'react';
-import { Menu, Transition } from '@headlessui/react';
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import { useSelector, useDispatch } from 'react-redux';
-import { emptyAuth } from '../../state/auth/Actions';
-import getHelp from '../../assets/svgs/gethelp.svg';
-import ellipse from '../../assets/svgs/ellipse.svg';
-import callIcon from '../../assets/svgs/callicon.svg';
+import React, { useEffect, useState } from "react";
+import { Container, Nav, Navbar, NavDropdown, Button } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import { Fragment } from "react";
+import { Menu, Transition } from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { useSelector, useDispatch } from "react-redux";
+import { emptyAuth } from "../../state/auth/Actions";
+import getHelp from "../../assets/svgs/gethelp.svg";
+import ellipse from "../../assets/svgs/ellipse.svg";
+import callIcon from "../../assets/svgs/callicon.svg";
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
+  return classes.filter(Boolean).join(" ");
 }
 const Navigation = () => {
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
-  var userData = auth?.data;
+  const auth = useSelector((state) => state.auth.authData);
 
   const navigate = useNavigate();
 
-  //console.log(userData);
+  //console.log(auth);
   const signOut = () => {
-    dispatch(emptyAuth(userData));
+    emptyAuth();
 
-    navigate('/');
+    navigate("/");
   };
   return (
     <>
@@ -75,23 +74,21 @@ const Navigation = () => {
                 <Menu as="div" className="relative inline-block text-left">
                   <div>
                     <Menu.Button className="inline-flex w-full justify-center rounded-3xl border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
-                      {userData?.name ? (
-                        userData?.name
+                      {auth.isAuthenticated ? (
+                        <>
+                          {auth.user.name}{" "}
+                          <ChevronDownIcon
+                            className="-mr-1 ml-2 h-5 w-5"
+                            aria-hidden="true"
+                          />
+                        </>
                       ) : (
                         <Link to="/login">Login</Link>
-                      )}
-                      {userData?.name ? (
-                        <ChevronDownIcon
-                          className="-mr-1 ml-2 h-5 w-5"
-                          aria-hidden="true"
-                        />
-                      ) : (
-                        ''
                       )}
                     </Menu.Button>
                   </div>
 
-                  {userData?.role == 'patient' ? (
+                  {auth?.role == "patient" ? (
                     <Transition
                       as={Fragment}
                       enter="transition ease-out duration-100"
@@ -109,9 +106,9 @@ const Navigation = () => {
                                 to="/dashboard/user-profile"
                                 className={classNames(
                                   active
-                                    ? 'bg-gray-100 text-gray-900'
-                                    : 'text-gray-700',
-                                  'block px-4 py-2 text-sm'
+                                    ? "bg-gray-100 text-gray-900"
+                                    : "text-gray-700",
+                                  "block px-4 py-2 text-sm"
                                 )}
                               >
                                 Profile
@@ -124,9 +121,9 @@ const Navigation = () => {
                                 to="/dashboard/my-bookings"
                                 className={classNames(
                                   active
-                                    ? 'bg-gray-100 text-gray-900'
-                                    : 'text-gray-700',
-                                  'block px-4 py-2 text-sm'
+                                    ? "bg-gray-100 text-gray-900"
+                                    : "text-gray-700",
+                                  "block px-4 py-2 text-sm"
                                 )}
                               >
                                 Bookings
@@ -140,9 +137,9 @@ const Navigation = () => {
                                 type="submit"
                                 className={classNames(
                                   active
-                                    ? 'bg-gray-100 text-gray-900'
-                                    : 'text-gray-700',
-                                  'block w-full px-4 py-2 text-left text-sm'
+                                    ? "bg-gray-100 text-gray-900"
+                                    : "text-gray-700",
+                                  "block w-full px-4 py-2 text-left text-sm"
                                 )}
                                 onClick={signOut}
                               >
@@ -153,7 +150,7 @@ const Navigation = () => {
                         </div>
                       </Menu.Items>
                     </Transition>
-                  ) : userData?.role == 'doctor' ? (
+                  ) : auth?.role == "doctor" ? (
                     <Transition
                       as={Fragment}
                       enter="transition ease-out duration-100"
@@ -171,9 +168,9 @@ const Navigation = () => {
                                 to="/dashboard/business-dashboard"
                                 className={classNames(
                                   active
-                                    ? 'bg-gray-100 text-gray-900'
-                                    : 'text-gray-700',
-                                  'block px-4 py-2 text-sm'
+                                    ? "bg-gray-100 text-gray-900"
+                                    : "text-gray-700",
+                                  "block px-4 py-2 text-sm"
                                 )}
                               >
                                 Dashboard
@@ -186,9 +183,9 @@ const Navigation = () => {
                                 to="/dashboard/appointments"
                                 className={classNames(
                                   active
-                                    ? 'bg-gray-100 text-gray-900'
-                                    : 'text-gray-700',
-                                  'block px-4 py-2 text-sm'
+                                    ? "bg-gray-100 text-gray-900"
+                                    : "text-gray-700",
+                                  "block px-4 py-2 text-sm"
                                 )}
                               >
                                 Bookings
@@ -202,9 +199,9 @@ const Navigation = () => {
                                 type="submit"
                                 className={classNames(
                                   active
-                                    ? 'bg-gray-100 text-gray-900'
-                                    : 'text-gray-700',
-                                  'block w-full px-4 py-2 text-left text-sm'
+                                    ? "bg-gray-100 text-gray-900"
+                                    : "text-gray-700",
+                                  "block w-full px-4 py-2 text-left text-sm"
                                 )}
                                 onClick={signOut}
                               >
@@ -216,7 +213,7 @@ const Navigation = () => {
                       </Menu.Items>
                     </Transition>
                   ) : (
-                    ''
+                    ""
                   )}
                 </Menu>
               </Nav.Link>

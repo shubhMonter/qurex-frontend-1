@@ -1,22 +1,14 @@
-import { combineReducers, legacy_createStore as createStore } from 'redux';
-import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import hardSet from 'redux-persist/lib/stateReconciler/hardSet';
-import specReducer from './specialization/Reducer';
-import authReducer from './auth/Reducer';
-import doctorReducer from './doctor/Reducer';
+import { legacy_createStore as createStore } from "redux";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import hardSet from "redux-persist/lib/stateReconciler/hardSet";
+import rootReducer from "./index";
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage: storage,
   stateReconciler: hardSet,
 };
-
-const rootReducer = combineReducers({
-  specData: specReducer,
-  auth: authReducer,
-  drDetail: doctorReducer,
-});
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

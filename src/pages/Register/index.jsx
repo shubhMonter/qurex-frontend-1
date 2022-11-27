@@ -1,79 +1,58 @@
 
-import qurexhome from '../../assets/pngs/qurexhome.png';
-import { useState } from 'react';
+import qurexhome  from '../../assets/pngs/qurexhome.png';
+import { useEffect, useState } from 'react';
 import DiscMsg from '../../common/components/DisclaimerMsg';
-import { headers, post } from '../../api';
-import { BaseSetting } from '../../utils/common';
-import UserApi from '../../api/UserAPI';
-import { setAuth } from '../../state/auth/Actions';
 import { useNavigate } from 'react-router';
-import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { SignInOTP, SignUpOTP } from '../../preseneter/Auth/auth';
+import CommonOTP from '../Login/commonOtp';
 
 const Register = () => {
-  const [formData, setFormData] = useState({});
-  const [buttonText, setButtonText] = useState('Get OTP');
-  const [loginText, setLoginText] = useState('Login');
-  const [disabled, setDisabled] = useState(false);
-  const [validateDisabled, setValidateDisabled] = useState(false);
-  const [otp, setOtp] = useState(["", "", "", ""]);
+  const [formData, setFormData] = useState({name:'',email:'',mobile:''});
+  const [buttonText] = useState('Get OTP');
+  const [loginText] = useState('Login');
+  const [disabled] = useState(false);
   const [submitOtp, setSubmitOtp] = useState(false);
-  const [errMsg, setErrMsg] = useState('');
-  const [err, setErr] = useState('');
+  const [err, setErr] = useState({
+    error: '',
+    show:false
+  });
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const Auth = useSelector((state) => state.auth.authData);
+  const AuthError = useSelector((state) => state.auth.authError)
+
   const onChange = (e) => {
     setFormData({...formData,[e.target.name]:e.target.value})
   }
-  const onChangeOtp = (e) => {
-    const nOtp = otp;
-    nOtp[e.target.name] = e.target.value
-    if(e.target.value != "")
-      e.target.form[Number(e.target.name) + 1].focus()
-    else
-    e.target.form[Number(e.target.name) - 1].focus()
-    setOtp(nOtp);
-    
-  }
-
-  const handleOtpSubmit = async(e) => {
+  const handleOtpSubmit = async(e,otp) => {
     e.preventDefault();
-    const response = await post(
-      BaseSetting.userApiDomain + '/signUpViaOTP',
-      {
-        mobile: formData.mobile,
-        otp: otp.join(''),
-      },
-      headers
-    );
-    const result = response?.data;
-    const token = response?.headers['x-auth-token'];
-    if (result.status === 1) {
-      const drData = await UserApi.getByUserId(result.data?._id);
-      dispatch(
-        setAuth({
-          ...result.data,
-          drData: drData,
-          token: token,
-        })
-      );
-
-      navigate('/');
-    } else {
-      setErrMsg(result.data);
-    }
+    const { mobile } = formData;
+    SignInOTP({
+      mobile,
+      otp
+    })
   }
+
+  useEffect(() => {
+    if (Auth.isAuthenticated) {
+      navigate('/');
+    }
+  }, [Auth.isAuthenticated])
+  useEffect(() => {
+    setErr(AuthError)
+  },[AuthError])
 
   const handleFormSubmit = async(e) => {
     e.preventDefault();
-    const response = await post(
-      BaseSetting.userApiDomain + '/generateSignUpOTP',
-      formData,
-      headers
-    );
+    setErr({
+      error: '',
+      show:false
+    })
+    const response = await SignUpOTP(formData)
     if (response.data.status === 1) {
       setSubmitOtp(true)
     } else {
-      setErr(response.data.data);
+      setErr({error:response.data.data,show:true});
     }
     
   }
@@ -87,57 +66,7 @@ const Register = () => {
         <img className="min-h-screen" src={qurexhome} alt="" />
       </div>
       {/* <OTPComp className="col-span-1" /> */}
-      {submitOtp ? <>
-        <div className="flex flex-col bg-white">
-      <form onSubmit={handleOtpSubmit}>
-        <div className="md:px-28 lg:px-28 xl:px-28 md:py-16 lg:py-16 xl:py-16 flex flex-col bg-white">
-          <div className="w-9/12 t414 text-[#1C1C1C] mt-16 grid grid-cols-4" >
-                { otp && otp.length > 0 && otp.map((x, i) => {
-                  return (
-                    <div className="col-span-1 ">
-                      <input
-                        autoComplete={false}
-                        key={i}
-                        name={i}
-                        defaultValue={x}
-                        onChange={onChangeOtp}
-                        maxlength="1"
-                        oninput="this.value=this.value.replace(/[^0-9]/g,'');"
-                        type="number"
-                        className="w-12 h-12 pl-4 text-sm font-semibold border rounded-md outline-none opacity-90 "
-                      />
-                    </div>
-                  )
-                })
-                }
-          </div>
-          <div>
-            {errMsg ? (
-              <div className="bg-red-600 shadow-lg w-60 rounded-2xl max-w-full text-xs mt-3">
-                <div className="px-3 py-1 bg-red-600 rounded-2xl break-words text-white">
-                  Please enter the correct OTP
-                </div>
-              </div>
-            ) : (
-              ''
-            )}
-          </div>
-          <div className="">
-            <button
-              type="submit"
-              className={`${
-                validateDisabled ? 'opacity-75' : ''
-              } bg-[#1C5BD9] py-3 rounded-3xl w-8/12 mt-16 text-white t714`}
-              disabled={validateDisabled}
-            >
-              {loginText}
-            </button>
-          </div>
-        </div>
-      </form>
-      <DiscMsg />
-    </div>
-      </> : <div className="flex flex-col bg-white">
+      {submitOtp ? <CommonOTP handleOtpSubmit={handleOtpSubmit} err={err} loginText={loginText} validateDisabled={false} />: <div className="flex flex-col bg-white">
         <form onSubmit={handleFormSubmit}>
           <div className="md:px-28 lg:px-28 xl:px-28 md:py-16 lg:py-16 xl:py-16 flex flex-col bg-white">
             <div className="t414 text-[#1C1C1C] mt-7">Name</div>
@@ -147,7 +76,8 @@ const Register = () => {
                 value={formData.name}
                 onChange={onChange}
                 className="py-3 pl-2 rounded-md border w-9/12 text-[12px] font-normal text-[#666666] outline-none"
-                placeholder="Please enter Name"
+                  placeholder="Please enter Name"
+                  autoComplete='false'
               />
             </div>
             <div className="t414 text-[#1C1C1C] mt-7">Email</div>
@@ -159,6 +89,7 @@ const Register = () => {
                 onChange={onChange}
                 className="py-3 pl-2 rounded-md border w-9/12 text-[12px] font-normal text-[#666666] outline-none"
                 placeholder="Please enter your email"
+                autoComplete='false'
               />
             </div>
             <div className="t414 text-[#1C1C1C] mt-7">Mobile Number</div>
@@ -170,12 +101,13 @@ const Register = () => {
                 size={10}
                 onChange={onChange}
                 className="py-3 pl-2 rounded-md border w-9/12 text-[12px] font-normal text-[#666666] outline-none"
-                placeholder="Please enter your mobile number"
+                  placeholder="Please enter your mobile number"
+                  autoComplete='false'
               />
             </div>
             
-            {err ? (
-              <div className="mt-2 text-[#da232aff] text-sm">{err}</div>
+            {err.show ? (
+              <div className="mt-2 text-[#da232aff] text-sm">{err.error}</div>
             ) : (
               ''
             )}

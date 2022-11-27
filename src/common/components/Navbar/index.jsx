@@ -10,14 +10,15 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { emptyAuth } from '../../../state/auth/Actions';
 import { useSelector, useDispatch } from 'react-redux';
+import { Role } from '../../../state/interface';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 const Navbar = ({ toggleMobile }) => {
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
-  var userData = auth?.data;
+  const auth = useSelector((state) => state.auth.authData);
+ 
   // const [userData, setUserData] = useState({});
   // var user1 = JSON.parse(localStorage.getItem('userData') || '[]');
   const navigate = useNavigate();
@@ -27,9 +28,10 @@ const Navbar = ({ toggleMobile }) => {
   //   setUserData(user);
   // }, []);
   const signOut = () => {
-    dispatch(emptyAuth(userData));
+    dispatch(emptyAuth());
     navigate('/');
   };
+  console.log({auth});
 
   return (
     <nav className="md:ml-10 lg:ml-10 xl:ml-10 max-w-full bg-white shadow-sm rounded-md mx-8 mt-5">
@@ -86,7 +88,7 @@ const Navbar = ({ toggleMobile }) => {
               </button>
             </div>
 
-            {userData?.role == 'doctor' ? (
+            {auth?.role ===  Role.DR ? (
               <>
                 <div className="text-[#636363] flex flex-row">
                   <div>
@@ -100,7 +102,7 @@ const Navbar = ({ toggleMobile }) => {
                   </div>
                 </div>
               </>
-            ) : userData?.role == 'admin' ? (
+            ) : auth?.role == Role.ADMIN ? (
               <>
                 <div className="opacity-0">kkk</div>
               </>
@@ -129,23 +131,20 @@ const Navbar = ({ toggleMobile }) => {
               <Menu as="div" className="relative inline-block text-left">
                 <div>
                   <Menu.Button className="inline-flex w-full justify-center rounded-3xl border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
-                    {userData?.name ? (
-                      userData?.name
-                    ) : (
-                      <Link to="/login">Login</Link>
-                    )}
-                    {userData?.name ? (
-                      <ChevronDownIcon
+                   
+
+                    {
+                      auth.isAuthenticated ? (<>
+                      {auth.user.name} {' '}  <ChevronDownIcon
                         className="-mr-1 ml-2 h-5 w-5"
                         aria-hidden="true"
                       />
-                    ) : (
-                      ''
-                    )}
+                      </>) : (<Link to="/login">Login</Link>)
+                      }
                   </Menu.Button>
                 </div>
 
-                {userData?.role == 'patient' ? (
+                {auth?.role == Role.PATIENT ? (
                   <Transition
                     as={Fragment}
                     enter="transition ease-out duration-100"
@@ -207,7 +206,7 @@ const Navbar = ({ toggleMobile }) => {
                       </div>
                     </Menu.Items>
                   </Transition>
-                ) : userData?.role == 'doctor' ? (
+                ) : auth?.role == Role.DR ? (
                   <Transition
                     as={Fragment}
                     enter="transition ease-out duration-100"
