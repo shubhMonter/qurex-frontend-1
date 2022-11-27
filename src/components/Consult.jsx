@@ -65,7 +65,7 @@ const Consult = () => {
         BaseSetting.doctorApiDomain + '/bookAppointment',
         {
           patientId: authData?._id,
-          doctorId: drDetailData?._id,
+          doctorId: drDetailData?.userId._id,
           meta: 'test',
           from: resdate + 'T' + time + ':00.000Z',
         },
