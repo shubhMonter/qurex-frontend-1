@@ -208,7 +208,6 @@
   flex-direction: column;
 }
 .inos {
-  width: 85%;
   margin: 0 auto;
 }
 .grybox1 {
@@ -348,7 +347,25 @@
     justify-content: center;
     align-items: center;
   }
-
+  .qurexCust {
+    font-size: 8px;
+    font-weight: bold;
+    width: 72px;
+    position: absolute;
+    padding-left: 10px;
+    margin-top: 0px;
+  }
+  .courseSectionTitle, .CourseSubTitle {
+    margin-left: -20px;
+  }
+  .courseSectionTitle{
+    margin-left: 5px;
+  }
+  .courseSection .slick-dots
+  {
+    position: absolute;
+    padding: 40px;
+  }
   .losdown {
     justify-content: space-evenly;
   }
@@ -367,16 +384,28 @@
   }
   .inldr {
     border: none;
-    width: 79%;
+    width: 100%;
+  }
+  .howItWorksSubContainer
+  {
+      width: 90%;
+      padding: 0px;
+      display: block;
+      margin: auto;
   }
   .losdownright {
     background: #f9f9f9;
     border-radius: 4px;
     border: none;
   }
+  .losdownleft > input {
+    position: relative;
+    right: 80%;
+    width:200px;
+  }
   .playBtn
   {
-    top: 10% !important;
+    left: -20%;
   }
 }
 .loader {

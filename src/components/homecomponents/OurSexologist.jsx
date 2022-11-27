@@ -28,7 +28,7 @@ const LandingOs = () => {
   const [selDocDesig,setSelDocDesig] = useState([]);
   const [selDocAvl,setSelDocAvl] = useState([]);
   // let [selectedDocDetails,setSelectedDocDetails] = useState([]);
-  let [showLoader,setShowLoader] = useState(false);
+  const [showLoader,setShowLoader] = useState(false);
   let rangeDoc1 = "cursor-pointer doc001";
   let rangeDoc2 = "doc002";
   let docImage = doc1;
@@ -37,7 +37,7 @@ const LandingOs = () => {
 
   const getAllDoctors = async() => {
 
-    // setShowLoader(true);
+    setShowLoader(true);
     
     // let response = await doctorApi.getAllDoctors();
     let response = await doctorApi.getHomeDoctors();
@@ -61,7 +61,7 @@ const LandingOs = () => {
       setSelDocAvl(responseDoc?.businessHours[0]?.slots[0]?.from + " to " + responseDoc?.businessHours[0]?.slots[0]?.to);
       console.log("default doc.");
     }
-    // setShowLoader(false);
+    setShowLoader(false);
   };
   // console.log(allDoctorData);
   useEffect(() => {
@@ -123,14 +123,19 @@ const LandingOs = () => {
 
     <section className="los">
       <section className="inos">
+
+      <div className="container-fluid my-5">
+        <div className="container">
+          <div className="row">
+
         {showLoader? 
-        <div className="losup"><img src={loader}/></div>
+        <div className="losup"><img className="block m-auto" src={loader}/></div>
          :
-         <div>
+        <div>
         <div className="losup">
           <div className="lopupleft">
             <span className="losheading ml-5">Our Sexologist</span>
-            <span className="lossubheading ml-5">
+            <span className="lossubheading ml-5 block pb-2.5">
               Best sexual health experts from India & USA
             </span>
           </div>
@@ -162,7 +167,7 @@ const LandingOs = () => {
 
               <input
                 type="range"
-                className="form-range"
+                className="form-range pb-2.5"
                 defaultValue="0"
                 min="0"
                 max="2"
@@ -176,6 +181,7 @@ const LandingOs = () => {
                 <span className="docName"> {selDocName} </span><span className="p-1.5">{selDocDegree}</span>
                 <div className="inldr">
                   <span className="pb-2 font-['Montserrat']">{selDocDesig}</span>
+                  <p><span className="pb-1.5 font-bold pr-1.5 text-[#0d6efd]">15+ Years experience</span></p>
                   <p><span className="pb-1.5 font-bold pr-1.5 text-[#0d6efd]">500+</span> Cases Solved</p>
                 </div>
                 <div className="inldr">
@@ -212,6 +218,9 @@ const LandingOs = () => {
       </div>
       </div>
       }
+      </div>
+      </div>
+      </div>
       </section>
     </section>
               

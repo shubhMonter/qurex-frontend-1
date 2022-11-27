@@ -61,7 +61,7 @@ const Features = () => {
         <div className="container">
           <div className="row">
             <div className="col">
-            <h1 className="featureTitle font-bold ms-5 ms-md-0">
+            <h1 className="featureTitle font-bold ms-md-0">
                 Sexual Issues we Treat
               </h1>
             </div>
@@ -76,7 +76,7 @@ const Features = () => {
           </div>
 
           <ul
-            className="mx-4 my-3 nav nav-pills my-md-5"
+            className="my-3 nav nav-pills my-md-5"
             id="myTab"
             role="tablist"
           >
