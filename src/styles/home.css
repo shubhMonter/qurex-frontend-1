@@ -58,11 +58,25 @@ img.workCardImg
     background: white;
     padding: 10px;
 }
-.howItWorksContainer
+.howItWorksSubContainer
 {
-    margin-top:50px;
+    width: 90%;
+    padding: 50px;
+    margin-left: 80px;
 }
 
+.hiwStepTitle
+{
+    font-size:28px;
+}
+.hiwStepSubTitle
+{
+    font-size:24px;
+}
+.howItWorksTitle
+{
+    font-size:32px;
+}
 /*FAQ's*/
 
 .FAQContainer

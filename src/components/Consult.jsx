@@ -166,7 +166,7 @@ const Consult = () => {
           </div>
 
           <div className="col-md-6">
-            <span className="slot">Slots Available Today</span>
+            <span className="slot pt-5">Slots Available Today</span>
             <span className="gryline"></span>
             <div className="container">
               <div className="row timeSlots pb-32">

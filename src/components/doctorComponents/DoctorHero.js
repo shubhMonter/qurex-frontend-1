@@ -25,11 +25,11 @@ useEffect(() => {
   return (
     <div className="py-5 container-fluid doctorHeroSection">
       <div className="row">
-        <div className="col-12 col-md-6 d-flex justify-content-center">
+        <div className="col-12 col-md-6 justify-content-center">
           <img
             // src="https://quer.vercel.app/static/media/dranita.66f4e152a5afe7abebb0.png"
             src={drDetailData.userId.profilePic}
-            className="rounded-circle drHeroImg"
+            className="rounded-circle drHeroImg m-auto block"
           />
         </div>
         <div className="mt-3 col-12 col-md-6 d-flex flex-column justify-content-center align-items-center align-items-md-start ">

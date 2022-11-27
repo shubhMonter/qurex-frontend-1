@@ -12,7 +12,7 @@ const Footer = () => {
             <div className='col my-auto'>
                 <div className="row pt-5">
                     <div className="col">
-                        <h3>Quick Links</h3>
+                        <h3 className="font-bold">Quick Links</h3>
                         <ul className='list-unstyled'>
                             <li>Sexual issues treated</li>
                             <li>Our sexologist</li>
@@ -22,7 +22,7 @@ const Footer = () => {
                         </ul>
                     </div>
                     <div className="col">
-                        <h3>Policies</h3>
+                        <h3 className="font-bold">Policies</h3>
                         <ul className='list-unstyled'>
                             <li>Refund & cancellation policy</li>
                             <li>Privacy policy</li>
@@ -30,7 +30,7 @@ const Footer = () => {
                         </ul>
                     </div>
                     <div className="col">
-                        <h3>Contact</h3>
+                        <h3 className="font-bold">Contact</h3>
                         <ul className='list-unstyled'>
                             <li>Constact@qurex.ai</li>
                             <li>Chat with us</li>

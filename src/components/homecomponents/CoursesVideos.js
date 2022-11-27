@@ -78,11 +78,11 @@ const CoursesVideos = () => {
     //         </div>
     //       </div>
 
-    <div className="container-fluid">
+    <div className="container-fluid courseSection pb-5">
       <div className="container">
         <div className="row">
           <div className="col">
-            <h1 className="font-bold ml-10">Sex-Ed Courses For Kids</h1>
+            <h1 className="font-bold ml-10 mt-5 courseSectionTitle">Sex-Ed Courses For Kids</h1>
           </div>
           <div className="col-12 d-none d-md-block ml-10">
             <p className="CourseSubTitle">
