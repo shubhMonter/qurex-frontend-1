@@ -8,9 +8,8 @@ export const setAuth = (payload) => {
   });
 };
 
-export const emptyAuth = (payload) => {
+export const emptyAuth = () => {
   dispatch({
     type: CLEAR_AUTH,
-    payload,
   });
 };

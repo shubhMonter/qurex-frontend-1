@@ -1,38 +1,25 @@
-import { useState, useEffect } from 'react';
-import { FaBox, FaHome, FaUserCircle } from 'react-icons/fa';
-import { BiCalendar, BiFullscreen, BiUserPlus } from 'react-icons/bi';
-import { Cookies } from 'react-cookie';
+
+import { BiCalendar,  BiUserPlus } from 'react-icons/bi';
 import { TbCircleCheck } from 'react-icons/tb';
-import userimg from '../../../assets/pngs/user.jpg';
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { emptyAuth } from '../../../state/auth/Actions';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector} from 'react-redux';
 import { Role } from '../../../state/interface';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 const Navbar = ({ toggleMobile }) => {
-  const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth.authData);
- 
-  // const [userData, setUserData] = useState({});
-  // var user1 = JSON.parse(localStorage.getItem('userData') || '[]');
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   var user = JSON.parse(localStorage.getItem('userData') || '[]');
-  //   console.log(user);
-  //   setUserData(user);
-  // }, []);
+
   const signOut = () => {
-    dispatch(emptyAuth());
+    emptyAuth();
     navigate('/');
   };
-  console.log({auth});
-
   return (
     <nav className="md:ml-10 lg:ml-10 xl:ml-10 max-w-full bg-white shadow-sm rounded-md mx-8 mt-5">
       <div className="py-1 justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">

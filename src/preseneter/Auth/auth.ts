@@ -28,8 +28,8 @@ export const SignUpOTP = async (req: Register) => {
 };
 
 export const SignInOTP = async (req: VerifyOTP) => {
-  clearError("authError");
   try {
+    clearError("authError");
     const response = await post(
       BaseSetting.userApiDomain + "/signUpViaOTP",
       req
@@ -70,6 +70,7 @@ export const SignInOTP = async (req: VerifyOTP) => {
 
 export const SubmitVerifyOTP = async (req: VerifyOTP) => {
   try {
+    clearError("authError");
     const { mobile, otp } = req;
     const nReq = {
       mobileNo: mobile,
@@ -114,11 +115,13 @@ export const SubmitVerifyOTP = async (req: VerifyOTP) => {
 };
 
 export const GenerateOTP = async (mobileNo: number) => {
+  clearError("authError");
   return await post(BaseSetting.userApiDomain + "/generateOTP", { mobileNo });
 };
 
 export const SignInWithPass = async (req: Login) => {
   try {
+    clearError("authError");
     const response = await post(BaseSetting.userApiDomain + "/auth", req);
     if (response.data.status === 1) {
       const { role, city, mobile, name, _id: id } = response.data.data;

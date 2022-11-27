@@ -9,7 +9,7 @@ export enum Role {
 export interface GAction<T> {
   type: string;
   payload: T;
-  reducerName: string;
+  reducerName?: string;
 }
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
