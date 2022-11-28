@@ -1,26 +1,51 @@
-import React, { useState } from 'react';
-import { useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { get, headers, post } from '../../../api';
-import { BaseSetting } from '../../../utils/common';
-import { useDispatch } from 'react-redux';
-import { emptyAuth, setAuth } from '../../../state/auth/Actions';
+import { useSelector } from 'react-redux';
+import { emailRegEx, mobileRegEx } from '../../../utils/regex';
+import { SignInWithPass } from '../../../preseneter/Auth/auth';
 
 const UPComp = () => {
-  const dispatch = useDispatch();
-
   const [buttonText, setButtonText] = useState('Login');
   const [disabled, setDisabled] = useState(false);
   const [upInputs, setUpInputs] = useState({});
-  const [errMsg, setErrMsg] = useState(null);
-  const passRef = useRef(null);
-  const mobileRef = useRef(null);
-  const navigate = useNavigate();
-  const handleUPChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setUpInputs((values) => ({ ...values, [name]: value }));
+  const [errMsg, setErrMsg] = useState({ error: '', show: false });
+  const auth = useSelector(state => state.auth.authData.isAuthenticated);
+  const error = useSelector(state => state.auth.authError);
 
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (auth) {
+      navigate('/')
+    }
+  }, [auth])
+  useEffect(() => {
+    setErrMsg(error)
+  },[error])
+  const handleUPChange = (e) => {
+    setErrMsg({error:'',show:false})
+    let name = e.target.name;
+    const value = e.target.value;
+    let loginId = upInputs;
+    if (name === 'userId') {
+      if(value !==''){
+      if (mobileRegEx.test(value)) {
+        name = 'mobile'
+        if (loginId.hasOwnProperty('email')) {
+          delete loginId.email;
+          setUpInputs(loginId)
+        }
+      } else if (emailRegEx.test(value)) {
+        name = 'email'
+        if (loginId.hasOwnProperty('mobile')) {
+          delete loginId.mobile;
+          setUpInputs(loginId)
+        }
+      } else {
+        setErrMsg({error:'Invalid Mobile Number or Email Id',show:true});
+        setDisabled(true);
+        return;
+      }}
+    }
     if (name === 'mobile') {
       // console.log(value);
       let len = value?.length;
@@ -32,14 +57,15 @@ const UPComp = () => {
       let five = value?.startsWith('5');
 
       if (len !== 10 || zero || one || two || three || four || five) {
-        // console.log(value);
-        setErrMsg('Invalid Mobile Number');
+        setErrMsg( {error:'Invalid Mobile Number',show:true});
         setDisabled(true);
+        return;
       } else {
-        setErrMsg(null);
+        setErrMsg({error:'',show:false});
         setDisabled(false);
       }
     }
+    setUpInputs((values) => ({ ...values, [name]: value }));
   };
   const handleUPSubmit = (e) => {
     e.preventDefault();
@@ -57,90 +83,41 @@ const UPComp = () => {
         clearInterval(counter);
       }
     }, 1000);
-    try {
-      const response = await post(
-        BaseSetting.userApiDomain + '/auth',
-        upInputs
-      );
-      const result = response.data;
-      let userHeaders = response.headers;
-      let token = userHeaders['x-auth-token'];
-      let header2 = {
-        Accept: 'application/json',
-        'Access-Control-Allow-Headers': '*',
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
-        'x-auth-token': token,
-      };
-      if (result.status === 1) {
-        const response2 = await get(BaseSetting.userApiDomain + '/me', header2);
-        if (response2?.data?.status === 1) {
-          // response2?.data?.data?._id
-          const response3 = await get(
-            BaseSetting.doctorApiDomain +
-              '/getByUserId/' +
-              response2?.data?.data?._id
-          );
-          const res = response2?.data?.data;
-          const drData = response3?.data?.data;
-          // console.log(response3?.data?.data);
-          
-          dispatch(
-            emptyAuth(res)
-          );
-          dispatch(setAuth({ ...res, drData: drData, token: token }));
-          navigate('/');
-        } else {
-        }
-      } else {
-        // console.log(result.data);
-        if (result.data === 'Invalid mobile number') {
-          setErrMsg('User does not exist with this Mobile Number');
-        }
-        // if (result.data == 'Invalid email or password')
-        //   alert('Invalid email or password');
-        if (result?.data === 'Invalid email or password') {
-          setErrMsg(result?.data);
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    SignInWithPass(upInputs);
+  
   };
   return (
     <form onSubmit={(e) => handleUPSubmit(e)}>
-      <div className="t414 text-[#1C1C1C] mt-7">Mobile Number</div>
+      <div className="t414 text-[#1C1C1C] mt-7">Mobile Number / Email Id</div>
       <div className="mt-3">
         <input
-          ref={mobileRef}
-          name="mobile"
-          value={upInputs.name}
-          onChange={handleUPChange}
+          name="userId"
+          onChange={()=>setErrMsg({error:'',show:false})}
+          onBlur={handleUPChange}
           className="py-3 pl-2 rounded-md border w-9/12 text-[12px] font-normal text-[#666666] outline-none"
-          placeholder="Please enter your mofbile number"
+          placeholder="enter your mobile number or email id"
         />
       </div>
-      {errMsg ? (
-        <div className="mt-2 text-[#da232aff] text-sm">{errMsg}</div>
-      ) : (
-        ''
-      )}
       <div className="mt-4 flex justify-between">
         <div className="t414 text-[#1C1C1C] ">Password</div>
         <div className="text-[#1C5BD9] t512 mr-28 cursor-pointer">
           Forgot password?
         </div>
       </div>
+     
       <div className="mt-3">
         <input
-          ref={passRef}
           name="password"
           value={upInputs.name}
+          type="password"
           onChange={handleUPChange}
           className="py-3 pl-2 rounded-md border w-9/12 text-[12px] font-normal text-[#666666] outline-none"
           placeholder="Enter your Password"
         />
       </div>
+      {errMsg.show && (
+        <div className="mt-2 text-[#da232aff] text-sm">{errMsg.error}</div>
+      ) }
       <div className="mt-2 flex flex-row">
         <div>
           <input type="checkbox" />
