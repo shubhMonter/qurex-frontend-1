@@ -12,9 +12,9 @@ import { AiOutlineFileAdd } from 'react-icons/ai';
 import { BsCameraVideo, BsCameraVideoOff, BsChatDots } from 'react-icons/bs';
 import { useNavigate } from 'react-router';
 
-const APP_ID = '6c3a0d0482ec419cb08f21a19e0a900c';
+const APP_ID = '487313108aca464bb93de894daedc887';
 const TOKEN =
-  '007eJxTYJj54Lpg245racHfuFM/yJw+qTMtYIsNB9/Me4++3l93+3OlAoNZsnGiQYqBiYVRarKJoWVykoFFmpFhoqFlqkGipYFBctWWhuSGQEaGAIXfzIwMEAjiszIElhalVjAwAABIlSKY';
+  '007eJxTYFjvwS17bv7L2nmfrpxy/CAc3nJC2E7TWX0l459TN0S2rBNQYDCxMDc2NDY0sEhMTjQxM0lKsjROSbWwNElJTE1JtrAw78ltSW4IZGR4cUeekZEBAkF8VobA0qLUCgYGAH89IEw=';
 
 const CHANNEL = 'Qurex';
 
