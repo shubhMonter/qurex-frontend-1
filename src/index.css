@@ -320,6 +320,33 @@
   color: black;
   font-weight: 600;
 }
+.highlightGreen
+{
+  height: auto;
+  background-color: lightgreen;
+  color: green;
+  font-weight: 500;
+  padding: 3px;
+  width: fit-content;
+  font-size: 14px;
+  text-align: center;
+  margin-top: -5px;
+}
+
+.highlightPurple
+{
+  background-color: #e2d3ff;
+  color: #613aac;
+  font-weight: 500;
+  padding: 3px;
+  width: fit-content;
+  font-size: 14px;
+  text-align: center;  
+  margin-top: 10px;
+  height: 25px;
+}
+
+
 
 @media only screen and (max-width: 600px) {
   .docabouthome > span {

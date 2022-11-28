@@ -1,23 +1,25 @@
-import React from 'react'
+import React from 'react';
+import threePeople from '../../assets/svgs/threePeople.svg';
 
 const DiscoverHero = () => {
   return (
-    <div className="container-fluid treatmentPageSection pt-5">
-    <div className="container shadow rounded">
-    <div className="row justify-content-between">
-    <div className="col-12 col-md-5 d-flex my-5 ms-md-5 flex-column align-items-center align-items-md-start justify-content-center"> 
-    <h3 className='DiscoverHeroSubTitle'>Welcome to</h3>
-    <h1 className='DiscoverHeroTitle'>Discover & Learn</h1>
-    {/* <p className='px-4 px-md-0 text-center text-md-start DiscoverHeroParagraph'>ED is defined as the inability to sustain an erection sufficient for sexual intercourse. The condition can affect anyone at any age.</p> */}
-     <button className="btn btn-lg-large btn-primary rounded-pill  heroContainerContactBtn">Consult Now</button>
 
-    </div>
-    <div className="col-12 col-md-6 p-0"> 
-    <img className="img-fluid" src="https://quer.vercel.app/static/media/trtmnt01.641bca482fbcf12e518c.png"/></div>
-    </div>
-    </div>
+    <div className='heroSection'>
+      <div className="heroDiscoverContainer">
+        <div className='row d-flex justify-content-end'>
+            <div className="col-12 col-md-6 my-3 text-left m-auto w-9/12">
+                    <p className="heroContainerParagraph mx-auto pt-20 w-9/12">Home &gt; Course Listing</p>
+                    <h1 className="heroContainerTitle mx-auto font-bold w-9/12">Enhance your knowledge from the topcourses</h1>
+                    <div>
+                </div>
+            </div>
+            <div className='col-12 col-md-6'>
+                <img className='img-fluid heroImageContainer float-right' src={threePeople}/>
+            </div>
+        </div>
+      </div>
     </div>
   )
 }
 
-export default DiscoverHero
+export default DiscoverHero;

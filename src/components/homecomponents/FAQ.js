@@ -49,8 +49,8 @@ const Features = () => {
 
   
   return (
-    <div className="mb-5 container-fluid faqSection">
-      <div className="mb-5 container container-fluid">
+    <div className="mb-5 faqSection">
+      <div className="container container-fluid">
         <div className="row">
           <div className="col">
             <h1 className="faqTitle ml-10 font-bold">Frequently Asked Questions</h1>
