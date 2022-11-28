@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { GenerateOTP, SubmitVerifyOTP } from '../../../preseneter/Auth/auth';
-import CommonOTP from '../commonOtp';
+import CommonOTP from '../../../common/components/OTP/commonOtp';
 const OTPComp = () => {
   const [buttonText, setButtonText] = useState('Get OTP');
   const [loginText, setLoginText] = useState('Login');

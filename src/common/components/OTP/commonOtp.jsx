@@ -1,5 +1,5 @@
 import React,{ useState } from "react";
-import DiscMsg from "../../common/components/DisclaimerMsg";
+import DiscMsg from "../DisclaimerMsg";
 
 const CommonOTP = (props) => {
     const [otp, setOtp] = useState(["", "", "", ""]);
@@ -17,7 +17,7 @@ const CommonOTP = (props) => {
     return (
         <div className="flex flex-col bg-white">
         <form onSubmit={(e)=>props.handleOtpSubmit(e,otp.join(''))}>
-          <div className="md:px-28 lg:px-28 xl:px-28 md:py-16 lg:py-16 xl:py-16 flex flex-col bg-white">
+         
                 <div className="w-9/12 t414 text-[#1C1C1C] mt-16 grid grid-cols-4" >
                   
                   { otp && otp.length > 0 && otp.map((x, i) => {
@@ -60,7 +60,7 @@ const CommonOTP = (props) => {
                 {props.loginText}
               </button>
             </div>
-          </div>
+     
         </form>
         <DiscMsg />
       </div>

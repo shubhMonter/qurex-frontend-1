@@ -5,7 +5,7 @@ import DiscMsg from '../../common/components/DisclaimerMsg';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
 import { SignInOTP, SignUpOTP } from '../../preseneter/Auth/auth';
-import CommonOTP from '../Login/commonOtp';
+import CommonOTP from '../../common/components/OTP/commonOtp';
 
 const Register = () => {
   const [formData, setFormData] = useState({name:'',email:'',mobile:''});
@@ -66,7 +66,10 @@ const Register = () => {
         <img className="min-h-screen" src={qurexhome} alt="" />
       </div>
       {/* <OTPComp className="col-span-1" /> */}
-      {submitOtp ? <CommonOTP handleOtpSubmit={handleOtpSubmit} err={err} loginText={loginText} validateDisabled={false} />: <div className="flex flex-col bg-white">
+      {submitOtp ? (
+        <div className="md:px-28 lg:px-28 xl:px-28 md:py-16 lg:py-16 xl:py-16 flex flex-col bg-white">
+          <CommonOTP handleOtpSubmit={handleOtpSubmit} err={err} loginText={loginText} validateDisabled={false} />
+        </div>) : <div className="flex flex-col bg-white">
         <form onSubmit={handleFormSubmit}>
           <div className="md:px-28 lg:px-28 xl:px-28 md:py-16 lg:py-16 xl:py-16 flex flex-col bg-white">
             <div className="t414 text-[#1C1C1C] mt-7">Name</div>

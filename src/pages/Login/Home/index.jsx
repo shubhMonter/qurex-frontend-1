@@ -33,7 +33,7 @@ const Home = () => {
 
         {byPass ? <UPComp /> : <OTPComp />}
 
-        <div className="mt-4 ml-9 flex flex-row t514 text-[#666666] ">
+        <div className="mt-4 flex flex-row t514 text-[#666666] ">
           <div className="">Don’t have an account? </div>
           <div className="text-[#1C5BD9] pl-1">
             <Link className="no-underline pl-[2px] " to="/register">
