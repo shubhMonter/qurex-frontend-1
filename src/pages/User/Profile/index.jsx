@@ -1,18 +1,16 @@
 import React from 'react';
-import { useEffect } from 'react';
 import { useState } from 'react';
-import { BsUpload } from 'react-icons/bs';
-import { dheaders, get, headers, put } from '../../../api';
-import user from '../../../assets/pngs/user.jpg';
+import { put } from '../../../api';
 import { BaseSetting } from '../../../utils/common';
-import jwt_decode from 'jwt-decode';
 import '../../../styles/Profile.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { setAuth } from '../../../state/auth/Actions';
+import { ProfileUpdate } from '../../../preseneter/DashBoard/Profile';
 
 const PersonalDetail = () => {
-  const auth = useSelector((state) => state.auth);
-  let userData = auth?.data;
+  const auth = useSelector((state) => state.auth.authData);
+  const error = useSelector((state) => state.auth.authError);
+  let userData = auth?.user;
   const [selectedImages, setSelectedImages] = useState([]);
 
   const onSelectFile = (event) => {
@@ -24,50 +22,13 @@ const PersonalDetail = () => {
     });
 
     setSelectedImages((previousImages) => previousImages.concat(imagesArray));
-
+    
     // FOR BUG IN CHROME
     event.target.value = '';
   };
-
-  function deleteHandler(image) {
-    setSelectedImages(selectedImages.filter((e) => e !== image));
-    URL.revokeObjectURL(image);
-  }
-  const dispatch = useDispatch();
   const [loader, setLoader] = useState(false);
   const [validateDisabled, setValidateDisabled] = useState(false);
-
   const [inputs, setInputs] = useState({});
-  const [data, setData] = useState([]);
-  const [userId, setUserId] = useState('');
-
-  useEffect(() => {
-    getData();
-
-    // var token =
-    //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzVmY2YzZWY2MDg3Y2I1MzkzOGNmZjkiLCJyb2xlIjoiZG9jdG9yIiwiaWF0IjoxNjY3MjIzMzU5fQ.hb3I5N2tNlK9rRQa1Oq4FsLTENJ_lLeUQaNjRiGwOHw';
-    // var decoded = jwt_decode(token);
-    // setUserId(decoded._id);
-  }, []);
-  const getData = async () => {
-    try {
-      const response = await get(BaseSetting.userApiDomain + '/me', {
-        'x-auth-token': userData?.token,
-      });
-      // setApiData(response.userData?.data);
-
-      const result = response.data;
-      //console.log(result);
-      if (result.status == 1) {
-        setData(result.data);
-        console.log(result);
-      } else {
-        //console.log(result);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -79,23 +40,14 @@ const PersonalDetail = () => {
     updateData();
   };
   const updateData = async () => {
-    //console.log(inputs);
+  
     try {
       setValidateDisabled(true);
       setLoader(true);
-
-      const response = await put(
-        BaseSetting.userApiDomain + `/${userData?._id}`,
-        inputs,
-        { 'x-auth-token': userData?.token }
-      );
-      const result = response.data;
-      if (result.status === 1) {
-        dispatch(setAuth({ ...result.data, token: userData?.token }));
-        getData();
-        setLoader(false);
-        setValidateDisabled(false);
-      }
+      await ProfileUpdate(userData.id,inputs,auth.token)
+      setLoader(false);
+      setValidateDisabled(false);
+     
     } catch (error) {
       alert('Error Updating Data');
     }
@@ -107,7 +59,7 @@ const PersonalDetail = () => {
           <div className="flex justify-center">
             <section>
               <label className="text-sm truncate px-2">
-                Upload Your Photo <br />
+                Upload Your Photo  <br />
                 <input
                   className="hidden"
                   type="file"
@@ -116,9 +68,10 @@ const PersonalDetail = () => {
                   multiple
                   accept="image/png , image/jpeg, image/webp"
                 />
+<img src={userData.profilePic} />
               </label>
               <br />
-
+                
               {/* <input className="hidden" type="file" multiple /> */}
 
               {/* {selectedImages.length > 0 &&
@@ -193,7 +146,7 @@ const PersonalDetail = () => {
             <div className="text-xs">City</div>
             <div className="border rounded-md border-gray-200 ">
               <select
-                value={inputs.name || userData?.city}
+                value={inputs.city || userData?.city}
                 name="city"
                 onChange={handleChange}
                 className="py-1.5 pl-3 w-full outline-none"
@@ -205,6 +158,11 @@ const PersonalDetail = () => {
               </select>
             </div>
           </div>
+          {error.show &&  (
+          <div className="mt-2 text-[#da232aff] text-sm">
+            {error.error}
+          </div>
+        )}
           <div className="mb-10 flex justify-end">
             <div
               className={`${
