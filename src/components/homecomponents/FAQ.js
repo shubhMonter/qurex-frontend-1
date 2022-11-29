@@ -49,8 +49,8 @@ const Features = () => {
 
   
   return (
-    <div className="mb-5 container-fluid faqSection">
-      <div className="mb-5 container container-fluid">
+    <div className="mb-5 faqSection">
+      <div className="container container-fluid">
         <div className="row">
           <div className="col">
             <h1 className="faqTitle ml-10 font-bold">Frequently Asked Questions</h1>
@@ -58,18 +58,18 @@ const Features = () => {
         </div>
         <Tabs variant="pills" defaultActiveKey="male" className="mx-10 my-5">
           <Tab eventKey="male" title="Male">
-          <Slider {...settings} className="mb-5 btmSpace">
+          <Slider {...settings} className="mb-5 pb-12">
 
               <div className="FaqCardContainer">
                 <div className="mx-auto FAQContainer">
                 
                     <div className="flip-box-front">
                       <img src={faqCardLine} className="faqCardDash" />
-                      <h3>What is sexology?</h3>
+                      <h4 className="font-bold">What is sexology?</h4>
                     </div>
                     <div className="flip-box-back">
                       <img src={faqCardLine} className="faqCardDash" />
-                        <h4>What is sexology?</h4>
+                        <h5 className="font-bold">What is sexology?</h5>
                         Our experience in deploying healthcare chabots give us an
                         edge in understanding industry specific challenges.
                     </div>
@@ -82,11 +82,11 @@ const Features = () => {
 
                 <div className="flip-box-front">
                   <img src={faqCardLine} className="faqCardDash" />
-                  <h3>Can I give my baby fruit and vegetables during weaning?</h3>
+                  <h4 className="font-bold">Can I give my baby fruit and vegetables during weaning?</h4>
                 </div>
                 <div className="flip-box-back">
                   <img src={faqCardLine} className="faqCardDash" />
-                  <h4>Can I give my baby fruit and vegetables during weaning?</h4>
+                  <h5 className="font-bold">Can I give my baby fruit and vegetables during weaning?</h5>
                   Our experience in deploying healthcare chabots give us.
                 </div>
 
@@ -98,11 +98,11 @@ const Features = () => {
 
                   <div className="flip-box-front">
                     <img src={faqCardLine} className="faqCardDash" />
-                    <h3>Do potatoes count as one of my 5 A Day?</h3>
+                    <h4 className="font-bold">Do potatoes count as one of my 5 A Day?</h4>
                   </div>
                   <div className="flip-box-back">
                     <img src={faqCardLine} className="faqCardDash" />
-                    <h4>Do potatoes count as one of my 5 A Day?</h4>
+                    <h5 className="font-bold">Do potatoes count as one of my 5 A Day?</h5>
                     Our experience in deploying healthcare chabots give us.
                   </div>
               
@@ -115,11 +115,11 @@ const Features = () => {
 
                   <div className="flip-box-front">
                     <img src={faqCardLine} className="faqCardDash" />
-                    <h3>Can I just eat five portions of my favourite fruit or vegetable?</h3>
+                    <h4 className="font-bold">Can I just eat five portions of my favourite fruit or vegetable?</h4>
                   </div>
                   <div className="flip-box-back">
                     <img src={faqCardLine} className="faqCardDash" />
-                    <h4>Can I just eat five portions of my favourite fruit or vegetable?</h4>
+                    <h5 className="font-bold">Can I just eat five portions of my favourite fruit or vegetable?</h5>
                     Our experience in deploying healthcare chabots give us.
                   </div>
 
@@ -131,11 +131,11 @@ const Features = () => {
                 
                 <div className="flip-box-front">
                       <img src={faqCardLine} className="faqCardDash" />
-                      <h3>What is sexology?</h3>
+                      <h4 className="font-bold">What is sexology?</h4>
                     </div>
                     <div className="flip-box-back">
                       <img src={faqCardLine} className="faqCardDash" />
-                        <h4>What is sexology?</h4>
+                        <h5 className="font-bold">What is sexology?</h5>
                         Our experience in deploying healthcare chabots give us an
                         edge in understanding industry specific challenges.
                     </div>
@@ -145,18 +145,18 @@ const Features = () => {
             </Slider>
           </Tab>
           <Tab eventKey="female" title="Female">
-          <Slider {...settings} className="mb-5 btmSpace">
+          <Slider {...settings} className="mb-5 pb-12">
 
 <div className="FaqCardContainer">
   <div className="mx-auto FAQContainer">
   
       <div className="flip-box-front">
         <img src={faqCardLine} className="faqCardDash" />
-        <h3>What is sexology?</h3>
+        <h4 className="font-bold">What is sexology?</h4>
       </div>
       <div className="flip-box-back">
         <img src={faqCardLine} className="faqCardDash" />
-          <h4>What is sexology?</h4>
+          <h5 className="font-bold">What is sexology?</h5>
           Our experience in deploying healthcare chabots give us an
           edge in understanding industry specific challenges.
       </div>
@@ -169,11 +169,11 @@ const Features = () => {
 
   <div className="flip-box-front">
     <img src={faqCardLine} className="faqCardDash" />
-    <h3>Can I give my baby fruit and vegetables during weaning?</h3>
+    <h4 className="font-bold">Can I give my baby fruit and vegetables during weaning?</h4>
   </div>
   <div className="flip-box-back">
     <img src={faqCardLine} className="faqCardDash" />
-    <h4>Can I give my baby fruit and vegetables during weaning?</h4>
+    <h5 className="font-bold">Can I give my baby fruit and vegetables during weaning?</h5>
     Our experience in deploying healthcare chabots give us.
   </div>
 
@@ -185,11 +185,11 @@ const Features = () => {
 
     <div className="flip-box-front">
       <img src={faqCardLine} className="faqCardDash" />
-      <h3>Do potatoes count as one of my 5 A Day?</h3>
+      <h4 className="font-bold">Do potatoes count as one of my 5 A Day?</h4>
     </div>
     <div className="flip-box-back">
       <img src={faqCardLine} className="faqCardDash" />
-      <h4>Do potatoes count as one of my 5 A Day?</h4>
+      <h5 className="font-bold">Do potatoes count as one of my 5 A Day?</h5>
       Our experience in deploying healthcare chabots give us.
     </div>
 
@@ -202,11 +202,11 @@ const Features = () => {
 
     <div className="flip-box-front">
       <img src={faqCardLine} className="faqCardDash" />
-      <h3>Can I just eat five portions of my favourite fruit or vegetable?</h3>
+      <h4 className="font-bold">Can I just eat five portions of my favourite fruit or vegetable?</h4>
     </div>
     <div className="flip-box-back">
       <img src={faqCardLine} className="faqCardDash" />
-      <h4>Can I just eat five portions of my favourite fruit or vegetable?</h4>
+      <h5 className="font-bold">Can I just eat five portions of my favourite fruit or vegetable?</h5>
       Our experience in deploying healthcare chabots give us.
     </div>
 
@@ -218,11 +218,11 @@ const Features = () => {
   
   <div className="flip-box-front">
         <img src={faqCardLine} className="faqCardDash" />
-        <h3>What is sexology?</h3>
+        <h4 className="font-bold">What is sexology?</h4>
       </div>
       <div className="flip-box-back">
         <img src={faqCardLine} className="faqCardDash" />
-          <h4>What is sexology?</h4>
+          <h5 className="font-bold">What is sexology?</h5>
           Our experience in deploying healthcare chabots give us an
           edge in understanding industry specific challenges.
       </div>
@@ -232,18 +232,18 @@ const Features = () => {
 </Slider>
           </Tab>
           <Tab eventKey="couples" title="Couples">
-          <Slider {...settings} className="mb-5 btmSpace">
+          <Slider {...settings} className="mb-5 pb-12">
 
 <div className="FaqCardContainer">
   <div className="mx-auto FAQContainer">
   
       <div className="flip-box-front">
         <img src={faqCardLine} className="faqCardDash" />
-        <h3>What is sexology?</h3>
+        <h4 className="font-bold">What is sexology?</h4>
       </div>
       <div className="flip-box-back">
         <img src={faqCardLine} className="faqCardDash" />
-          <h4>What is sexology?</h4>
+          <h5 className="font-bold">What is sexology?</h5>
           Our experience in deploying healthcare chabots give us an
           edge in understanding industry specific challenges.
       </div>
@@ -256,11 +256,11 @@ const Features = () => {
 
   <div className="flip-box-front">
     <img src={faqCardLine} className="faqCardDash" />
-    <h3>Can I give my baby fruit and vegetables during weaning?</h3>
+    <h4 className="font-bold">Can I give my baby fruit and vegetables during weaning?</h4>
   </div>
   <div className="flip-box-back">
     <img src={faqCardLine} className="faqCardDash" />
-    <h4>Can I give my baby fruit and vegetables during weaning?</h4>
+    <h5 className="font-bold">Can I give my baby fruit and vegetables during weaning?</h5>
     Our experience in deploying healthcare chabots give us.
   </div>
 
@@ -272,11 +272,11 @@ const Features = () => {
 
     <div className="flip-box-front">
       <img src={faqCardLine} className="faqCardDash" />
-      <h3>Do potatoes count as one of my 5 A Day?</h3>
+      <h4 className="font-bold">Do potatoes count as one of my 5 A Day?</h4>
     </div>
     <div className="flip-box-back">
       <img src={faqCardLine} className="faqCardDash" />
-      <h4>Do potatoes count as one of my 5 A Day?</h4>
+      <h5 className="font-bold">Do potatoes count as one of my 5 A Day?</h5>
       Our experience in deploying healthcare chabots give us.
     </div>
 
@@ -289,11 +289,11 @@ const Features = () => {
 
     <div className="flip-box-front">
       <img src={faqCardLine} className="faqCardDash" />
-      <h3>Can I just eat five portions of my favourite fruit or vegetable?</h3>
+      <h4 className="font-bold">Can I just eat five portions of my favourite fruit or vegetable?</h4>
     </div>
     <div className="flip-box-back">
       <img src={faqCardLine} className="faqCardDash" />
-      <h4>Can I just eat five portions of my favourite fruit or vegetable?</h4>
+      <h5 className="font-bold">Can I just eat five portions of my favourite fruit or vegetable?</h5>
       Our experience in deploying healthcare chabots give us.
     </div>
 
@@ -305,11 +305,11 @@ const Features = () => {
   
   <div className="flip-box-front">
         <img src={faqCardLine} className="faqCardDash" />
-        <h3>What is sexology?</h3>
+        <h4 className="font-bold">What is sexology?</h4>
       </div>
       <div className="flip-box-back">
         <img src={faqCardLine} className="faqCardDash" />
-          <h4>What is sexology?</h4>
+          <h5 className="font-bold">What is sexology?</h5>
           Our experience in deploying healthcare chabots give us an
           edge in understanding industry specific challenges.
       </div>
