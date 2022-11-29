@@ -11,14 +11,14 @@ import DoctorAPI from '../../../../api/doctorAPI';
 import { useSelector, useDispatch } from 'react-redux';
 
 const Appointment = () => {
-  const auth = useSelector((state) => state.auth);
-  let doctorData = auth.data;
+  const auth = useSelector((state) => state.auth.authData);
+  let doctorData = auth.user;
   const [activeTab, setActiveTab] = useState('upcomming');
   const [myBookings, setMyBookings] = useState([]);
   const getBookings = async () => {
     const bookings = await DoctorAPI.getMyBookings(
       doctorData,
-      doctorData.doctorHeaders
+      auth.token
     );
     //console.log(bookings);
     if (bookings && bookings?.length > 0) {

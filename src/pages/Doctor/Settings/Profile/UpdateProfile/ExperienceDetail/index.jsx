@@ -1,66 +1,30 @@
 import React from 'react';
-import { useState } from 'react';
-import { useEffect } from 'react';
 import { RiDeleteBinLine } from 'react-icons/ri';
-import { get, headers, put } from '../../../../../../api';
-import { BaseSetting } from '../../../../../../utils/common';
-import jwt_decode from 'jwt-decode';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
+import { UpdateDoctorsDetails } from '../../../../../../preseneter/DashBoard/Doctor';
 const ExperienceDetail = () => {
-  const auth = useSelector((state) => state.auth);
-  let doctorData = auth?.data;
-  const [data, setData] = useState([]);
+  const auth = useSelector((state) => state.auth.authData);
+  const doctor  = useSelector((state) => state.doctor);
+  const {experience:experienceData,id} = doctor
 
-  useEffect(() => {
-    getData();
-  }, []);
 
-  const getData = async () => {
-    try {
-      if (navigator.onLine) {
-        const response = await get(
-          BaseSetting.doctorApiDomain + `/getByUserId/${doctorData._id}`,
-          headers
-        );
-        // setApiData(response.data.data);
-        const result = response.data;
-
-        if (result.status == 1) {
-          setData(result.data);
-          // console.log(result);
-        } else {
-          //console.log(result);
-        }
-      } else {
-      }
-    } catch (error) {}
-  };
   const updateData = async (experience) => {
     experience.map(x=> x._id && delete x._id)
-    return put(
-      BaseSetting.doctorApiDomain + `/${data?._id}`,
-      {
-        experience
-      },
-      headers)
+    return await UpdateDoctorsDetails(id,{experience},auth.token)
   }
   const deleteExpirience = async(id) => {
-    const index = data.experience.findIndex(x => x._id == id);
-    const experience = data.experience;
+    const index = experienceData.findIndex(x => x._id == id);
+    const experience = experienceData;
     experience.splice(index, 1);
     try {
       if (navigator.onLine) {
         const response = await updateData(experience)
-        const result = response.data;
-        
-        if (result.status == 1) {
-          getData();
-          
+        if (!response) {
+          alert('Error Updating Data');
         }
-      } else {
-      }
+      } 
     } catch (error) {
       alert('Error Updating Data');
     }
@@ -87,25 +51,90 @@ const ExperienceDetail = () => {
         to: values.to,
         designation: values.designation,
       };
-      console.log(postUpdatedData);
-      //dispatch(postActions.updatePost(postUpdatedData));
       try {
         if (navigator.onLine) {
-          const response = await updateData([...data.experience,postUpdatedData])
-          const result = response.data;
-          console.log(result);
-          if (result.status == 1) {
-            getData();
+          const response = await updateData([...experienceData, postUpdatedData])
+          if (response) {
             resetForm();
+          } else {
+            alert('Error Updating Data');
           }
-        } else {
-        }
+        } 
       } catch (error) {
         alert('Error Updating Data');
       }
-      getData();
     },
   });
+  const experinceUI =  experienceData?.map(x => {
+    return (
+      <>
+        <div className="col-span-9 md:col-span-2 lg:col-span-2 xl:col-span-2  mt-5 flex flex-col">
+    
+    <div className=" border-gray-200 border rounded-md mt-1">
+      <input
+        className="text-xs py-3 pl-3 w-full outline-none"
+        id="hospitalName"
+        name="hospitalName"
+        type="text"
+        placeholder="hospitalName"
+        defaultValue={x.hospitalName}
+        disabled
+      />
+    </div>
+   
+  </div>
+  <div className="col-span-9 md:col-span-2 lg:col-span-2 xl:col-span-2  mt-5 flex flex-col">
+   
+    <div className=" border-gray-200 border rounded-md mt-1">
+      <input
+        className="text-xs py-3 pl-3 w-full outline-none"
+        id="from"
+        name="from"
+        type="text"
+        value={x.from}
+        disabled
+      />
+    </div>
+   
+  </div>
+  <div className="col-span-9 md:col-span-2 lg:col-span-2 xl:col-span-2  mt-5 flex flex-col">
+   
+    <div className=" border-gray-200 border rounded-md mt-1">
+      <input
+        className="text-xs py-3 pl-3 w-full outline-none"
+        id="to"
+        name="to"
+        type="text"
+        placeholder="to"
+        value={x.to}
+        disabled
+      />
+    </div>
+   
+  </div>
+  <div className="col-span-9 md:col-span-2 lg:col-span-2 xl:col-span-2  mt-5 flex flex-col">
+    
+    <div className=" border-gray-200 border rounded-md mt-1">
+      <input
+        className="text-xs py-3 pl-3 w-full outline-none"
+        id="designation"
+        name="designation"
+        type="text"
+        placeholder="designation"
+        value={x.designation}
+        disabled
+      />
+    </div>
+   
+        </div>
+        <div className=" mt-10  text-white cursor-pointer flex justify-center items-center col-span-9 md:col-span-1 lg:col-span-1 xl:col-span-1 ">
+    <div className="bg-[#ea5455] px-6 py-2 rounded-md" onClick={()=> deleteExpirience(x._id)}>
+      <RiDeleteBinLine className="h-5 w-5" />
+    </div>
+  </div>
+      </>
+    )
+  })
   return (
     <div className="text-[#626262] mt-6 px-9 col-span-3 md:col-span-2 lg:col-span-2 xl:col-span-2 flex flex-col">
       <div className="mt-5 text-lg font-semibold flex flex-col">Experience</div>
@@ -138,7 +167,7 @@ const ExperienceDetail = () => {
                   className="text-xs py-3 pl-3 w-full outline-none"
                   id="from"
                   name="from"
-                  type="date"
+                  type="number"
                   placeholder="from"
                   value={formik.values.from}
                   onChange={formik.handleChange}
@@ -155,7 +184,7 @@ const ExperienceDetail = () => {
                   className="text-xs py-3 pl-3 w-full outline-none"
                   id="to"
                   name="to"
-                  type="date"
+                  type="number"
                   placeholder="to"
                   value={formik.values.to}
                   onChange={formik.handleChange}
@@ -186,76 +215,7 @@ const ExperienceDetail = () => {
           </div>
           
           {
-            data?.experience?.map(x => {
-              return (
-                <>
-                  <div className="col-span-9 md:col-span-2 lg:col-span-2 xl:col-span-2  mt-5 flex flex-col">
-              
-              <div className=" border-gray-200 border rounded-md mt-1">
-                <input
-                  className="text-xs py-3 pl-3 w-full outline-none"
-                  id="hospitalName"
-                  name="hospitalName"
-                  type="text"
-                  placeholder="hospitalName"
-                  defaultValue={x.hospitalName}
-                  disabled
-                />
-              </div>
-             
-            </div>
-            <div className="col-span-9 md:col-span-2 lg:col-span-2 xl:col-span-2  mt-5 flex flex-col">
-             
-              <div className=" border-gray-200 border rounded-md mt-1">
-                <input
-                  className="text-xs py-3 pl-3 w-full outline-none"
-                  id="from"
-                  name="from"
-                  type="text"
-                  value={new Date(x.from).toLocaleDateString()}
-                  disabled
-                />
-              </div>
-             
-            </div>
-            <div className="col-span-9 md:col-span-2 lg:col-span-2 xl:col-span-2  mt-5 flex flex-col">
-             
-              <div className=" border-gray-200 border rounded-md mt-1">
-                <input
-                  className="text-xs py-3 pl-3 w-full outline-none"
-                  id="to"
-                  name="to"
-                  type="text"
-                  placeholder="to"
-                  value={new Date(x.to).toLocaleDateString()}
-                  disabled
-                />
-              </div>
-             
-            </div>
-            <div className="col-span-9 md:col-span-2 lg:col-span-2 xl:col-span-2  mt-5 flex flex-col">
-              
-              <div className=" border-gray-200 border rounded-md mt-1">
-                <input
-                  className="text-xs py-3 pl-3 w-full outline-none"
-                  id="designation"
-                  name="designation"
-                  type="text"
-                  placeholder="designation"
-                  value={x.designation}
-                  disabled
-                />
-              </div>
-             
-                  </div>
-                  <div className=" mt-10  text-white cursor-pointer flex justify-center items-center col-span-9 md:col-span-1 lg:col-span-1 xl:col-span-1 ">
-              <div className="bg-[#ea5455] px-6 py-2 rounded-md" onClick={()=> deleteExpirience(x._id)}>
-                <RiDeleteBinLine className="h-5 w-5" />
-              </div>
-            </div>
-                </>
-              )
-            })
+           experinceUI
           }
             
           </div>
