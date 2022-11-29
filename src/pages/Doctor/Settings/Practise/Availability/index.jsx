@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { capitalize } from 'lodash';
 import UserApi from '../../../../../api/UserAPI';
 import { setAuth } from '../../../../../state/auth/Actions';
+import Accordion from 'react-bootstrap/Accordion';
+
 // import { getBusinessHours } from '../../../../../api/UserAPI'
 
 const days = [
@@ -116,8 +118,8 @@ const Availability = () => {
         )}
 
         <div className="font-montserrat text-[#636363] shadow-lg rounded-lg bg-white flex flex-col ">
-          <div className="grid p-3 text-xs grid-rows-8 sm:text-sm md:text-lg lg:text-lg xl:text-lg">
-            <div className="grid grid-cols-9 col-span-1 pt-5 font-bold text-black bg-gray-100 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 md:pl-5 lg:pl-5 xl:pl-5">
+          <div className="p-3 text-xs grid-rows-8 sm:text-sm md:text-lg lg:text-lg xl:text-lg">
+            <div className="grid grid-cols-9 col-span-1 pt-2.5 pb-2.5 mb-2.5 font-bold text-black bg-gray-100 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 md:pl-5 lg:pl-5 xl:pl-5">
               <div className="col-span-2 font-bold md:col-span-1 lg:col-span-1 xl:col-span-1 ">
                 Day
               </div>
@@ -130,7 +132,32 @@ const Availability = () => {
               <div className="col-span-1">Add</div>
             </div>
 
-            {businessHoursData.map((time, key) =>
+            {days.map((itemDay, key) => 
+
+            <Accordion>
+              <Accordion.Item eventKey={key}>
+                <Accordion.Header>{itemDay.toUpperCase()}</Accordion.Header>
+                <Accordion.Body>
+                {businessHoursData.map((time, key) =>
+
+                time.day == itemDay ?
+                  time.slots.map((slot, index) => (
+                    <PerDayBussinessHours
+                      key={`${key}-${index}`}
+                      number={key}
+                      {...time}
+                      index={index}
+                      addNewRow={addNewRow}
+                      handleChange={handleChange}
+                    />
+                  ))
+                  : <span></span>
+                )}
+                </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
+            )}
+            {/* {businessHoursData.map((time, key) =>
               time.slots.map((slot, index) => (
                 <PerDayBussinessHours
                   key={`${key}-${index}`}
@@ -141,7 +168,7 @@ const Availability = () => {
                   handleChange={handleChange}
                 />
               ))
-            )}
+            )} */}
           </div>
           <div className="my-3 ml-3 md:ml-8 lg:ml-8 xl:ml-8 ">
             <button
