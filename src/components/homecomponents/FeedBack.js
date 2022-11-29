@@ -90,7 +90,7 @@ const FeedBack = () => {
           </div>
         </div>
 
-        <div className="container btmSpace">
+        <div className="container pb-12">
           <div className="row">
             <div className="col-12 position-relative">
               <div className="feedBackCircle">

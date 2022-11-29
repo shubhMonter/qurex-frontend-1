@@ -60,24 +60,6 @@ const CoursesVideos = () => {
   };
   return (
 
-    // <div className="container-fluid FeatureSection">
-    //     <div className="container">
-    //       <div className="row">
-    //         <div className="col">
-    //         <h1 className="featureTitle font-bold ms-5 ms-md-0">
-    //             Sexual Issues we Treat
-    //           </h1>
-    //         </div>
-    //         <div className="py-2 col text-end d-none d-md-block">
-    //           <button
-    //             type="button"
-    //             className="btn btn-outline-primary featureViewBtn rounded-pill"
-    //           >
-    //             View All
-    //           </button>
-    //         </div>
-    //       </div>
-
     <div className="container-fluid courseSection pb-5">
       <div className="container">
         <div className="row">

@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { BsPlayCircleFill } from 'react-icons/bs';
-import doc3 from '../../assets/svgs/doc3.svg';
-import { get, headers } from '../../api';
-import { BaseSetting } from '../../utils/common';
 import { useSelector, useDispatch } from 'react-redux';
-import { setAuth } from '../../state/auth/Actions';
-import doctorApi from '../../api/doctorAPI';
-import { addData } from '../../state/doctor/Actions';
 import '../../styles/doctor.css';
 
 const DoctorHero = ({ drDetailData }) => {
@@ -27,7 +21,6 @@ useEffect(() => {
       <div className="row">
         <div className="col-12 col-md-6 justify-content-center">
           <img
-            // src="https://quer.vercel.app/static/media/dranita.66f4e152a5afe7abebb0.png"
             src={drDetailData.userId.profilePic}
             className="rounded-circle drHeroImg m-auto block"
           />
@@ -36,7 +29,6 @@ useEffect(() => {
           <div className="d-flex align-items-center">
             <h1 className="fw-bolder">{docName}</h1>
             <p className="mx-2 mt-2 btn btn-primary btn-sm rounded-pill">
-              {/* {drDetailData?.professionalDetail?.specializations[0]} */}
               {docDesig}
             </p>
           </div>

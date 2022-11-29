@@ -26,14 +26,14 @@ const DoctorData = ({ drDetailData }) => {
     <div className="container">
       <div className="row">
       <div className="col-12">
-          <div className="btmSpace">
-            Dr. {drDetailData?.drUserData?.name} is a well known men & women's sexual health expert. She has obtained his MBBS and DGO degrees from Netaji Subhash Chandra bose Medical College. <br/>
+          <div className="pb-12">
+            Dr. {drDetailData?.userId?.name} is a well known men & women's sexual health expert. She has obtained his MBBS and DGO degrees from Netaji Subhash Chandra bose Medical College. <br/>
             { !isOpened && (<a className="linkTag" onClick={() => showHideDetails()}>Show More</a>)}
           </div>
         </div>
 
         {isOpened && (
-          <div className="col-12 showMoreDetails btmSpace">
+          <div className="col-12 showMoreDetails pb-12">
             <div>
               <img src={moreDoc}/>
               <br/>
