@@ -10,7 +10,7 @@ import HowItWorks from './homecomponents/HowItWorks';
 import FAQ from './homecomponents/FAQ';
 import Counter from './homecomponents/Counter';
 import FeedBack from './homecomponents/FeedBack';
-import OurSexologist from './homecomponents/OurSexologist';
+import OurDoctors from './homecomponents/ourDoctors';
 
 const Home = () => {
   return (
@@ -19,7 +19,8 @@ const Home = () => {
         <Hero />
         <Features />
         {/* <SlickGoTo/> */}
-        <OurSexologist />
+        {/* <OurSexologist /> */}
+        <OurDoctors />
         <HowItWorks />
         <CoursesVideos />
         <FAQ />

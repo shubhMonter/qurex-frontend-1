@@ -1,109 +1,42 @@
 import React, { useEffect, useState } from 'react';
-// import doc1 from '../../assets/doc1.png';
-// import doc2 from '../../assets/doc2.png';
-// import doc3 from '../../assets/doc3.png';
 import doc1 from '../../assets/svgs/doc1.svg';
-import doc2 from '../../assets/svgs/doc2.svg';
-import doc3 from '../../assets/svgs/doc3.svg';
 import loader from '../../assets/loader.gif';
-import star from '../../assets/star.png';
-import hat from '../../assets/hat.png';
-import globe from '../../assets/globe.png';
-import cal from '../../assets/cal.png';
 import doctorApi from '../../api/doctorAPI';
-import { Link, useLocation } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { addData } from '../../state/doctor/Actions';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import '../../index.css';
 import '../../styles/home.css';
-const LandingOs = () => {
-  const navigate = useNavigate();
+const OurDoctors = () => {
   const [allDoctorData, setAllDoctorData] = useState([]);
-  // let [selectedHomeDoc,setSelectedHomeDoc] = useState([]);
-  const [selectedDoc,setSelectedDoc] = useState([]);
-  const [selDocName,setSelDocName] = useState([]);
-  const [selDocDegree,setSelDocDegree] = useState([]);
-  const [selDocDesig,setSelDocDesig] = useState([]);
-  const [selDocAvl,setSelDocAvl] = useState([]);
-  // let [selectedDocDetails,setSelectedDocDetails] = useState([]);
+  const [selectedDoc,setSelectedDoc] = useState({});
   const [showLoader,setShowLoader] = useState(false);
   let rangeDoc1 = "cursor-pointer doc001";
   let rangeDoc2 = "doc002";
-  let docImage = doc1;
   const auth = useSelector((state) => state.auth.authData);
-  var userData = auth?.user;
-
   const getAllDoctors = async() => {
     try {
         setShowLoader(true);
         let response = await doctorApi.getHomeDoctors();
-        console.log("all doctors..");
-        console.log(response);
         if (response.length > 0) {
           setAllDoctorData(response);
-          let responseDoc = response[0];
-          setSelectedDoc(responseDoc);
-          setSelDocName(responseDoc.userId.name);
-          setSelDocDegree(responseDoc?.education[0]?.degree);
-          setSelDocDesig(responseDoc?.experience[0]?.designation);
-          setSelDocAvl(responseDoc?.businessHours[0]?.slots[0]?.from + " to " + responseDoc?.businessHours[0]?.slots[0]?.to);
-        
+          setSelectedDoc(response[0]);
         }
     setShowLoader(false);
     } catch (error) {
       console.log(error);
     }
 
-   
   };
-  // console.log(allDoctorData);
+ 
   useEffect(() => {
     window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
     getAllDoctors();    
   }, []);
 
-  const slug = (x) => {
-    return x.replace(/ /g, '').toLowerCase();
-  };
-
-  const doctorDetail = async (id) => {
-    try {
-     // setShowLoader(true);
-      // console.log(id);
-      let filterDr = allDoctorData.filter((item) => {
-        return item._id === id;
-      });
-      let drDetailData = filterDr[0];
-  
-      if (drDetailData && Object.keys(drDetailData).length > 0) {
-        // let response = await doctorApi.getDrByUserId(drDetailData?.userId);
-        let response = drDetailData;
-        if (response && Object.keys(response).length > 0) {
-          // console.log(response);
-          addData({ ...drDetailData, drUserData: response });
-          navigate('/doctor/' + slug(response?.userId.name));
-        }
-      } else {
-      }
-    } catch (error) {
-      console.log(error);
-    }
-   
-
-    setShowLoader(false);
-    //console.log(filterDr);
-    // dispatch(addData(filterDr));
-  };
-
   const sliderDocUpdate = async() => {
     let rangeVal = document.getElementById("customRange3").value;
     let responseDoc = allDoctorData[rangeVal];
     setSelectedDoc(responseDoc);
-    setSelDocName(responseDoc.userId.name);
-    setSelDocDegree(responseDoc?.education[0]?.degree);
-    setSelDocDesig(responseDoc?.experience[0]?.designation);
-    setSelDocAvl(responseDoc?.businessHours[0]?.slots[0]?.from + " to " + responseDoc?.businessHours[0]?.slots[0]?.to);
     for(let i =0;i<document.getElementsByClassName("doc001").length; i++)
     {
       if(document.getElementsByClassName("doc001")[i].classList.contains(rangeDoc2))
@@ -118,11 +51,9 @@ const LandingOs = () => {
 
     <section className="los">
       <section className="inos">
-
       <div className="container-fluid my-5">
         <div className="container">
           <div className="row">
-
         {showLoader? 
         <div className="losup"><img className="block m-auto" src={loader}/></div>
          :
@@ -149,15 +80,13 @@ const LandingOs = () => {
           <div className="losdown row">
             <div className="losdownleft col-md-6 col-lg-6 col-sm-6">
               {allDoctorData.slice(0, 3).map((item,index) => (
-                <>
+                <Link to={'/doctor/'+ item?._id}>
                   <img
                     className={index == 0 ? rangeDoc1 + " " + rangeDoc2 : rangeDoc1}
-                    // src={index == 0 ? doc1 : index == 1 ? doc2 : index == 2 ? doc3 : doc1}
-                    src={item.userId.profilePic}
+                    src={item?.userId?.profilePic}
                     alt=""
-                    onClick={() => doctorDetail(item?._id)}
                   />
-                </>
+                </Link>
               ))}
 
               <input
@@ -165,7 +94,7 @@ const LandingOs = () => {
                 className="form-range pb-2.5"
                 defaultValue="0"
                 min="0"
-                max="2"
+                max={allDoctorData.slice(0, 3).length -1}
                 step="1"
                 id="customRange3"
                 onChange={() => sliderDocUpdate()}
@@ -173,34 +102,29 @@ const LandingOs = () => {
             </div>
             <div className="losdownright col-md-6 col-lg-6 col-sm-6">
               <div className="p-2">
-                <span className="docName"> {selDocName} </span><span className="p-1.5">{selDocDegree}</span>
+                <span className="docName"> {selectedDoc?.userId?.name} </span>
+                {selectedDoc?.education && selectedDoc?.education.length > 0 && selectedDoc?.education.map(x=> <span className="p-1.5">{x.degree}</span>)}
+                
                 <div className="inldr">
-                  <span className="pb-2 font-['Montserrat']">{selDocDesig}</span>
+                  <span className="pb-2 font-['Montserrat']">{selectedDoc?.experience?.length > 0 && selectedDoc?.experience[0]?.designation}</span>
                   <p><span className="pb-1.5 font-bold pr-1.5 text-[#0d6efd]">15+ Years experience</span></p>
                   <p><span className="pb-1.5 font-bold pr-1.5 text-[#0d6efd]">500+</span> Cases Solved</p>
                 </div>
                 <div className="inldr">
-                  <p><span className="font-semibold">Availability : </span> {selDocAvl} </p>
+                  <p><span className="font-semibold">Availability : </span> {selectedDoc?.bussinessHours?.length > 0 && selectedDoc?.bussinessHours.map(x=>{
+                    if(x.day === new Date().getDay().toString()){
+                        return (<>{x.slots[0].from - x.slots[x.slots.length-1].to}</>)
+                    }
+                  })}  </p>
                   <p><span className="line-through font-bold text-gray-400"> ₹ 1500</span><span className="line-through text-gray-400"> Cons Fees</span> <span className="font-bold"> | ₹ {selectedDoc?.feeCharge}</span> <span className="qurexCust">For Qurex Customer</span></p>
                 </div>
                 <div className="inldr">
-                {/* <Link to={doctorDetail(selectedDoc?._id)}> */}
+                <Link to={`/doctor/${selectedDoc?.userId?._id}`}> 
                   <span 
-                  onClick={() => doctorDetail(selectedDoc?._id)} 
                   className="cursor-pointer font-bold pr-1.5 text-[#0d6efd]">View Details</span>
-                  {/* </Link> */}
-                  <Link to={userData?.name ? '/booking-calendar': '/login'}><button className="osbtn btn btn-primary featureViewBtn rounded-pill btnConsult">Consult Now</button></Link>
-                  {/* <img src={loader} className={showLoader ? "showContent" : "hideContent"} /> */}
+                 </Link> 
+                  <Link to={auth.isAuthenticated? '/booking-calendar/'+ selectedDoc?.userId?._id: '/login'}><button className="osbtn btn btn-primary featureViewBtn rounded-pill btnConsult">Consult Now</button></Link>
                 </div>
-
-                {/* <div className="grybox">
-                  <span className="grybox1">
-                    "Sexual health in India is commonly neglected and medical help
-                    for intimacy and relationship issues is sought very late.
-                  </span>
-
-                  <span className="grybox2">Dr. Saravanan </span>
-                </div> */}
               </div>
             </div>
           </div>
@@ -222,4 +146,4 @@ const LandingOs = () => {
   );
 };
 
-export default LandingOs;
+export default OurDoctors;

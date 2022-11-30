@@ -5,8 +5,11 @@ import FeedBack from '../components/homecomponents/FeedBack';
 import Footer from '../components/Footer';
 import DoctorcoursesVideo from '../components/doctorComponents/DoctorcoursesVideo';
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 const Doctor = () => {
+  const {id}= useParams();
+  console.log(id);
   const drDetail = useSelector((state) => state.doctor.drUserData);
   let drDetailData = drDetail;
   return (

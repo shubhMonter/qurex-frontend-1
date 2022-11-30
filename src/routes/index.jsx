@@ -65,9 +65,9 @@ const AppRouter = () => {
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
         <Route path="treatment" element={<TreatmentPage />} />
-        <Route path="doctor/:name" element={<Doctor />} />
+        <Route path="doctor/:id" element={<Doctor />} />
         <Route
-          path="booking-calendar"
+          path="booking-calendar/:id"
           element={authData === null ? <Navigate to="/login" /> : <Consult />}
         />
         <Route
