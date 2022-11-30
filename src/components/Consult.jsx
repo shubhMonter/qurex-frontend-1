@@ -13,12 +13,12 @@ const Consult = () => {
   const [currentTime, setCurrentTime] = useState('');
   const navigate = useNavigate();
 
-  const auth = useSelector((state) => state.auth);
-  let authData = auth?.data;
-  const drDetail = useSelector((state) => state.drDetail);
+  const auth = useSelector((state) => state.auth.authData);
+  let authData = auth?.user;
+  const drDetail = useSelector((state) => state.doctor.drUserData);
   console.log("drDetail");
   console.log(drDetail);
-  let drDetailData = drDetail?.data;
+  let drDetailData = drDetail;
 
   useEffect(() => {
     console.log(drDetail);
@@ -56,7 +56,7 @@ const Consult = () => {
     const resdate = [year, month, day].join('-');
     //console.log(resdate + 'T' + time + ':00.000Z');
     console.log(
-      authData?._id,
+      authData?.id,
       drDetailData?.userId._id,
       resdate + 'T' + time + ':00.000Z'
     );
@@ -64,7 +64,7 @@ const Consult = () => {
       const response = await post(
         BaseSetting.doctorApiDomain + '/bookAppointment',
         {
-          patientId: authData?._id,
+          patientId: authData?.id,
           doctorId: drDetailData?.userId._id,
           meta: 'test',
           from: resdate + 'T' + time + ':00.000Z',

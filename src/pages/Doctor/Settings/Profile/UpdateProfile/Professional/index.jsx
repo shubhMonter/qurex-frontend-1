@@ -6,15 +6,16 @@ import { BaseSetting } from '../../../../../../utils/common';
 import jwt_decode from 'jwt-decode';
 import { useSelector, useDispatch } from 'react-redux';
 import Select from 'react-select';
+import { getSpecializationList, getTreatmentCategories, UpdateDoctorsDetails } from '../../../../../../preseneter/DashBoard/Doctor';
+import { values } from 'lodash';
 
 const ProfessionalDetail = () => {
-  const disptch = useDispatch();
-  const auth = useSelector((state) => state.auth);
-  let authData = auth.data;
+  const auth = useSelector((state) => state.auth.authData);
+  const doctor = useSelector((state) => state.doctor)
+  const { id, professionalDetail } = doctor;
   const [treatmentData, setTreatmentData] = useState([]);
   const [specData, setSpecData] = useState([]);
-  const [inputs, setInputs] = useState({});
-  const [data, setData] = useState([]);
+  const [inputs, setInputs] = useState(professionalDetail);
 
   useEffect(() => {
     getTreatmentData();
@@ -23,7 +24,7 @@ const ProfessionalDetail = () => {
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    setInputs((values) => ({ ...values, [name]: value }));
+    setInputs((values) => ({ ...values, [name]: [value] }));
   };
 
   const handleUpdate = (e) => {
@@ -32,21 +33,21 @@ const ProfessionalDetail = () => {
   };
   const updateData = async () => {
     try {
-      const response = await put(
-        BaseSetting.doctorApiDomain + `/${data?._id}`,
+      const response = await UpdateDoctorsDetails(
+      id,
         {
           professionalDetail: {
-            treatments: [inputs.category],
-            specializations: [inputs.specializations],
-          },
-          education: [inputs.education],
+            treatments: inputs.treatments,
+            specializations: inputs.specializations,
+          }
         },
-        headers
+       auth.token
       );
-      const result = response.data;
-      console.log(result);
-      if (result.status === 1) {
+     
+      if (response) {
         alert('Succesfully Updated');
+      } else {
+        alert('Error Updating Data');
       }
     } catch (error) {
       alert('Error Updating Data');
@@ -55,19 +56,11 @@ const ProfessionalDetail = () => {
 
   const getTreatmentData = async () => {
     try {
-      const response = await get(
-        BaseSetting.adminApiDomain +
-          '/treatmentcategory/getAllTreatmentCategories',
-        {
-          'x-auth-token': authData?.token,
-        }
-      );
-      // setApiData(response.data.data);
+      const response = await getTreatmentCategories(auth.token);
+      
       const result = response.data;
-
       if (result.status === 1) {
         setTreatmentData(result.data);
-        //console.log(result.data);
       } else {
         console.log(result);
       }
@@ -76,98 +69,44 @@ const ProfessionalDetail = () => {
 
   const getSpecData = async () => {
     try {
-      const response = await get(
-        BaseSetting.adminApiDomain + '/specialization/getAllSpecializations',
-        {
-          'x-auth-token': authData?.token,
-        }
-      );
-      // setApiData(response.data.data);
+      const response = await getSpecializationList(auth.token)
       const result = response.data;
-
       if (result.status === 1) {
         setSpecData(result.data);
-        //console.log(result.data);
-      } else {
-        console.log(result);
-      }
+      } 
     } catch (error) {}
   };
-  // console.log(treatmentData);
-  // const options = [
-  //   { value: 'chocolate', label: 'Chocolate' },
-  //   { value: 'chocolate', label: 'Chocolate' },
-  //   { value: 'chocolate', label: 'Chocolate' },
-  // ];
   const buildObject = (arr) => {
     let arrObj = [];
     let obj = {};
     for (let i = 0; i < arr.length; i++) {
       const { _id, name } = arr[i];
       obj = {
-        value: _id,
+        value: name,
         label: name,
       };
       arrObj.push(obj);
     }
     return arrObj;
   };
-
+console.log({inputs});
   const options = buildObject(treatmentData);
-  //   const buildObject = arr => {
-  //     const obj = {};
-  //     for(let i = 0; i < treatmentData.length; i++){
-  //        const { value, label } = arr[i];
-  //        obj[value] = score;
-  //     };
-  //     return obj;
-  //  };
-  //   const options = treatmentData.map((item)=>{
-  //     'value' item._id
-  //   });
   return (
     <div className="text-[#626262] mt-6 px-7 col-span-3 md:col-span-2 lg:col-span-2 xl:col-span-2 flex flex-col">
       <div className="mt-5 text-lg font-semibold flex flex-col">
         Professional Details
       </div>
-      {/* <div className="mt-5 flex flex-col">
-        <div className="text-xs">Degree</div>
-        <div className=" border-gray-200 border rounded-md">
-          <input
-            placeholder="PhD. Psychology"
-            name="education"
-            value={inputs.name}
-            onChange={handleChange}
-            className="text-xs py-3 pl-3 w-full outline-none"
-          />
-        </div>
-      </div> */}
-
       <div className="mt-5 flex flex-col">
         <div className="text-xs">Treatment offered</div>
         <div className=" border-gray-200 border rounded-md">
-          {/* <select
-            className="text-xs py-2  pl-3 w-full outline-none "
-            value={inputs.name}
-            name="category"
-            onChange={handleChange}
-          >
-            <option value={data?.professionalDetail?.treatments[0]}>
-              {data?.professionalDetail?.treatments[0]}
-            </option>
-            {treatmentData.map((treatment) => (
-              <>
-                <option value={treatment._name}>{treatment.name}</option>
-              </>
-            ))}
-          </select> */}
           <Select
-            defaultValue={[options[2], options[3]]}
+          defaultValue={ buildObject(inputs?.treatments)}
             isMulti
-            name="colors"
+            name="treatments"
             options={options}
             className="basic-multi-select"
             classNamePrefix="select"
+            onChange={(e) => setInputs((values) => ({ ...values, treatments: e.map(s=>s.value) }))}
           />
         </div>
       </div>
@@ -176,16 +115,14 @@ const ProfessionalDetail = () => {
         <div className=" border-gray-200 border rounded-md">
           <select
             className="text-xs py-2  pl-3 w-full outline-none "
-            value={inputs.name}
+            value={inputs?.specializations}
             name="specializations"
             onChange={handleChange}
           >
-            <option value={data?.professionalDetail?.treatments[0]}>
-              {data?.professionalDetail?.specializations[0]}
-            </option>
-            {specData.map((spec) => (
+           
+            {specData.map((spec,i) => (
               <>
-                <option value={spec._name}>{spec.name}</option>
+                <option key={i} value={spec._name}>{spec.name}</option>
               </>
             ))}
           </select>

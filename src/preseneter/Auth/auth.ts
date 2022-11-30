@@ -35,7 +35,15 @@ export const SignInOTP = async (req: VerifyOTP) => {
       req
     );
     if (response.data.status === 1) {
-      const { role, city, mobile, name, _id: id } = response.data.data;
+      const {
+        role,
+        city,
+        mobile,
+        name,
+        _id: id,
+        email,
+        profilePic,
+      } = response.data.data;
       const data: Auth = {
         isAuthenticated: true,
         role,
@@ -44,6 +52,8 @@ export const SignInOTP = async (req: VerifyOTP) => {
           mobile,
           city,
           id,
+          email,
+          profilePic,
         },
         token: response.headers["x-auth-token"] as string,
       };
@@ -81,15 +91,25 @@ export const SubmitVerifyOTP = async (req: VerifyOTP) => {
       nReq
     );
     if (response.data.status === 1) {
-      const { role, city, mobile, name, _id: id } = response.data.data;
+      const {
+        role,
+        city,
+        mobile,
+        name,
+        _id: id,
+        email,
+        profilePic,
+      } = response.data.data;
       const data: Auth = {
         isAuthenticated: true,
         role,
         user: {
           name,
           mobile,
+          email,
           city,
           id,
+          profilePic,
         },
         token: response.headers["x-auth-token"] as string,
       };
@@ -124,7 +144,15 @@ export const SignInWithPass = async (req: Login) => {
     clearError("authError");
     const response = await post(BaseSetting.userApiDomain + "/auth", req);
     if (response.data.status === 1) {
-      const { role, city, mobile, name, _id: id } = response.data.data;
+      const {
+        role,
+        city,
+        mobile,
+        name,
+        _id: id,
+        email,
+        profilePic,
+      } = response.data.data;
       const data: Auth = {
         isAuthenticated: true,
         role,
@@ -133,6 +161,8 @@ export const SignInWithPass = async (req: Login) => {
           mobile,
           city,
           id,
+          email,
+          profilePic,
         },
         token: response.headers["x-auth-token"] as string,
       };

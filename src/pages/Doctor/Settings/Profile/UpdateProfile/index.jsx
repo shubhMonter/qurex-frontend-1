@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AccountDetail from './AccountDetail';
 import Award from './Award';
 import EducationalDetail from './EducationalDetail';
@@ -14,14 +14,20 @@ import {
 } from 'react-icons/ai';
 import { FiFeather } from 'react-icons/fi';
 import ProfessionalDetail from './Professional';
+import { useSelector } from 'react-redux';
+import { getDoctorDetails } from '../../../../../preseneter/DashBoard/Doctor';
 
 const UpdateProfile = () => {
+  const auth = useSelector((state) => state.auth.authData);
   const [personal, setPersonal] = useState(true);
   const [professional, setProfessional] = useState(false);
   const [educational, setEducational] = useState(false);
   const [experience, setExperience] = useState(false);
   const [award, setAward] = useState(false);
   const [account, setAccount] = useState(false);
+  useEffect(() => {
+    getDoctorDetails(auth?.user?.id,auth?.token)
+  },[])
   return (
     <div className="text-[#636363] font-montserrat flex flex-col px-10">
       <div className="py-6 font-semibold text-2xl ">Account Settings</div>

@@ -1,5 +1,11 @@
 import { GAction, Role } from "../interface";
-import { Auth, AuthReducer, CLEAR_AUTH, SET_AUTH } from "./interface";
+import {
+  Auth,
+  AuthReducer,
+  CLEAR_AUTH,
+  SET_AUTH,
+  USER_UPDATE,
+} from "./interface";
 const initialState: Auth = {
   isAuthenticated: false,
   role: Role.GUEST,
@@ -9,6 +15,8 @@ const initialState: Auth = {
     mobile: "",
     city: "",
     id: "",
+    email: "",
+    profilePic: "",
   },
 };
 const authReducer: AuthReducer = (
@@ -24,6 +32,14 @@ const authReducer: AuthReducer = (
     case CLEAR_AUTH:
       return {
         ...initialState,
+      };
+    case USER_UPDATE:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          ...action.payload,
+        },
       };
     default:
       break;

@@ -1,19 +1,16 @@
-import React from 'react';
-import { useEffect } from 'react';
+import React from 'react'
 import { useState } from 'react';
 import { BsUpload } from 'react-icons/bs';
-import { dheaders, get, headers, put } from '../../../../../../api';
-import user from '../../../../../../assets/pngs/doctor.png';
-import { BaseSetting } from '../../../../../../utils/common';
-import jwt_decode from 'jwt-decode';
-import { useSelector, useDispatch } from 'react-redux';
-import { setAuth } from '../../../../../../state/auth/Actions';
+import { useSelector } from 'react-redux';
+import { ProfileUpdate } from '../../../../../../preseneter/DashBoard/Profile';
 
 const PersonalDetail = () => {
-  const disptch = useDispatch();
-  const auth = useSelector((state) => state.auth);
-  let authData = auth.data;
+ 
+  const auth = useSelector((state) => state.auth.authData);
   const [inputs, setInputs] = useState({});
+  const [loader, setLoader] = useState(false);
+  const {user} = auth
+  
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -26,34 +23,21 @@ const PersonalDetail = () => {
     updateData();
   };
   const updateData = async () => {
-    //console.log(inputs);
-    headers['x-auth-token'] = authData.token;
-    console.log(headers);
+    setLoader(true)
     try {
-      const response = await put(
-        BaseSetting.userApiDomain + `/${authData?._id}`,
-        inputs,
-        headers
-      );
-
-      const result = response.data;
-      console.log(result.data);
-      if (result.status === 1) {
-        result.data.token = authData.token;
-        disptch(setAuth(result.data));
-
-        alert('Succesfully Updated');
-      }
+     
+    await ProfileUpdate(user.id,inputs,auth.token)
     } catch (error) {
       alert('Error Updating Data');
     }
+    setLoader(false)
   };
   return (
     <form>
       <div className="text-[#626262] grid grid-cols-3 gap-5 mt-10">
         <div className="col-span-3 md:col-span-1 lg:col-span-1 xl:col-span-1 flex flex-col">
           <div className="flex justify-center">
-            <img className="rounded-xl" src={user} alt="" />
+            <img className="rounded-xl" src={user.profilePic} alt="" />
           </div>
           <div className="mx-32 sm:mx-52 md:mx-16  mt-5 border-4 border-transparent border-t-gray-500"></div>
           <div className="my-4 flex justify-center">
@@ -92,7 +76,7 @@ const PersonalDetail = () => {
             <div className=" border-gray-200 border rounded-md">
               <input
                 name="name"
-                value={inputs.name || authData?.name}
+                value={inputs.name || user?.name}
                 onChange={handleChange}
                 className="py-1 pl-3 w-full outline-none"
               />
@@ -103,7 +87,7 @@ const PersonalDetail = () => {
             <div className=" border-gray-200 border rounded-md">
               <input
                 name="email"
-                value={inputs.email || authData?.email}
+                value={inputs.email || user?.email}
                 onChange={handleChange}
                 className="py-1 pl-3 w-full outline-none"
               />
@@ -116,7 +100,7 @@ const PersonalDetail = () => {
                 name="languages"
                 value={
                   inputs.languages ||
-                  authData?.languages?.map((item) => <>{item},</>)
+                  user?.languages?.map((item) => <>{item},</>)
                 }
                 onChange={handleChange}
                 className="py-1 pl-3 w-full outline-none"
@@ -127,12 +111,12 @@ const PersonalDetail = () => {
             <div className="text-xs">City</div>
             <div className="border rounded-md border-gray-200 ">
               <select
-                value={inputs.name || authData?.city}
+                value={inputs.name || user?.city}
                 name="city"
                 onChange={handleChange}
                 className="py-1.5 pl-3 w-full outline-none"
               >
-                <option className="outline-none">{authData?.city}</option>
+                <option className="outline-none">{user?.city}</option>
                 <option className="outline-none">Banglore</option>
                 <option className="outline-none">Delhi</option>
                 <option className="outline-none">Gurgaon</option>
@@ -144,7 +128,7 @@ const PersonalDetail = () => {
               className="cursor-pointer hover:shadow-lg bg-[#7367f0] text-white rounded-md px-7 py-1.5 mx-1"
               onClick={(e) => handleUpdate(e)}
             >
-              Save Changes
+              {loader ? <span className="buttonloader"></span> : 'Save Changes'}
             </div>
             <div className="cursor-pointer hover:shadow-lg text-[#ff9f43] border border-[#ff9f43] rounded-md px-10 py-1.5 mx-1">
               Cancel

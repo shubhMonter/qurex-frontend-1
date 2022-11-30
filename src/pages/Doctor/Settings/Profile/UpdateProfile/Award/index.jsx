@@ -9,8 +9,8 @@ import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 const Award = () => {
-  const auth = useSelector((state) => state.auth);
-  let doctorData = auth?.data;
+  const auth = useSelector((state) => state.auth.authData);
+  let doctorData = auth?.user;
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const Award = () => {
     try {
       if (navigator.onLine) {
         const response = await get(
-          BaseSetting.doctorApiDomain + `/getByUserId/${doctorData._id}`,
+          BaseSetting.doctorApiDomain + `/getByUserId/${doctorData.id}`,
           headers
         );
         // setApiData(response.data.data);

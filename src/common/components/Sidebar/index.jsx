@@ -46,7 +46,7 @@ import useWindowSize from '../../../hooks/useWindowSize';
 import { useSelector, useDispatch } from 'react-redux';
 
 const Sidebar = ({ isMobileOpen, toggleSidebar, isFixedSidebar }) => {
-  const auth = useSelector((state) => state.auth);
+  const auth = useSelector((state) => state.auth.authData);
   const [isOpen, setIsOpen] = useState(false);
   const [practise, setPractise] = useState(false);
   const [profile, setProfile] = useState(false);
@@ -78,7 +78,7 @@ const Sidebar = ({ isMobileOpen, toggleSidebar, isFixedSidebar }) => {
   };
   const size = useWindowSize();
 
-  var user = auth?.data;
+  
   const mytoggle = () => {
     if (size.width > 767) {
       toggle();
@@ -108,7 +108,7 @@ const Sidebar = ({ isMobileOpen, toggleSidebar, isFixedSidebar }) => {
               />
             </div>
           </div>
-          {user?.role == 'admin' ? (
+          {auth?.role == 'admin' ? (
             <>
               <div className="mt-10 font-montserrat flex flex-col">
                 <div className="flex flex-row pl-1.5 pt-6 ">
@@ -397,7 +397,7 @@ const Sidebar = ({ isMobileOpen, toggleSidebar, isFixedSidebar }) => {
                 </Link>
               </div>
             </>
-          ) : user?.role == 'doctor' ? (
+          ) : auth?.role == 'doctor' ? (
             <>
               <div className="mt-10 font-montserrat flex flex-col">
                 <div className="flex flex-row pl-1.5 pt-6 ">
@@ -630,7 +630,7 @@ const Sidebar = ({ isMobileOpen, toggleSidebar, isFixedSidebar }) => {
           <div className="h-10 w-10">
             <img src={logo} />
           </div>
-          {user?.role == 'ADMIN' ? (
+          {auth?.role == 'ADMIN' ? (
             <>
               <div className="flex flex-col">
                 <div className="pl-1.5 pt-6 text-xl">
@@ -683,7 +683,7 @@ const Sidebar = ({ isMobileOpen, toggleSidebar, isFixedSidebar }) => {
                 </div>
               </div>{' '}
             </>
-          ) : user?.role == 'doctor' ? (
+          ) : auth?.role == 'doctor' ? (
             <>
               <div className="flex flex-col">
                 <div className="pl-1.5 pt-6 text-xl">

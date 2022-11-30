@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { BsPlayCircleFill } from 'react-icons/bs';
-import { useSelector, useDispatch } from 'react-redux';
-import '../../styles/doctor.css';
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { BsPlayCircleFill } from "react-icons/bs";
+import { useSelector, useDispatch } from "react-redux";
+import "../../styles/doctor.css";
 
 const DoctorHero = ({ drDetailData }) => {
 const auth = useSelector((state) => state.auth);
@@ -26,6 +26,7 @@ useEffect(() => {
           <img
             src={drDetailData.userId.profilePic}
             className="rounded-circle drHeroImg m-auto block"
+            alt="Doctor Profile Pic"
           />
         </div>
         <div className="mt-3 col-12 col-md-6 d-flex flex-column justify-content-center align-items-center align-items-md-start ">
@@ -48,9 +49,10 @@ useEffect(() => {
               type="button"
               className="mr-2 btn btn-outline-primary rounded-pill"
             >
-              <BsPlayCircleFill className="playBtnHero" color="#0d6efd" /> Watch Now
+              <BsPlayCircleFill className="playBtnHero" color="#0d6efd" /> Watch
+              Now
             </button>
-            <Link to={drDetailData?.userId?.name ? '/booking-calendar': '/login'}>
+            <Link to={auth?.user.name ? "/booking-calendar" : "/login"}>
               <button
                 type="button"
                 className="mx-2 btn btn-primary rounded-pill"

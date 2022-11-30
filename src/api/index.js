@@ -1,44 +1,45 @@
-import Axios from 'axios';
-import { BaseSetting } from '../utils/common';
+import Axios from "axios";
+import { BaseSetting } from "../utils/common";
 
 export const headers = {
-  'Content-Type': 'application/json',
-  Accept: 'application/json',
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': '*',
+    "Content-Type": "application/json",
+    Accept: "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "*",
+    "x-auth-token": "",
 };
 // https://qurex.loca.lt
 // https://qurex.onrender.com
 export const dheaders = {
-  'Content-Type': 'application/json',
-  Accept: 'application/json',
+    "Content-Type": "application/json",
+    Accept: "application/json",
 };
 
 function returnAxiosInstance(customHeaders = headers) {
-  return Axios.create({
-    baseURL: BaseSetting.adminApiDomain,
-    headers: customHeaders,
-  });
+    return Axios.create({
+        baseURL: BaseSetting.adminApiDomain,
+        headers: customHeaders,
+    });
 }
 
 export function get(url, customHeaders = headers, params = {}) {
-  let cancelToken;
-  if (typeof cancelToken != typeof undefined) {
-    cancelToken.cancel(
-      '######################TOKEN CANCELLED#################################'
-    );
-  }
-  cancelToken = Axios.CancelToken.source();
-  const axios = returnAxiosInstance(customHeaders);
-  return axios.get(url);
+    let cancelToken;
+    if (typeof cancelToken != typeof undefined) {
+        cancelToken.cancel(
+            "######################TOKEN CANCELLED#################################"
+        );
+    }
+    cancelToken = Axios.CancelToken.source();
+    const axios = returnAxiosInstance(customHeaders);
+    return axios.get(url);
 }
 
-export function post(url, requestData, customHeaders = headers) {
-  const axios = returnAxiosInstance(customHeaders);
-  return axios.post(url, requestData);
+export function post(url, requestData, customHeaders) {
+    const axios = returnAxiosInstance(customHeaders);
+    return axios.post(url, requestData);
 }
 
 export function put(url, requestData, customHeaders = headers) {
-  const axios = returnAxiosInstance(customHeaders);
-  return axios.put(url, requestData);
+    const axios = returnAxiosInstance(customHeaders);
+    return axios.put(url, requestData);
 }
