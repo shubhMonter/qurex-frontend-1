@@ -67,14 +67,20 @@ const Confirm = () => {
   // moment(date).format('DD-MM-YYYY')
   return (
     <>
-      <section className="confirmpay">
-        <div className="incp">
-          <span className="confirmur">Your Booking</span>
-          <div className="divincp">
-            <div className="onediv">
-              <div className="inonediv">
-                <img src={dr01} alt="" />
-                <span className="dff01 pl-5">
+    
+    <div className="container">
+      <div className="row">
+        <span className="font-bold text-xl pt-5 ml-5 pb-5">Your Booking</span>
+      </div>
+    </div>
+    <div className="container pb-20">
+      <div className="row">
+      <div className="col-sm-2 col-md-2 col-lg-2 "></div>
+        <div className="col-sm-8 shadow rounded m-auto col-md-8 col-lg-8">
+          <div className="onediv p-5">
+            <div className="ml-8 flex">
+            <img className="docImg" src={drDetailData.userId.profilePic} alt="" />
+              <span className="dff01 pl-5">
                   <span>
                     <span className="docname">
                       {drDetailData?.userId?.name}
@@ -85,65 +91,56 @@ const Confirm = () => {
                   </span>
 
                   <span className="expert">
-                    Expert in{' '}
-                    {drDetailData?.treatments?.map((item) => (
-                      <>{item} </>
-                    ))}
+                    Expert in {drDetailData?.professionalDetail.treatments.reduce((prevValue, item) =>  prevValue + item+ ", ",' ')};
                   </span>
                 </span>
-              </div>
-            </div>
-
-            <div className="divt">
-              <div className="indivtwoonw mt-2">
-                <span className="selectedslot">Selected Slot</span>
-
-                <div className="slotinfo">
-                  <span className="si01 flex flex-row">
-                    <img className="imgunfo" src={cal} alt="" />
-                    <span className="infoslot01">
-                      {new Date(state.from).toDateString()}
-                    </span>
-                  </span>
-                  <span className="si02 flex flex-row">
-                    <img className="imgunfo" src={clock} alt="" />
-                    <span className="infoslot01">
-                      {tConvert(state.from.substr(11, 5))}
-                    </span>
-                  </span>
-                  <span className="si03 flex flex-row">
-                    <img className="imgunfo" src={card} alt="" />
-                    <span className="infoslot01">
-                      ₹ {drDetailData?.feeCharge} Consulting Fee
-                    </span>
-                    <span className="infoslot02">
-                      ( 30% Discount for Qurex User)
-                    </span>
-                  </span>
-                </div>
-              </div>
-              <div></div>
-            </div>
-            <div className="divthree">
-              <div className="indivthr">
-                <span className="flex flex-row">
-                  <div className="mt-[2px] ">
-                    <img className="h-5 w-5" src={try01} alt="" />
-                  </div>
-                  <div className="ml-1">
-                    <a href="/">Change Slot</a>
-                  </div>
-                </span>
-
-                <button className="cnpbtn" onClick={confirmPayment}>
-                  Confirm and pay
-                </button>
-              </div>
             </div>
           </div>
+
+        <div className="font-bold text-base pt-2.5 pl-2.5">Selected Slot</div>
+        <div className="slotinfo p-2.5">
+          <span className="si01 flex flex-row">
+            <img className="imgunfo" src={cal} alt="" />
+            <span className="infoslot01 p-1">
+              {new Date(state.from).toDateString()}
+            </span>
+          </span>
+          <span className="si02 flex flex-row">
+            <img className="imgunfo" src={clock} alt="" />
+            <span className="infoslot01 p-1">
+              {tConvert(state.from.substr(11, 5))}
+            </span>
+          </span>
+          <span className="si03 flex flex-row">
+            <img className="imgunfo" src={card} alt="" />
+            <span className="infoslot01 p-1">
+              ₹ {drDetailData?.feeCharge} Consulting Fee
+            </span>
+            <span className="infoslot02">
+              ( 30% Discount for Qurex User)
+            </span>
+          </span>
         </div>
-      </section>
-    </>
+
+        <div className="bg-[#f2f7ff] p-5 indivthr">
+          <span className="flex flex-row -ml-9 mt-[5px]">
+            <div className="mt-[2px] ">
+              <img className="h-5 w-5" src={try01} alt="" />
+            </div>
+            <div className="ml-1">
+              <a href="/">Change Slot</a>
+            </div>
+          </span>
+
+          <button className="cnpbtn float-right -mt-9" onClick={confirmPayment}>
+            Confirm and pay
+          </button>
+        </div>
+      </div>
+      <div className="col-sm-2 col-md-8 col-lg-8"></div>
+      </div>
+      </div>
+      </>
   );
 };
 

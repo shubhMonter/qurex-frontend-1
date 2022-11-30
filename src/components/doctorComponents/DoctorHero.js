@@ -52,7 +52,7 @@ useEffect(() => {
               <BsPlayCircleFill className="playBtnHero" color="#0d6efd" /> Watch
               Now
             </button>
-            <Link to={auth?.user.name ? "/booking-calendar" : "/login"}>
+            <Link to={drDetailData?.userId.name ? "/booking-calendar" : "/login"}>
               <button
                 type="button"
                 className="mx-2 btn btn-primary rounded-pill"
