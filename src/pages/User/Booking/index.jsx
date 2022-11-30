@@ -16,15 +16,15 @@ import { addData } from '../../../state/doctor/Actions';
 const Booking = () => {
   const [activeTab, setActiveTab] = useState('upcomming');
   const [myBookings, setMyBookings] = useState();
-  const auth = useSelector((state) => state.auth);
+  const auth = useSelector((state) => state.auth.authData);
   const dispatch = useDispatch();
 
-  let userData = auth.data;
+  let userData = auth.user;
 
   const getBookings = async () => {
     const bookings = await UserAPI.getMyBookings(
       userData,
-      userData.userHeaders
+      auth.token
     );
     // console.log(bookings[0].sessionId.doctorId);
     if (bookings && bookings?.length > 0) {

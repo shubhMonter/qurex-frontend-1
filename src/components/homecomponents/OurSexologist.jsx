@@ -32,8 +32,8 @@ const LandingOs = () => {
   let rangeDoc1 = "cursor-pointer doc001";
   let rangeDoc2 = "doc002";
   let docImage = doc1;
-  const auth = useSelector((state) => state.auth);
-  var userData = auth?.data;
+  const auth = useSelector((state) => state.auth.authData);
+  var userData = auth?.user;
 
   const getAllDoctors = async() => {
 
@@ -74,23 +74,28 @@ const LandingOs = () => {
   };
 
   const doctorDetail = async (id) => {
-    setShowLoader(true);
-    // console.log(id);
-    let filterDr = allDoctorData.filter((item) => {
-      return item._id === id;
-    });
-    let drDetailData = filterDr[0];
-
-    if (drDetailData && Object.keys(drDetailData).length > 0) {
-      // let response = await doctorApi.getDrByUserId(drDetailData?.userId);
-      let response = drDetailData;
-      if (response && Object.keys(response).length > 0) {
-        // console.log(response);
-        dispatch(addData({ ...drDetailData, drUserData: response }));
-        navigate('/doctor/' + slug(response?.userId.name));
+    try {
+      setShowLoader(true);
+      // console.log(id);
+      let filterDr = allDoctorData.filter((item) => {
+        return item._id === id;
+      });
+      let drDetailData = filterDr[0];
+  
+      if (drDetailData && Object.keys(drDetailData).length > 0) {
+        // let response = await doctorApi.getDrByUserId(drDetailData?.userId);
+        let response = drDetailData;
+        if (response && Object.keys(response).length > 0) {
+          // console.log(response);
+          addData({ ...drDetailData, drUserData: response });
+          navigate('/doctor/' + slug(response?.userId.name));
+        }
+      } else {
       }
-    } else {
+    } catch (error) {
+      console.log(error);
     }
+   
 
     setShowLoader(false);
     //console.log(filterDr);

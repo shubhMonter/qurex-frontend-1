@@ -7,8 +7,8 @@ import DoctorcoursesVideo from '../components/doctorComponents/DoctorcoursesVide
 import { useSelector } from 'react-redux';
 
 const Doctor = () => {
-  const drDetail = useSelector((state) => state.drDetail);
-  let drDetailData = drDetail?.data;
+  const drDetail = useSelector((state) => state.doctor.drUserData);
+  let drDetailData = drDetail;
   return (
     <>
       <DoctorHero drDetailData={drDetailData} />
