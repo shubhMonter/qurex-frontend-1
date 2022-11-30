@@ -187,12 +187,15 @@ const LandingOs = () => {
                 <span className="docName"> {selDocName} </span><span className="p-1.5">{selDocDegree}</span>
                 <div className="inldr">
                   <span className="pb-2 font-['Montserrat']">{selDocDesig}</span>
-                  {/* <p><span className="pb-1.5 font-bold pr-1.5 text-[#0d6efd]">15+ Years experience</span></p>
-                  <p><span className="pb-1.5 font-bold pr-1.5 text-[#0d6efd]">500+</span> Cases Solved</p> */}
+                  <p><span className="pb-1.5 font-bold pr-1.5 text-[#0d6efd]">15+ Years experience</span></p>
+                  <p><span className="pb-1.5 font-bold pr-1.5 text-[#0d6efd]">500+</span> Cases Solved</p>
                 </div>
                 <div className="inldr">
-                  {/* <p><span className="font-semibold">Availability : </span> {selDocAvl} </p>
-                  <p><span className="line-through font-bold text-gray-400"> ₹ 1500</span><span className="line-through text-gray-400"> Cons Fees</span> <span className="font-bold"> | ₹ {selectedDoc?.feeCharge}</span> <span className="qurexCust">For Qurex Customer</span></p> */}
+                  {/* <p><span className="font-semibold">Availability : </span> {selDocAvl} </p> */}
+                  { selDocAvl && 
+                    <p><span className="font-semibold">Availability : </span>From: {selDocAvl.from} to: {selDocAvl.to}</p>
+                  }
+                  <p><span className="line-through font-bold text-gray-400"> ₹ 1500</span><span className="line-through text-gray-400"> Cons Fees</span> <span className="font-bold"> | ₹ {selectedDoc?.feeCharge}</span> <span className="qurexCust">For Qurex Customer</span></p>
                 </div>
                 <div className="inldr">
                 {/* <Link to={doctorDetail(selectedDoc?._id)}> */}
