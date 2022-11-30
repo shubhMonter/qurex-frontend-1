@@ -207,6 +207,13 @@ p.feedbackPatientLocation
     margin-left: 75%;
     margin-top: -30px;
 }
+.btnConsultList
+{
+    width: 135px;
+    display: block;
+    margin-left: 60%;
+    margin-top: -30px;
+}
 
 /*Courses*/
 
