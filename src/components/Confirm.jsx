@@ -11,8 +11,8 @@ import '../styles/Confirm.css';
 import { useSelector } from 'react-redux';
 const Confirm = () => {
   const navigate = useNavigate();
-  const drDetail = useSelector((state) => state.drDetail);
-  let drDetailData = drDetail?.data;
+  const drDetail = useSelector((state) => state.doctor.drUserData);
+  let drDetailData = drDetail;
   console.log(drDetailData);
   const { state } = useLocation();
   // let amount = drDetailData?.feeCharge
@@ -27,9 +27,9 @@ const Confirm = () => {
       order_id: state?.payment.razorPayOrderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
 
       prefill: {
-        name: drDetailData?.drUserData?.name,
-        email: drDetailData?.drUserData?.email,
-        contact: drDetailData?.drUserData?.mobile,
+        name: drDetailData?.userId?.name,
+        email: drDetailData?.userId?.email,
+        contact: drDetailData?.userId?.mobile,
       },
       notes: {
         address: 'Razorpay Corporate Office',
@@ -77,7 +77,7 @@ const Confirm = () => {
                 <span className="dff01 pl-5">
                   <span>
                     <span className="docname">
-                      {drDetailData?.drUserData?.name}
+                      {drDetailData?.userId?.name}
                     </span>
                     <span className="gyno">
                       {drDetailData?.professionalDetail?.specializations[0]}

@@ -13,11 +13,11 @@ const apis = {
       return false;
     }
   },
-  getMyBookings: async (userData, userHeaders) => {
+  getMyBookings: async (userData, token) => {
     try {
       const response = await get(
-        BaseSetting.ApiDomain + `/booking/getByUserId/${userData._id}`,
-        userHeaders
+        BaseSetting.ApiDomain + `/booking/getByUserId/${userData.id}`,
+       {...headers,['x-auth-token']:token}
       );
       // console.log({ response });
       return response.data.data;

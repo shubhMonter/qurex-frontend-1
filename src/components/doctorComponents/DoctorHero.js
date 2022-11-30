@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import '../../styles/doctor.css';
 
 const DoctorHero = ({ drDetailData }) => {
-const auth = useSelector((state) => state.auth);
+const auth = useSelector((state) => state.auth.authData);
 const docName = drDetailData?.userId.name;
 const docDesig = drDetailData?.experience[0]?.designation;
 const docDegree = drDetailData?.education[0].degree;
