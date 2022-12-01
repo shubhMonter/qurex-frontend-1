@@ -6,15 +6,29 @@ import clock from '../assets/clock.png';
 import { useLocation, useNavigate } from 'react-router-dom';
 import logo from '../assets/pngs/doctor.png';
 import React, { useEffect, useRef, useState } from 'react';
-
+import DoctorAPI from "../api/doctorAPI"
 import '../styles/Confirm.css';
-import { useSelector } from 'react-redux';
 const Confirm = () => {
   const navigate = useNavigate();
-  const drDetail = useSelector((state) => state.doctor.drUserData);
-  let drDetailData = drDetail;
-  console.log(drDetailData);
-  const { state } = useLocation();
+  const { state ,time,doctorId} = useLocation();
+  console.log({state,time,doctorId});
+  const [drDetailData,setDrDetailData] = useState()
+  useEffect(()=>{
+    if(state?.doctorId){
+      getDoctorData(state.doctorId)
+    }
+  },[])
+  const getDoctorData = async(id)=>{
+    try {
+      const response = await DoctorAPI.getByDoctorId(id);
+    if(response){
+      setDrDetailData(response)
+    }
+    } catch (error) {
+      console.log(error);
+    }
+    
+  }
   // let amount = drDetailData?.feeCharge
   const confirmPayment = () => {
     var options = {
@@ -73,7 +87,7 @@ const Confirm = () => {
           <div className="divincp">
             <div className="onediv">
               <div className="inonediv">
-                <img src={dr01} alt="" />
+                <img width="100" src={drDetailData?.userId?.profilePic} alt="" />
                 <span className="dff01 pl-5">
                   <span>
                     <span className="docname">

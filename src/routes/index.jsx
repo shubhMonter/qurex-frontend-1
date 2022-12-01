@@ -55,9 +55,7 @@ import UserApi from '../api/UserAPI';
 import { Navigate } from 'react-router';
 import VideoCall from '../pages/VideoCall';
 const AppRouter = () => {
-  const auth = useSelector((state) => state.auth);
-  let authData = auth?.data;
-
+  const auth = useSelector((state) => state.auth.authData.isAuthenticated);
   return (
     <Routes>
       <Route path="/" element={<FrontLayout />}>
@@ -68,15 +66,15 @@ const AppRouter = () => {
         <Route path="doctor/:id" element={<Doctor />} />
         <Route
           path="booking-calendar/:id"
-          element={authData === null ? <Navigate to="/login" /> : <Consult />}
+          element={!auth ? <Navigate to="/login" /> : <Consult />}
         />
         <Route
           path="confirm-payment"
-          element={authData === null ? <Navigate to="/login" /> : <Confirm />}
+          element={!auth ? <Navigate to="/login" /> : <Confirm />}
         />
         <Route
           path="video-call"
-          element={authData === null ? <Navigate to="/login" /> : <VideoCall />}
+          element={!auth ? <Navigate to="/login" /> : <VideoCall />}
         />
         <Route path="*" element={<NoPage />} />
       </Route>
