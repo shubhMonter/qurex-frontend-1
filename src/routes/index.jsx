@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter, Routes, Outlet } from 'react-router-dom';
 import { Router, Route, browserHistory } from 'react-router';
 import Register from '../pages/Register';
