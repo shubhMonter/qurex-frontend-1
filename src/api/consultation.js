@@ -1,4 +1,4 @@
-import { headers, post } from "."
+import {get, headers, post } from "."
 import { BaseSetting } from "../utils/common"
 
 const consultationAPI = {
@@ -16,7 +16,7 @@ const consultationAPI = {
     },
     getByUserId: async(id, token) => {
         try {
-            const response = await post(BaseSetting.ApiDomain + '/consultation/getByUserId' + id, {
+            const response = await get(BaseSetting.ApiDomain + '/consultation/getByUserId/' + id, {
                 ...headers,
                 ['x-auth-token']: token
             })
