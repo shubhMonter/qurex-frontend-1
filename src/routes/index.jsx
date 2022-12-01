@@ -56,6 +56,7 @@ import UserApi from '../api/UserAPI';
 import { Navigate } from 'react-router';
 import VideoCall from '../pages/VideoCall';
 import LandingOs from '../components/homecomponents/OurSexologist';
+import DoctorsList from '../components/DoctorsList';
 const AppRouter = () => {
   const auth = useSelector((state) => state.auth);
   let authData = auth?.data;
@@ -68,6 +69,7 @@ const AppRouter = () => {
         <Route path="login" element={<Login />} />
         <Route path="treatment" element={<TreatmentPage />} />
         <Route path="discover" element={<DiscoverPage />} />
+        <Route path="doctorsList" element={<DoctorsList />} />
         <Route path="doctor/:name" element={<Doctor />} />
         <Route
           path="booking-calendar"

@@ -33,8 +33,8 @@ const LandingOs = () => {
   let rangeDoc1 = "cursor-pointer doc001";
   let rangeDoc2 = "doc002";
   let docImage = doc1;
-  const auth = useSelector((state) => state.auth);
-  var userData = auth?.data;
+  const auth = useSelector((state) => state.auth.authData);
+  var userData = auth?.user;
 
   const getAllDoctors = async() => {
 
@@ -51,12 +51,12 @@ const LandingOs = () => {
       // let selectedDocData = await doctorApi.getDrByUserId(responseDoc?.userId);
       setSelectedDoc(responseDoc);
       setSelDocName(responseDoc.userId.name);
-      let docDegrees = responseDoc?.education.reduce((prevValue, item) => prevValue + item.degree,', ' );
-      setSelDocDegree(docDegrees);
-      let docDesig = responseDoc?.experience.reduce((result, item) => { return `${item.designation} | `});
-      setSelDocDesig(docDesig);
-      let docHours = responseDoc?.businessHours[moment().weekday()].slots.reduce((result, item) => { return `${item.from} to ${item.to} | `});
-      setSelDocAvl(docHours);
+      let docDegrees = responseDoc?.education.reduce((prevValue, item) => prevValue + item.degree + ",",' ' );
+      setSelDocDegree(docDegrees.substring(0,docDegrees.length-1));
+      let docDesig = responseDoc?.experience.reduce((prevValue, item) =>  prevValue + item.designation + " | ",' ');
+      setSelDocDesig(docDesig.substring(0,docDesig.length - 1));
+      let docHours = responseDoc?.businessHours[moment().weekday()].slots.reduce((prevValue, item) => prevValue + item.from + " to " + item.to + " | ",' ');
+      setSelDocAvl(docHours.substring(0,docHours.length - 1));
       // setSelDocDegree(responseDoc?.education[0].degree);
       // setSelDocDesig(responseDoc?.experience[0]?.designation);
       // setSelDocAvl(responseDoc?.businessHours[0]?.slots[0]?.from + " to " + responseDoc?.businessHours[0]?.slots[0]?.to);
@@ -75,23 +75,28 @@ const LandingOs = () => {
   };
 
   const doctorDetail = async (id) => {
-    setShowLoader(true);
-    // console.log(id);
-    let filterDr = allDoctorData.filter((item) => {
-      return item._id === id;
-    });
-    let drDetailData = filterDr[0];
-
-    if (drDetailData && Object.keys(drDetailData).length > 0) {
-      // let response = await doctorApi.getDrByUserId(drDetailData?.userId);
-      let response = drDetailData;
-      if (response && Object.keys(response).length > 0) {
-        // console.log(response);
-        dispatch(addData({ ...drDetailData, drUserData: response }));
-        navigate('/doctor/' + slug(response?.userId.name));
+    try {
+      setShowLoader(true);
+      // console.log(id);
+      let filterDr = allDoctorData.filter((item) => {
+        return item._id === id;
+      });
+      let drDetailData = filterDr[0];
+  
+      if (drDetailData && Object.keys(drDetailData).length > 0) {
+        // let response = await doctorApi.getDrByUserId(drDetailData?.userId);
+        let response = drDetailData;
+        if (response && Object.keys(response).length > 0) {
+          // console.log(response);
+          addData({ ...drDetailData, drUserData: response });
+          navigate('/doctor/' + slug(response?.userId.name));
+        }
+      } else {
       }
-    } else {
+    } catch (error) {
+      console.log(error);
     }
+   
 
     setShowLoader(false);
     //console.log(filterDr);
@@ -103,9 +108,15 @@ const LandingOs = () => {
     let responseDoc = allDoctorData[rangeVal];
     setSelectedDoc(responseDoc);
     setSelDocName(responseDoc.userId.name);
-    setSelDocDegree(responseDoc?.education[0].degree);
-    setSelDocDesig(responseDoc?.experience[0]?.designation);
-    setSelDocAvl(responseDoc?.businessHours[0]?.slots[0]?.from + " to " + responseDoc?.businessHours[0]?.slots[0]?.to);
+    let docDegrees = responseDoc?.education.reduce((prevValue, item) => prevValue + item.degree + ",",' ' );
+    setSelDocDegree(docDegrees.substring(0,docDegrees.length-1));
+    let docDesig = responseDoc?.experience.reduce((prevValue, item) =>  prevValue + item.designation + " | ",' ');
+    setSelDocDesig(docDesig.substring(0,docDesig.length - 1));
+    let docHours = responseDoc?.businessHours[moment().weekday()].slots.reduce((prevValue, item) => prevValue + item.from + " to " + item.to + " | ",' ');
+    setSelDocAvl(docHours.substring(0,docHours.length - 1));
+    // setSelDocDegree(responseDoc?.education[0].degree);
+    // setSelDocDesig(responseDoc?.experience[0]?.designation);
+    // setSelDocAvl(responseDoc?.businessHours[0]?.slots[0]?.from + " to " + responseDoc?.businessHours[0]?.slots[0]?.to);
     // let selectedDocData = await doctorApi.getDrByUserId(responseDoc?.userId);
     // setSelectedDoc(selectedDocData);
     console.log(selectedDoc);
@@ -186,7 +197,10 @@ const LandingOs = () => {
                   <p><span className="pb-1.5 font-bold pr-1.5 text-[#0d6efd]">500+</span> Cases Solved</p>
                 </div>
                 <div className="inldr">
-                  <p><span className="font-semibold">Availability : </span> {selDocAvl} </p>
+                  {/* <p><span className="font-semibold">Availability : </span> {selDocAvl} </p> */}
+                  { selDocAvl && 
+                    <p><span className="font-semibold">Availability : </span>From: {selDocAvl.from} to: {selDocAvl.to}</p>
+                  }
                   <p><span className="line-through font-bold text-gray-400"> ₹ 1500</span><span className="line-through text-gray-400"> Cons Fees</span> <span className="font-bold"> | ₹ {selectedDoc?.feeCharge}</span> <span className="qurexCust">For Qurex Customer</span></p>
                 </div>
                 <div className="inldr">

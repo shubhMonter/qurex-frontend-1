@@ -8,53 +8,16 @@ import jwt_decode from 'jwt-decode';
 import { useSelector, useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
+import { UpdateDoctorsDetails } from '../../../../../../preseneter/DashBoard/Doctor';
 
 const EducationalDetail = () => {
-  const auth = useSelector((state) => state.auth);
-  let doctorData = auth?.data;
-  const [data, setData] = useState([]);
- 
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const getData = async () => {
-    try {
-      if (navigator.onLine) {
-        const response = await get(
-          BaseSetting.doctorApiDomain + `/getByUserId/${doctorData._id}`,
-          headers
-        );
-        // setApiData(response.data.data);
-        const result = response.data;
-
-        if (result.status == 1) {
-          setData(result.data);
-          // console.log(result);
-        } else {
-          //console.log(result);
-        }
-      } else {
-      }
-    } catch (error) {}
-  };
-
+  const auth = useSelector((state) => state.auth.authData);
+  const doctor = useSelector((state) => state.doctor);
+  const { education: educationData, id } = doctor;
   const updateForm = async (education) => {
     education.map(x=> x._id && delete x._id)
-    return put(
-      BaseSetting.doctorApiDomain + `/${data?._id}`,
-      {
-        education
-      },
-
-      headers
-    );
+    return UpdateDoctorsDetails(id,{education},auth.token);
   }
-
-  // let degree = data?.education?.map((item) => item?.degree)[0];
-  // let institution = data?.education?.map((item) => item?.institution)[0];
-  // let year = data?.education?.map((item) => item?.year)[0];
   const formik = useFormik({
     initialValues: {
       degree: '',
@@ -77,38 +40,31 @@ const EducationalDetail = () => {
       //dispatch(postActions.updatePost(postUpdatedData));
       try {
         if (navigator.onLine) {
-          const response = await updateForm([...data.education,postUpdatedData])
-          const result = response.data;
-          console.log(result);
-          if (result.status == 1) {
-            getData();
-            resetForm();
-           
-           // alert('Succesfully Updated');
+          const response = await updateForm([...educationData, postUpdatedData])
+          if (response) {
+            resetForm()
+          } else {
+            alert('Error Updating Data');
           }
-        } else {
         }
       } catch (error) {
         console.log(error);
         alert('Error Updating Data');
       }
-      getData();
+      
     },
     
   });
 
   const deleteById = async (id) => {
-    const index = data.education.findIndex(x => x._id == id);
-    const education = data.education;
+    const index = educationData.findIndex(x => x._id == id);
+    const education = educationData;
     education.splice(index, 1);
-    
     try {
       if (navigator.onLine) {
         const response = await updateForm([...education])
-        const result = response.data;
-        console.log(result);
-        if (result.status == 1) {
-          getData();
+        if (!response) {
+          alert('Error Updating Data');
         }
       } 
     } catch (error) {
@@ -116,7 +72,6 @@ const EducationalDetail = () => {
       alert('Error Updating Data');
     }
   }
-
   return (
     <form>
       <div className="text-[#626262] mt-6 px-7 col-span-3 md:col-span-2 lg:col-span-2 xl:col-span-2 flex flex-col">
@@ -199,7 +154,7 @@ const EducationalDetail = () => {
         <div className="grid grid-cols-7 gap-1 md:gap-5 lg:gap-5 xl:gap-5 ">
             
             {/* <div className="text-xs">Degree</div> */}
-              {data && data?.education?.map(x => {
+              {educationData && educationData?.length > 0 && educationData?.map(x => {
                 return (
                   <>
                     <div className="col-span-7 md:col-span-2 lg:col-span-2 xl:col-span-2  mt-5 flex flex-col">

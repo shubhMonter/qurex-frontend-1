@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { BsPlayCircleFill } from 'react-icons/bs';
-import { useSelector, useDispatch } from 'react-redux';
-import '../../styles/doctor.css';
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { BsPlayCircleFill } from "react-icons/bs";
+import { useSelector, useDispatch } from "react-redux";
+import "../../styles/doctor.css";
 
 const DoctorHero = ({ drDetailData }) => {
 const auth = useSelector((state) => state.auth);
 const docName = drDetailData?.userId.name;
-const docDesig = drDetailData?.experience[0]?.designation;
-const docDegree = drDetailData?.education[0].degree;
-const docAvl = drDetailData?.businessHours[0]?.slots[0]?.from + " to " + drDetailData?.businessHours[0]?.slots[0]?.to
+let docDesig = drDetailData?.experience.reduce((prevValue, item) =>  prevValue + item.designation + " | ",' ');
+docDesig = docDesig.substring(0,docDesig.length - 2);
+let docSpec = drDetailData?.professionalDetail.specializations.reduce((prevValue, item) =>  prevValue + item+ " | ",' ');
+docSpec = docSpec.substring(0,docSpec.length - 2);
+let docTreatments = drDetailData?.professionalDetail.treatments.reduce((prevValue, item) =>  prevValue + item+ ", ",' ');
+docTreatments = docTreatments.substring(0,docTreatments.length - 2);
 var userData = auth?.data;
 
 useEffect(() => {
@@ -23,22 +26,18 @@ useEffect(() => {
           <img
             src={drDetailData.userId.profilePic}
             className="rounded-circle drHeroImg m-auto block"
+            alt="Doctor Profile Pic"
           />
         </div>
         <div className="mt-3 col-12 col-md-6 d-flex flex-column justify-content-center align-items-center align-items-md-start ">
           <div className="d-flex align-items-center">
             <h1 className="fw-bolder">{docName}</h1>
             <p className="mx-2 mt-2 btn btn-primary btn-sm rounded-pill">
-              {docDesig}
+              {docSpec}
             </p>
           </div>
           <p className="flex fw-bolder">
-            Expert in
-            Obstetrician, Gynaecologist, Infertility
-            {/* {drDetailData?.professionalDetail.treatments} */}
-            {drDetailData?.professionalDetail?.treatments.map((item, index) => (
-              <div className="flex"> {item},</div>
-            ))}
+            Expert in {docTreatments}
           </p>
           <p className="fw-bolder ">{`22`}+ Cases Solved</p>
           <p className="fw-bolder">
@@ -50,9 +49,10 @@ useEffect(() => {
               type="button"
               className="mr-2 btn btn-outline-primary rounded-pill"
             >
-              <BsPlayCircleFill className="playBtnHero" color="#0d6efd" /> Watch Now
+              <BsPlayCircleFill className="playBtnHero" color="#0d6efd" /> Watch
+              Now
             </button>
-            <Link to={userData?.name ? '/booking-calendar': '/login'}>
+            <Link to={drDetailData?.userId.name ? "/booking-calendar" : "/login"}>
               <button
                 type="button"
                 className="mx-2 btn btn-primary rounded-pill"
