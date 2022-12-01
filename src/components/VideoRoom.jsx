@@ -11,6 +11,9 @@ import { HiOutlinePhoneMissedCall } from 'react-icons/hi';
 import { AiOutlineFileAdd } from 'react-icons/ai';
 import { BsCameraVideo, BsCameraVideoOff, BsChatDots } from 'react-icons/bs';
 import { useNavigate } from 'react-router';
+import BookingAPI from '../api/bookingAPI';
+import UserApi from '../api/UserAPI'
+import consultationAPI from "../api/consultation"
 
 const APP_ID = '487313108aca464bb93de894daedc887';
 const TOKEN =
@@ -47,7 +50,7 @@ const createAgoraClient = ({
   };
 
   const connect = async () => {
-    console.log({ APP_ID, CHANNEL, TOKEN });
+   
     await waitForConnectionState('DISCONNECTED');
 
     const uid = await client.join(APP_ID, 'Qurex' || room_id, TOKEN, user_id);
@@ -102,8 +105,32 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
   const [uid, setUid] = useState(user_id);
   const [reload, setReload] = useState(false);
   const [onForm, setOnForm] = useState(false);
-  const auth = useSelector((state) => state.auth);
-  let authData = auth?.data;
+  const auth = useSelector((state) => state.auth.authData);
+  const [bookingDetails,setBookingDetails] = useState();
+  const [patientDetails,setPatientDetail] = useState();
+  React.useEffect(() => {
+    const params = new URLSearchParams(window.location.search) 
+    const id = params.get('user_id') // 123 
+    getBookingDetails(id,auth.token)
+}, [])
+  const getBookingDetails =async(id,token) =>{
+   try {
+    const bookingData = await BookingAPI.getBookingById(id,token)
+    if(bookingData){
+      setBookingDetails(bookingData)
+        const patientData = await UserApi.getUser(bookingData.patientId);
+        if(patientData){
+          setPatientDetail(patientData);
+        }else{
+          console.log(patientData);
+        }
+    }else{
+      console.log(bookingData);
+    }
+   } catch (error) {
+    console.log(error);
+   } 
+  } 
   const setup = async () => {
     const { tracks, uid } = await connect();
     setCurrentUser({
@@ -178,25 +205,17 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
         diagnosis: values.diagnosis,
         medication: values.medication,
         advice: values.advice,
+        patientId:bookingDetails.patientId,
+        bookingId:bookingDetails.bookingId,
+        consultationId:bookingDetails.bookingId,
       };
-      //console.log(postUpdatedData);
-      //dispatch(postActions.updatePost(postUpdatedData));
+      
       try {
         if (navigator.onLine) {
-          //console.log(data);
-          const response = await put(
-            BaseSetting.doctorApiDomain + `/`,
-            {
-              awards: postUpdatedData,
-            },
-            headers
-          );
-          const result = response.data;
-          console.log(result);
-          if (result.status == 1) {
+          const response = await consultationAPI.createConsultation(postUpdatedData,auth.token)
+          if (response) {
             alert('Succesfully Updated');
           }
-          alert('Succesfully Updated');
         } else {
         }
       } catch (error) {
@@ -207,10 +226,10 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
 
   const handleMute = () => {
     if (muteText == 'Mute') {
-      currentUser?.audioTrack.setMuted(true);
+      currentUser?.audioTrack?.setMuted(true);
       setMuteText('Unmute');
     } else {
-      currentUser?.audioTrack.setMuted(false);
+      currentUser?.audioTrack?.setMuted(false);
       setMuteText('Mute');
     }
   };
@@ -249,7 +268,7 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
     <>
       <div
         className={`mx-3 grid grid-cols-1 ${
-          authData?.role === 'doctor' ? 'md:grid-cols-4' : 'md:grid-cols-3'
+          auth?.role === 'doctor' ? 'md:grid-cols-4' : 'md:grid-cols-3'
         }  gap-5`}
       >
         <div className="col-span-3">
@@ -301,7 +320,7 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
                 </button>
                 <button
                   className="ml-3 btn btn-lg btn-light rounded-pill "
-                  onClick={() => setOnForm(!onForm)}
+                  onClick={() => setOnForm(true)}
                 >
                   <AiOutlineFileAdd />
                 </button>
@@ -315,7 +334,7 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
             </div>
           </div>
         </div>
-        {authData?.role === 'doctor' && onForm ? (
+        {auth?.role === 'doctor' && onForm ? (
           <div className="col-span-1">
             <form>
               <div className="sticky flex flex-col col-span-2 px-3 py-2 shadow-lg md:col-span-1 xl:col-span-1 lg:col-span-1">
@@ -323,7 +342,7 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
                   Please fill the prescription or check prescription not
                   required before leaving consultation.
                 </div>
-                <div className="t414 text-[#1C1C1C] mt-4">Name: Mithun Rao</div>
+                <div className="t414 text-[#1C1C1C] mt-4">Name: {patientDetails?.name} </div>
                 <div className="t414 text-[#1C1C1C] mt-4">Symtoms/Issue</div>
                 <div className="mt-1">
                   <input
