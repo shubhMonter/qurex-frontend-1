@@ -48,7 +48,7 @@ const Consultation = () => {
     },
     {
       name: 'Facing Since',
-      selector: (row) => row.frequency,
+      selector: (row) => row.since,
     },
     {
       name: 'Dignosis',

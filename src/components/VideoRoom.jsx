@@ -201,7 +201,7 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
     onSubmit: async (values,{resetForm}) => {
       const postUpdatedData = {
         issue: values.issue,
-        frequency: values.since,
+        since: values.since,
         diagnosis: values.diagnosis,
         medicine: values.medicine,
         doctorAdvice: values.advice,
