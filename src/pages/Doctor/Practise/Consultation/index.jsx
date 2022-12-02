@@ -39,12 +39,16 @@ const Consultation = () => {
     //   selector: (row) => row.,
     // },
     {
-      name: 'Patient Id',
+      name: 'Patient Name',
       selector: (row) => row.patientId,
     },
     {
-      name: 'Issue',
+      name: 'Symtoms/Issue',
       selector: (row) => row.issue,
+    },
+    {
+      name: 'Facing Since',
+      selector: (row) => row.frequency,
     },
     {
       name: 'Dignosis',
@@ -55,12 +59,8 @@ const Consultation = () => {
       selector: (row) => row.medicine,
     },
     {
-      name: 'Frequency',
-      selector: (row) => row.frequency,
-    },
-    {
-      name: 'Lab Test',
-      selector: (row) => row.labTests.map(x=>(<span>{x}{", "}</span>)),
+      name: 'General Advice',
+      selector: (row) => row.doctorAdvice,
     }
   ];
 
