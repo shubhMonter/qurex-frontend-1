@@ -16,7 +16,6 @@ const Consultation = () => {
   const getConsultationData = async(id,token) =>{
     try {
       const response =  await consultationAPI.getByUserId(id,token);
-      console.log({response});
       if(response){
         setData(response);
       }else{
@@ -40,7 +39,7 @@ const Consultation = () => {
     // },
     {
       name: 'Patient Name',
-      selector: (row) => row.patientId,
+      selector: (row) => row.patientId.name,
     },
     {
       name: 'Symtoms/Issue',

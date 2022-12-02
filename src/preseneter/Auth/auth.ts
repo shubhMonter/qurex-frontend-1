@@ -2,7 +2,9 @@ import { post } from "../../api";
 import { setAuth } from "../../state/auth/Actions";
 import { Auth } from "../../state/auth/interface";
 import { clearError, setError } from "../../state/error/actions";
+import { Role } from "../../state/interface";
 import { BaseSetting } from "../../utils/common";
+import { getDoctorDetails } from "../DashBoard/Doctor";
 export interface Register {
   mobile: number;
   name: string;
@@ -58,6 +60,9 @@ export const SignInOTP = async (req: VerifyOTP) => {
         token: response.headers["x-auth-token"] as string,
       };
       setAuth(data);
+      if(role === Role.DR){
+        getDoctorDetails(id,data.token)
+      }
     } else {
       setError(
         {
