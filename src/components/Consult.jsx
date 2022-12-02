@@ -7,6 +7,7 @@ import { get, headers, post } from '../api';
 import { BaseSetting } from '../utils/common';
 import '../styles/Confirm.css';
 import { useSelector } from 'react-redux';
+import loader from '../assets/loader.gif';
 import { Link } from 'react-router-dom';
 
 const Consult = () => {
@@ -36,10 +37,13 @@ const Consult = () => {
   const [dateData, setDateData] = useState({});
   const [dateTime, setDateTime] = useState([]);
   const [selected, setSelected] = useState({});
+  const [showLoader,setShowLoader] = useState(false)
+  
   const SelezionaTab = (tabId = null) => {
     setSelected({ [tabId]: !selected[tabId] });
   };
   const handleSubmit = async (e) => {
+    setShowLoader(true)
     const date = mydate;
     const [day, month, year] = date.split('-');
     const resdate = [year, month, day].join('-');
@@ -107,12 +111,14 @@ const Consult = () => {
 
   const getData = async () => {
     try {
+      setShowLoader(true)
       const slotResp = await get(
         BaseSetting.doctorApiDomain + '/availableSlots/' +id
       );
       const slotRes = slotResp?.data;
       setDateData(slotRes?.data);
     } catch (error) {}
+    setShowLoader(false)
   };
 
 
@@ -121,17 +127,18 @@ const Consult = () => {
       <div className="container bookingCalendar">
         <div className="row">
 
-          <div className="col-md-2">
+          <div className="col-md-2 col-sm-12">
           </div>
 
-          <div className="col-md-4">
+          <div className="col-md-4 col-sm-12">
             <Calendar minDate={new Date()} onChange={changeSelectedDate} />
           </div>
 
-          <div className="col-md-6">
+          <div className="col-md-6 col-sm-12">
             <span className="slot pt-5">Slots Available Today</span>
             <span className="gryline"></span>
             <div className="container">
+           {showLoader ? <div className="losup"><img className="block m-auto" src={loader}/></div>:   
               <div className="row timeSlots pb-32">
               
                     {dateTime?.length > 0
@@ -154,29 +161,31 @@ const Consult = () => {
                             </button>
                             </div>
                         ))
-                      : <span className="notAvl">Not Available</span>}
+                      : <span className="notAvl">Not Available. Please Next Date.</span>}
                     </div>
-                </div>
+                 } </div>
+          
 
                 
                 <div className="row">
-                  <div className="col-md-3"></div>
-                    <div className="col-md-3">
+                  <div className="col-md-3 col-sm-12"></div>
+                    <div className="col-md-3 col-sm-6">
                       <button onClick={() => navigate(-1)} className="back shadow-md hover:shadow-2xl duration-500 ease-in-out">Back</button>
                     </div>
-                    <div className="col-md-3">
+                    <div className="col-md-3 col-sm-6">
                       
                       <button 
                       className={dateTime?.length > 0 ? 
                         "book bg-[#006edc] opacity-100 shadow-md hover:shadow-2xl duration-500 ease-in-out" :
                         "book btnDisabled bg-[#ababab] opacity-100 shadow-md hover:shadow-2xl duration-500 ease-in-out" }
                         // onClick={() => authData?.name ? handleSubmit : navigate("/login")}>
-                        onClick={handleSubmit}>
+                        onClick={handleSubmit} disabled={showLoader}>
+                          
                           Book now
                       </button>
                       
                   </div>
-                  <div className="col-md-3"></div>
+                  <div className="col-md-3 col-sm-12"></div>
                 </div>
 
             </div>

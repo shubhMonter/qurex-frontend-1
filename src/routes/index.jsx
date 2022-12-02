@@ -1,8 +1,10 @@
+import React from 'react';
 import { BrowserRouter, Routes, Outlet } from 'react-router-dom';
 import { Router, Route, browserHistory } from 'react-router';
 import Register from '../pages/Register';
 import Login from '../pages/Login';
 import TreatmentPage from '../pages/TreatmentPage';
+import DiscoverPage from '../pages/DiscoverPage';
 import Doctor from '../pages/DoctorCmp';
 import Consult from '../components/Consult';
 import Confirm from '../components/Confirm';
@@ -54,6 +56,8 @@ import { useEffect } from 'react';
 import UserApi from '../api/UserAPI';
 import { Navigate } from 'react-router';
 import VideoCall from '../pages/VideoCall';
+import LandingOs from '../components/homecomponents/OurSexologist';
+import DoctorsList from '../components/DoctorsList';
 const AppRouter = () => {
   const auth = useSelector((state) => state.auth.authData.isAuthenticated);
   return (
@@ -63,6 +67,8 @@ const AppRouter = () => {
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
         <Route path="treatment" element={<TreatmentPage />} />
+        <Route path="discover" element={<DiscoverPage />} />
+        <Route path="doctorsList" element={<DoctorsList />} />
         <Route path="doctor/:id" element={<Doctor />} />
         <Route
           path="booking-calendar/:id"

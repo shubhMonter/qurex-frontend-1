@@ -11,6 +11,7 @@ import hat from '../../assets/hat.png';
 import globe from '../../assets/globe.png';
 import cal from '../../assets/cal.png';
 import doctorApi from '../../api/doctorAPI';
+import moment from 'moment/moment';
 import { Link, useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -35,21 +36,31 @@ const LandingOs = () => {
   var userData = auth?.user;
 
   const getAllDoctors = async() => {
-    try {
-        setShowLoader(true);
-        let response = await doctorApi.getHomeDoctors();
-        console.log("all doctors..");
-        console.log(response);
-        if (response.length > 0) {
-          setAllDoctorData(response);
-          let responseDoc = response[0];
-          setSelectedDoc(responseDoc);
-          setSelDocName(responseDoc.userId.name);
-          setSelDocDegree(responseDoc?.education[0]?.degree);
-          setSelDocDesig(responseDoc?.experience[0]?.designation);
-          setSelDocAvl(responseDoc?.businessHours[0]?.slots[0]?.from + " to " + responseDoc?.businessHours[0]?.slots[0]?.to);
-        
-        }
+    try{
+    setShowLoader(true);
+    
+    // let response = await doctorApi.getAllDoctors();
+    let response = await doctorApi.getHomeDoctors();
+    console.log("all doctors..");
+    console.log(response);
+    if (response.length > 0) {
+      setAllDoctorData(response);
+
+      let responseDoc = response[0];
+      // let selectedDocData = await doctorApi.getDrByUserId(responseDoc?.userId);
+      setSelectedDoc(responseDoc);
+      setSelDocName(responseDoc.userId.name);
+      let docDegrees = responseDoc?.education.reduce((prevValue, item) => prevValue + item.degree + ",",' ' );
+      setSelDocDegree(docDegrees.substring(0,docDegrees.length-1));
+      let docDesig = responseDoc?.experience.reduce((prevValue, item) =>  prevValue + item.designation + " | ",' ');
+      setSelDocDesig(docDesig.substring(0,docDesig.length - 1));
+      let docHours = responseDoc?.businessHours[moment().weekday()].slots.reduce((prevValue, item) => prevValue + item.from + " to " + item.to + " | ",' ');
+      setSelDocAvl(docHours.substring(0,docHours.length - 1));
+      // setSelDocDegree(responseDoc?.education[0].degree);
+      // setSelDocDesig(responseDoc?.experience[0]?.designation);
+      // setSelDocAvl(responseDoc?.businessHours[0]?.slots[0]?.from + " to " + responseDoc?.businessHours[0]?.slots[0]?.to);
+      console.log("default doc.");
+    }
     setShowLoader(false);
     } catch (error) {
       console.log(error);
@@ -101,9 +112,19 @@ const LandingOs = () => {
     let responseDoc = allDoctorData[rangeVal];
     setSelectedDoc(responseDoc);
     setSelDocName(responseDoc.userId.name);
-    setSelDocDegree(responseDoc?.education[0]?.degree);
-    setSelDocDesig(responseDoc?.experience[0]?.designation);
-    setSelDocAvl(responseDoc?.businessHours[0]?.slots[0]?.from + " to " + responseDoc?.businessHours[0]?.slots[0]?.to);
+    let docDegrees = responseDoc?.education.reduce((prevValue, item) => prevValue + item.degree + ",",' ' );
+    setSelDocDegree(docDegrees.substring(0,docDegrees.length-1));
+    let docDesig = responseDoc?.experience.reduce((prevValue, item) =>  prevValue + item.designation + " | ",' ');
+    setSelDocDesig(docDesig.substring(0,docDesig.length - 1));
+    let docHours = responseDoc?.businessHours[moment().weekday()].slots.reduce((prevValue, item) => prevValue + item.from + " to " + item.to + " | ",' ');
+    setSelDocAvl(docHours.substring(0,docHours.length - 1));
+    // setSelDocDegree(responseDoc?.education[0].degree);
+    // setSelDocDesig(responseDoc?.experience[0]?.designation);
+    // setSelDocAvl(responseDoc?.businessHours[0]?.slots[0]?.from + " to " + responseDoc?.businessHours[0]?.slots[0]?.to);
+    // let selectedDocData = await doctorApi.getDrByUserId(responseDoc?.userId);
+    // setSelectedDoc(selectedDocData);
+    console.log(selectedDoc);
+    console.log(selectedDoc.userId.name);
     for(let i =0;i<document.getElementsByClassName("doc001").length; i++)
     {
       if(document.getElementsByClassName("doc001")[i].classList.contains(rangeDoc2))
@@ -116,7 +137,7 @@ const LandingOs = () => {
 
   return (
 
-    <section className="los">
+    <section className="los" id="doctorsSection">
       <section className="inos">
 
       <div className="container-fluid my-5">
@@ -176,11 +197,14 @@ const LandingOs = () => {
                 <span className="docName"> {selDocName} </span><span className="p-1.5">{selDocDegree}</span>
                 <div className="inldr">
                   <span className="pb-2 font-['Montserrat']">{selDocDesig}</span>
-                  <p><span className="pb-1.5 font-bold pr-1.5 text-[#0d6efd]">15+ Years experience</span></p>
-                  <p><span className="pb-1.5 font-bold pr-1.5 text-[#0d6efd]">500+</span> Cases Solved</p>
+                  {/* <p><span className="pb-1.5 font-bold pr-1.5 text-[#0d6efd]">15+ Years experience</span></p>
+                  <p><span className="pb-1.5 font-bold pr-1.5 text-[#0d6efd]">500+</span> Cases Solved</p> */}
                 </div>
                 <div className="inldr">
-                  <p><span className="font-semibold">Availability : </span> {selDocAvl} </p>
+                  {/* <p><span className="font-semibold">Availability : </span> {selDocAvl} </p> */}
+                  { selDocAvl && 
+                    <p><span className="font-semibold">Availability : </span>From: {selDocAvl.from} to: {selDocAvl.to}</p>
+                  }
                   <p><span className="line-through font-bold text-gray-400"> ₹ 1500</span><span className="line-through text-gray-400"> Cons Fees</span> <span className="font-bold"> | ₹ {selectedDoc?.feeCharge}</span> <span className="qurexCust">For Qurex Customer</span></p>
                 </div>
                 <div className="inldr">

@@ -18,8 +18,8 @@ export interface VerifyOTP {
   mobile: number;
 }
 export interface Login {
-  mobile?: number;
-  email?: string;
+  mobile: number;
+  email: string;
   password: string;
 }
 export const SignUpOTP = async (req: Register) => {

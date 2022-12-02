@@ -4,10 +4,10 @@ import '../../styles/doctor.css';
 import quote from '../../assets/svgs/quote.svg';
 
 
-const DoctorAbout = ({ drDetailData }) => {
+const doctorAbout = ({ drDetailData }) => {
   return (
     <div className="container mt-3 mb-5">
-      <h3 className="font-bold ml-10 pt-1.5">About {drDetailData?.userId?.name}</h3>
+      <h3 className="font-bold pt-1.5">About {drDetailData?.userId?.name.split(" ")[0]}</h3>
 
       <div className="row justify-content-between">
         <div className="col-12 col-lg-8">
@@ -38,4 +38,4 @@ const DoctorAbout = ({ drDetailData }) => {
   );
 };
 
-export default DoctorAbout;
+export default doctorAbout;

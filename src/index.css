@@ -274,6 +274,16 @@
   justify-content: space-between;
   flex-direction: column;
 }
+.separatorDocList
+{
+  padding-top: 10px;
+  width: 100%;
+  display: flex;
+  height: 100%;
+  border-top: 0.8px solid #dadada;
+  justify-content: space-between;
+  flex-direction: column;
+}
 .grybox {
   height: 97px;
   width: 100%;
@@ -313,6 +323,41 @@
   width: 18px;
   height: 18px;
 }
+.courseSectionTitle{
+  font-size:32px;
+}
+.navbar a {
+  color: black;
+  font-weight: 600;
+}
+.highlightGreen
+{
+  height: auto;
+  background-color: lightgreen;
+  color: green;
+  font-weight: 500;
+  padding: 3px;
+  width: fit-content;
+  font-size: 14px;
+  text-align: center;
+  margin-top: -5px;
+}
+
+.highlightPurple
+{
+  background-color: #e2d3ff;
+  color: #613aac;
+  font-weight: 500;
+  padding: 3px;
+  width: fit-content;
+  font-size: 14px;
+  text-align: center;  
+  margin-top: 10px;
+  height: 25px;
+}
+
+
+
 @media only screen and (max-width: 600px) {
   .docabouthome > span {
     width: 375px;
@@ -357,9 +402,6 @@
   }
   .courseSectionTitle, .CourseSubTitle {
     margin-left: -20px;
-  }
-  .courseSectionTitle{
-    margin-left: 5px;
   }
   .courseSection .slick-dots
   {
@@ -406,6 +448,11 @@
   .playBtn
   {
     left: -20%;
+  }
+  .bookingCalendar .row > *
+  {
+    width: fit-content;
+    padding-right: 0px;
   }
 }
 .loader {
@@ -564,4 +611,16 @@ button.opacity-50 {
 {
   width: 250px;
   height: 250px;
+}
+
+.avlTime
+{
+  display: table-cell;
+  position: relative;
+  top: -19px;
+  left: 55px;
+}
+.docMoreInfo
+{
+  width: 45% !important;
 }

@@ -113,7 +113,7 @@ const AppointmentComponent = ({ booking }) => {
           <div className="flex w-full pl-5 justify-content-between align-items-start">
             <div>
               <div className="flex flex-row">
-                <div className="font-semibold">Dr Anita Shyam</div>
+                <div className="font-semibold">Patient Name</div>
                 <div className="ml-3 px-5 py-1 bg-opacity-30 text-xs bg-[#655af4] text-[#655af4] rounded-5 font-bold">
                   Gynecologist
                 </div>

@@ -20,7 +20,7 @@ const Home = () => {
         <Features />
         {/* <SlickGoTo/> */}
         {/* <OurSexologist /> */}
-        <OurDoctors />
+        <OurDoctors id="doctorsSection"/>
         <HowItWorks />
         <CoursesVideos />
         <FAQ />

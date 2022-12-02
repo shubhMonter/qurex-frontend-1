@@ -102,11 +102,12 @@
   border-radius: 100px;
 }
 
-.indivthr {
-  width: 80%;
+.indivthr {  
   margin: 0 auto;
-  display: flex;
+  display: block !important;
   justify-content: space-between;
+  display: -webkit-inline-box;
+  width: 100%;  
 }
 .infoslot02 {
   display: block;
@@ -177,7 +178,6 @@
 }
 
 .onediv {
-  height: 30%;
   background: #f2f7ff;
   border-radius: 4px 4px 0px 0px;
 }
@@ -235,11 +235,18 @@
 
 .imgunfo {
   margin-right: 22px;
+  height: 20px;
+  width: 20px;
+}
+
+.docImg {
+  height: 100px;
+  width: 100px;
+  border-radius: 60px;
 }
 
 .slotinfo {
   display: flex;
-  height: 77%;
   justify-content: space-evenly;
   flex-direction: column;
 }
@@ -328,12 +335,10 @@
     font-size: 14px;
   }
   .indivthr > span {
-    width: 100%;
-    margin-left: 22px;
+    width: 50%;
+
   }
   .indivthr {
-    width: 54%;
-    height: 70%;
     flex-direction: column-reverse;
   }
   .timings {
