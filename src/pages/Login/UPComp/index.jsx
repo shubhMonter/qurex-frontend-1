@@ -108,7 +108,7 @@ const UPComp = () => {
       <div className="mt-3">
         <input
           name="password"
-          value={upInputs.name}
+          onBlur={handleUPChange}
           type="password"
           onChange={handleUPChange}
           className="py-3 pl-2 rounded-md border w-9/12 text-[12px] font-normal text-[#666666] outline-none"
