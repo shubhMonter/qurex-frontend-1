@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import { AiOutlineCalendar } from 'react-icons/ai';
 import { CiGlobe } from 'react-icons/ci';
 import { SlGraduation } from 'react-icons/sl';
@@ -7,14 +7,6 @@ import '../../styles/doctor.css';
 import moreDoc from '../../assets/svgs/moreDoc.svg';
 import pointerIcon from '../../assets/svgs/pointerIcon.svg';
 import availability from '../../assets/svgs/availability.svg';
-
-
-// let showMore = false;
-// const showHideDetails = (showSec) => {
-//   alert(showSec);
-//   showMore = showSec;
-// };
-
 const DoctorData = ({ drDetailData }) => {
 
   const [isOpened, setIsOpened] = useState(false);
@@ -124,7 +116,7 @@ const DoctorData = ({ drDetailData }) => {
             <CiGlobe size={25} color="#6F6FFF" />
             <p className="mx-2">
               Language known{' '}
-              {drDetailData?.drUserData?.languages?.map((item) => (
+              {drDetailData?.languages?.map((item) => (
                 <>{item}</>
               ))}
             </p>

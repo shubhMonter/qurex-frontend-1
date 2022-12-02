@@ -2,28 +2,22 @@ import moment from 'moment/moment';
 import React, { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { get, headers, post } from '../api';
 import { BaseSetting } from '../utils/common';
 import '../styles/Confirm.css';
 import { useSelector } from 'react-redux';
+import loader from '../assets/loader.gif';
 import { Link } from 'react-router-dom';
 
 const Consult = () => {
+  const {id}= useParams();
   const [currentTime, setCurrentTime] = useState('');
   const navigate = useNavigate();
-
   const auth = useSelector((state) => state.auth.authData);
-  let authData = auth?.user;
-  const drDetail = useSelector((state) => state.doctor.drUserData);
-  console.log("drDetail");
-  console.log(drDetail);
-  let drDetailData = drDetail;
-
+ 
   useEffect(() => {
-    console.log(drDetail);
     getData();
-
     const today = new Date(
       new Date().toLocaleString('en-US', {
         day: '2-digit',
@@ -43,55 +37,39 @@ const Consult = () => {
   const [dateData, setDateData] = useState({});
   const [dateTime, setDateTime] = useState([]);
   const [selected, setSelected] = useState({});
+  const [showLoader,setShowLoader] = useState(false)
+  
   const SelezionaTab = (tabId = null) => {
     setSelected({ [tabId]: !selected[tabId] });
-    // console.log(tabId);
   };
-
   const handleSubmit = async (e) => {
+    setShowLoader(true)
     const date = mydate;
-
     const [day, month, year] = date.split('-');
-
     const resdate = [year, month, day].join('-');
-    //console.log(resdate + 'T' + time + ':00.000Z');
-    console.log(
-      authData?.id,
-      drDetailData?.userId._id,
-      resdate + 'T' + time + ':00.000Z'
-    );
     try {
       const response = await post(
         BaseSetting.doctorApiDomain + '/bookAppointment',
         {
-          patientId: authData?.id,
-          doctorId: drDetailData?.userId._id,
+          patientId: auth?.user?.id,
+          doctorId: id,
           meta: 'test',
           from: resdate + 'T' + time + ':00.000Z',
         },
-
         headers
       );
-      //console.log(response);
-      // setApiData(response.data.data);
       const result = response.data;
-      //console.log({ result });
       if (result.status === 1) {
-        //   console.log(result);
         navigate('/confirm-payment', {
           state: result.data,
           time: time,
-          drDetailData: drDetailData,
+          doctorId: id,
         });
       } else {
-        console.log(response);
         alert(result.data);
       }
-      // setData(result.data['02-01-2022']);
-      // console.log(result.data['02-01-2022']);
     } catch (error) {
       console.log({ error });
-      alert(error);
     }
   };
   function tConvert(time) {
@@ -127,31 +105,22 @@ const Consult = () => {
         let cDate = moment(bDate);
         return aDate.isAfter(cDate);
       });
-      // console.log(dateData);
       setDateTime(ctime);
-
-      // console.log(dateData[date1]);
     }
   };
 
   const getData = async () => {
-
     try {
-      console.log("drdata");
-      console.log(drDetailData);
+      setShowLoader(true)
       const slotResp = await get(
-        BaseSetting.doctorApiDomain + '/availableSlots/' + drDetailData?.userId._id
+        BaseSetting.doctorApiDomain + '/availableSlots/' +id
       );
-      console.log("slotResp");
-      console.log(slotResp);
-      // setApiData(response.data.data);
       const slotRes = slotResp?.data;
-      console.log({ slotRes });
       setDateData(slotRes?.data);
-      // console.log(result.data['02-01-2022']);
     } catch (error) {}
+    setShowLoader(false)
   };
-  // console.log(dateTime);
+
 
   return (
     <section className="bookingSection">
@@ -169,6 +138,7 @@ const Consult = () => {
             <span className="slot pt-5">Slots Available Today</span>
             <span className="gryline"></span>
             <div className="container">
+           {showLoader ? <div className="losup"><img className="block m-auto" src={loader}/></div>:   
               <div className="row timeSlots pb-32">
               
                     {dateTime?.length > 0
@@ -191,9 +161,10 @@ const Consult = () => {
                             </button>
                             </div>
                         ))
-                      : <span className="notAvl">Not Available</span>}
+                      : <span className="notAvl">Not Available. Please Next Date.</span>}
                     </div>
-                </div>
+                 } </div>
+          
 
                 
                 <div className="row">
@@ -208,7 +179,8 @@ const Consult = () => {
                         "book bg-[#006edc] opacity-100 shadow-md hover:shadow-2xl duration-500 ease-in-out" :
                         "book btnDisabled bg-[#ababab] opacity-100 shadow-md hover:shadow-2xl duration-500 ease-in-out" }
                         // onClick={() => authData?.name ? handleSubmit : navigate("/login")}>
-                        onClick={handleSubmit}>
+                        onClick={handleSubmit} disabled={showLoader}>
+                          
                           Book now
                       </button>
                       

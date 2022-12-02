@@ -5,6 +5,7 @@ export const ADD_BUSINESS_HOURS_DATA = "ADD_BUSINESS_HOURS_DATA";
 export const ADD_EDUCATION_DATA = "ADD_EDUCATION_DATA";
 export const ADD_EXPERIENCE_DATA = "ADD_EXPERIENCE_DATA";
 export const ADD_AWARDS_DATA = "ADD_AWARDS_DATA";
+export const CLEAR_DOCTOR = "CLEAR_DOCTOR";
 export interface Doctor {
   professionalDetail?: ProfessionDetails;
   businessHours?: BusinessHours[];

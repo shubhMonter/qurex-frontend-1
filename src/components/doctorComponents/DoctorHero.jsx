@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useEffect} from "react";
+import { Link } from "react-router-dom";
 import { BsPlayCircleFill } from "react-icons/bs";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import "../../styles/doctor.css";
 
 const DoctorHero = ({ drDetailData }) => {
-const auth = useSelector((state) => state.auth);
+const auth = useSelector((state) => state.auth.authData);
 const docName = drDetailData?.userId.name;
 let docDesig = drDetailData?.experience.reduce((prevValue, item) =>  prevValue + item.designation + " | ",' ');
 docDesig = docDesig.substring(0,docDesig.length - 2);
@@ -13,7 +13,7 @@ let docSpec = drDetailData?.professionalDetail.specializations.reduce((prevValue
 docSpec = docSpec.substring(0,docSpec.length - 2);
 let docTreatments = drDetailData?.professionalDetail.treatments.reduce((prevValue, item) =>  prevValue + item+ ", ",' ');
 docTreatments = docTreatments.substring(0,docTreatments.length - 2);
-var userData = auth?.data;
+
 
 useEffect(() => {
   window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
@@ -52,7 +52,7 @@ useEffect(() => {
               <BsPlayCircleFill className="playBtnHero" color="#0d6efd" /> Watch
               Now
             </button>
-            <Link to={drDetailData?.userId.name ? "/booking-calendar" : "/login"}>
+            <Link to={auth.isAuthenticated ? '/booking-calendar/'+ drDetailData?.userId?._id: '/login'}>
               <button
                 type="button"
                 className="mx-2 btn btn-primary rounded-pill"

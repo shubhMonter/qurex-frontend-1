@@ -20,7 +20,6 @@ import '../../index.css';
 import '../../styles/home.css';
 const LandingOs = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [allDoctorData, setAllDoctorData] = useState([]);
   // let [selectedHomeDoc,setSelectedHomeDoc] = useState([]);
   const [selectedDoc,setSelectedDoc] = useState([]);
@@ -37,7 +36,7 @@ const LandingOs = () => {
   var userData = auth?.user;
 
   const getAllDoctors = async() => {
-
+    try{
     setShowLoader(true);
     
     // let response = await doctorApi.getAllDoctors();
@@ -63,6 +62,11 @@ const LandingOs = () => {
       console.log("default doc.");
     }
     setShowLoader(false);
+    } catch (error) {
+      console.log(error);
+    }
+
+   
   };
   // console.log(allDoctorData);
   useEffect(() => {
@@ -76,7 +80,7 @@ const LandingOs = () => {
 
   const doctorDetail = async (id) => {
     try {
-      setShowLoader(true);
+     // setShowLoader(true);
       // console.log(id);
       let filterDr = allDoctorData.filter((item) => {
         return item._id === id;

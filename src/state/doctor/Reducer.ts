@@ -8,6 +8,7 @@ import {
   ADD_PROFESSIONAL_DATA,
   Awards,
   BusinessHours,
+  CLEAR_DOCTOR,
   Doctor,
   DoctorReducer,
   Education,
@@ -62,6 +63,10 @@ const doctorReducer: DoctorReducer = (
       return {
         ...state,
         awards: action.payload as Awards[],
+      };
+    case CLEAR_DOCTOR:
+      return {
+        ...initialState,
       };
 
     default:

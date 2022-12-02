@@ -3,18 +3,35 @@ import dr01 from '../assets/drimage.png';
 import cal from '../assets/cal.png';
 import card from '../assets/credit-card.png';
 import clock from '../assets/clock.png';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logo from '../assets/pngs/doctor.png';
 import React, { useEffect, useRef, useState } from 'react';
-
+import DoctorAPI from "../api/doctorAPI"
+import loaderGif from '../assets/loader.gif';
 import '../styles/Confirm.css';
-import { useSelector } from 'react-redux';
 const Confirm = () => {
   const navigate = useNavigate();
-  const drDetail = useSelector((state) => state.doctor.drUserData);
-  let drDetailData = drDetail;
-  console.log(drDetailData);
-  const { state } = useLocation();
+  const { state ,time,doctorId} = useLocation();
+  console.log({state,time,doctorId});
+  const [drDetailData,setDrDetailData] = useState()
+  const [loader,setLoader]= useState(false)
+  useEffect(()=>{
+    if(state?.doctorId){
+      getDoctorData(state.doctorId)
+    }
+  },[])
+  const getDoctorData = async(id)=>{
+    try {
+      setLoader(true)
+      const response = await DoctorAPI.getByDoctorId(id);
+    if(response){
+      setDrDetailData(response)
+    }
+    } catch (error) {
+      console.log(error);
+    }
+    setLoader(false)
+  }
   // let amount = drDetailData?.feeCharge
   const confirmPayment = () => {
     var options = {
@@ -73,13 +90,14 @@ const Confirm = () => {
         <span className="font-bold text-xl pt-5 ml-5 pb-5">Your Booking</span>
       </div>
     </div>
+    {loader ? <div className="losup"><img className="block m-auto" src={loaderGif}/></div> :
     <div className="container pb-20">
       <div className="row">
       <div className="col-sm-2 col-md-2 col-lg-2 "></div>
         <div className="col-sm-8 shadow rounded m-auto col-md-8 col-lg-8">
           <div className="onediv p-5">
             <div className="ml-8 flex">
-            <img className="docImg" src={drDetailData.userId.profilePic} alt="" />
+            <img className="docImg" src={drDetailData?.userId?.profilePic} alt="" />
               <span className="dff01 pl-5">
                   <span>
                     <span className="docname">
@@ -128,7 +146,7 @@ const Confirm = () => {
               <img className="h-5 w-5" src={try01} alt="" />
             </div>
             <div className="ml-1">
-              <a href="/">Change Slot</a>
+              <Link to={"/booking-calendar/" + state.doctorId}>Change Slot</Link>
             </div>
           </span>
 
@@ -139,7 +157,7 @@ const Confirm = () => {
       </div>
       <div className="col-sm-2 col-md-8 col-lg-8"></div>
       </div>
-      </div>
+      </div>}
       </>
   );
 };

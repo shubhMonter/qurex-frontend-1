@@ -22,6 +22,7 @@ export const ProfileUpdate = async (
     if (response.data.status === 1) {
       const { city, name, email, profilePic } = response.data.data;
       profileUpdate({ city, name, email, profilePic });
+      return response.data.data;
     } else {
       setError(
         {
