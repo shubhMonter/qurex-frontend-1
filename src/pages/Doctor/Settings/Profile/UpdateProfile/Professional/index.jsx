@@ -50,14 +50,13 @@ const ProfessionalDetail = () => {
       alert('Error Updating Data');
     }
   };
-  console.log({inputs});
   const getTreatmentData = async () => {
     try {
       const response = await getTreatmentCategories(auth.token);
       
       const result = response.data;
       if (result.status === 1) {
-        setTreatmentData(createOptions(result.data));
+        setTreatmentData(createOptions(result.data.map(x=>x.name) ));
       } else {
         console.log(result);
       }
@@ -81,10 +80,21 @@ const ProfessionalDetail = () => {
         Professional Details
       </div>
       <div className="mt-5 flex flex-col">
+            <div className="text-xs">Degree</div>
+            <div className=" border-gray-200 border rounded-md">
+              <input
+                name="degree"
+                value={inputs?.degree }
+                onChange={handleChange}
+                className="py-1 pl-3 w-full outline-none"
+              />
+            </div>
+          </div>
+      <div className="mt-5 flex flex-col">
         <div className="text-xs">Treatment offered</div>
         <div className=" border-gray-200 border rounded-md">
           <Select
-          value={createOptions(inputs?.treatments) || createOptions(doctor?.treatments)}
+          value={createOptions(inputs?.treatments) || createOptions(doctor?.treatments) }
             isMulti
             name="treatments"
             options={treatmentData}

@@ -9,6 +9,7 @@ import { emptyAuth } from "../../state/auth/Actions";
 import getHelp from "../../assets/svgs/gethelp.svg";
 import ellipse from "../../assets/svgs/ellipse.svg";
 import callIcon from "../../assets/svgs/callicon.svg";
+import { Role } from "../../state/interface";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -88,7 +89,7 @@ const Navigation = () => {
                     </Menu.Button>
                   </div>
 
-                  {auth?.role == "patient" ? (
+                  {auth?.role == Role.PATIENT ? (
                     <Transition
                       as={Fragment}
                       enter="transition ease-out duration-100"
@@ -150,7 +151,7 @@ const Navigation = () => {
                         </div>
                       </Menu.Items>
                     </Transition>
-                  ) : auth?.role == "doctor" ? (
+                  ) : auth?.role == Role.DR ? (
                     <Transition
                       as={Fragment}
                       enter="transition ease-out duration-100"
@@ -212,9 +213,55 @@ const Navigation = () => {
                         </div>
                       </Menu.Items>
                     </Transition>
-                  ) : (
-                    ""
-                  )}
+                  ) :auth.role == Role.ADMIN ?  (
+                    (
+                      <Transition
+                      as={Fragment}
+                      enter="transition ease-out duration-100"
+                      enterFrom="transform opacity-0 scale-95"
+                      enterTo="transform opacity-100 scale-100"
+                      leave="transition ease-in duration-75"
+                      leaveFrom="transform opacity-100 scale-100"
+                      leaveTo="transform opacity-0 scale-95"
+                    >
+                      <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <div className="py-1">
+                          <Menu.Item>
+                            {({ active }) => (
+                              <Link
+                                to="/dashboard"
+                                className={classNames(
+                                  active
+                                    ? 'bg-gray-100 text-gray-900'
+                                    : 'text-gray-700',
+                                  'block px-4 py-2 text-sm'
+                                )}
+                              >
+                                Dashboard
+                              </Link>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <button
+                                type="submit"
+                                className={classNames(
+                                  active
+                                    ? 'bg-gray-100 text-gray-900'
+                                    : 'text-gray-700',
+                                  'block w-full px-4 py-2 text-left text-sm'
+                                )}
+                                onClick={signOut}
+                              >
+                                Sign out
+                              </button>
+                            )}
+                          </Menu.Item>
+                        </div>
+                      </Menu.Items>
+                    </Transition>
+                    )
+                  ):("")}
                 </Menu>
               </Nav.Link>
             </Nav>

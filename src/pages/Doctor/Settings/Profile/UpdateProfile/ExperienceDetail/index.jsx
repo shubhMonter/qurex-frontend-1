@@ -92,7 +92,7 @@ const ExperienceDetail = () => {
         id="from"
         name="from"
         type="text"
-        value={moment(x.from).format('DD-MM-YYYY')}
+        value={moment(x.from).format('YYYY')}
         disabled
       />
     </div>
@@ -107,7 +107,7 @@ const ExperienceDetail = () => {
         name="to"
         type="text"
         placeholder="to"
-        value={moment(x.to).format('DD-MM-YYYY')}
+        value={moment(x.to).format('YYYY')}
         disabled
       />
     </div>
@@ -168,7 +168,7 @@ const ExperienceDetail = () => {
                   className="text-xs py-3 pl-3 w-full outline-none"
                   id="from"
                   name="from"
-                  type="date"
+                  type="month"
                   placeholder="from"
                   value={formik.values.from}
                   onChange={formik.handleChange}
@@ -185,7 +185,7 @@ const ExperienceDetail = () => {
                   className="text-xs py-3 pl-3 w-full outline-none"
                   id="to"
                   name="to"
-                  type="date"
+                  type="month"
                   placeholder="to"
                   value={formik.values.to}
                   onChange={formik.handleChange}
