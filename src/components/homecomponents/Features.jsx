@@ -10,7 +10,7 @@ import fi3 from '../../assets/svgs/fi3.svg';
 import ci1 from '../../assets/svgs/ci1.svg';
 import ci2 from '../../assets/svgs/ci2.svg';
 import '../../styles/home.css';
-// import cardImage4 from "../../assets/pngs/cardImage4.png";
+
 
 const Features = () => {
   var settings = {
