@@ -1,10 +1,6 @@
 import React from 'react';
-import { Container, Nav, Navbar, NavDropdown, Button } from 'react-bootstrap';
+import { Container, Nav, Navbar, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-// import hbVector from '../../assets/svgs/hbVector.svg';
-// import querxLogo from '../../assets/svgs/querxLogo.svg';
-import robot from '../../assets/svgs/robot.svg';
-import navBadge from '../../assets/svgs/newBadge.svg';
 import getHelp from '../../assets/svgs/gethelp.svg';
 import ellipse from '../../assets/svgs/ellipse.svg';
 import callIcon from '../../assets/svgs/callicon.svg';

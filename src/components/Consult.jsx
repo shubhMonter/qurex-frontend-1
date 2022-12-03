@@ -8,7 +8,7 @@ import { BaseSetting } from '../utils/common';
 import '../styles/Confirm.css';
 import { useSelector } from 'react-redux';
 import loader from '../assets/loader.gif';
-import { Link } from 'react-router-dom';
+
 
 const Consult = () => {
   const {id}= useParams();
@@ -87,11 +87,12 @@ const Consult = () => {
     return time.join(''); // return adjusted time or original string
   }
   const changeSelectedDate = (date) => {
+    
     setDateChanged(false);
     console.log(date);
     let date1 = moment(date).format('DD-MM-YYYY');
     var date2 = moment(date).format('MM-DD-YYYY'); // Or your date here
-
+    console.log(date1);
     // console.log(date2);
     setMyDate(date1);
 
@@ -135,7 +136,7 @@ const Consult = () => {
           </div>
 
           <div className="col-md-6 col-sm-12">
-            <span className="slot pt-5">Slots Available Today</span>
+            <span className="slot pt-5">Slots Available on {moment(mydate).format("MM-DD-yyyy")}</span>
             <span className="gryline"></span>
             <div className="container">
            {showLoader ? <div className="losup"><img className="block m-auto" src={loader}/></div>:   
@@ -161,7 +162,7 @@ const Consult = () => {
                             </button>
                             </div>
                         ))
-                      : <span className="notAvl">Not Available. Please Next Date.</span>}
+                      : <span className="notAvl">Slots are Not Available. Please Select Next Date.</span>}
                     </div>
                  } </div>
           

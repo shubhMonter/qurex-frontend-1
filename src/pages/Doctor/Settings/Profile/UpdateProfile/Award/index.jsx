@@ -4,9 +4,8 @@ import { useEffect } from 'react';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import { get, headers, put } from '../../../../../../api';
 import { BaseSetting } from '../../../../../../utils/common';
-import jwt_decode from 'jwt-decode';
 import * as Yup from 'yup';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 const Award = () => {
   const auth = useSelector((state) => state.auth.authData);

@@ -9,7 +9,6 @@ import Professional from './Professional';
 import { BsGlobe, BsNewspaper } from 'react-icons/bs';
 import {
   AiOutlineCamera,
-  AiOutlineMessage,
   AiOutlineLock,
 } from 'react-icons/ai';
 import { FiFeather } from 'react-icons/fi';

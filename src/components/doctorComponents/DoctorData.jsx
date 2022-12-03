@@ -6,7 +6,6 @@ import { BsTelephone } from 'react-icons/bs';
 import '../../styles/doctor.css';
 import moreDoc from '../../assets/svgs/moreDoc.svg';
 import pointerIcon from '../../assets/svgs/pointerIcon.svg';
-import availability from '../../assets/svgs/availability.svg';
 const DoctorData = ({ drDetailData }) => {
 
   const [isOpened, setIsOpened] = useState(false);
