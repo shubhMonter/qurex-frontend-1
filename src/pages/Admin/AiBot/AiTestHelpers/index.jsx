@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
 import {
-  AiFillDelete,
-  AiOutlineDownload,
-  AiOutlineEye,
   AiOutlineDelete,
   AiOutlinePlus,
 } from 'react-icons/ai';

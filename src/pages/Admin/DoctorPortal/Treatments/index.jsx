@@ -6,8 +6,6 @@ import { BsPencilSquare } from 'react-icons/bs';
 import axios from 'axios';
 import { get, headers, post, put } from '../../../../api/index';
 import { BaseSetting } from '../../../../utils/common';
-import userId from '../../../../hooks/userId';
-import jwt_decode from 'jwt-decode';
 
 const Treatments = () => {
   const [filterText, setFilterText] = useState('');

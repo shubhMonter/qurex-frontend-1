@@ -2,8 +2,6 @@ import React from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import Slider from 'react-slick';
 import faqCardLine from '../../assets/svgs/faqCardLine.svg';
-import faqCardClose from '../../assets/svgs/faqCardClose.svg';
-import faqCardAdd from '../../assets/svgs/faqCardAdd.svg';
 import '../../styles/home.css';
 
 const Features = () => {

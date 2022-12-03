@@ -1,5 +1,5 @@
 import React from 'react';
-import { BsFillStarFill, BsStar } from 'react-icons/bs';
+import { BsFillStarFill} from 'react-icons/bs';
 import discoverCourse1 from '../../assets/svgs/discoverCourse1.svg';
 import discoverCourse2 from '../../assets/svgs/discoverCourse2.svg';
 import discoverCourse3 from '../../assets/svgs/discoverCourse3.svg';

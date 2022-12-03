@@ -1,9 +1,5 @@
 import React from 'react';
-import { Tab, Tabs } from 'react-bootstrap';
 import Slider from 'react-slick';
-import cardimage1 from '../../assets/pngs/cardImage1.png';
-import cardImage2 from '../../assets/pngs/cardImage2.png';
-import cardImage3 from '../../assets/pngs/cardImage3.png';
 import mi1 from '../../assets/svgs/mi1.svg';
 import mi2 from '../../assets/svgs/mi2.svg';
 import mi3 from '../../assets/svgs/mi3.svg';

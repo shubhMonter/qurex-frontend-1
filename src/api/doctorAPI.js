@@ -1,4 +1,4 @@
-import { get, headers, post, put } from "./index.js";
+import { get, headers, put } from "./index.js";
 import { BaseSetting } from "../utils/common";
 const apis = {
   getAllDoctors: async () => {
