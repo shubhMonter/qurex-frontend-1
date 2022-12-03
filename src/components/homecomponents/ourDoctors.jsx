@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import '../../index.css';
 import '../../styles/home.css';
+import { Nav } from 'react-bootstrap';
 const OurDoctors = () => {
   const [allDoctorData, setAllDoctorData] = useState([]);
   const [selectedDoc,setSelectedDoc] = useState({});
@@ -67,18 +68,13 @@ const OurDoctors = () => {
           </div>
           <div className="lopupright">
           <div className="py-2 col text-end d-none d-md-block">
-          <button
-            type="button"
-            className="btn btn-outline-primary rounded-pill"
-          >
-            View All
-          </button>
+          <Nav.Link href="/doctorsList"><button className="btn btn-outline-primary rounded-pill">View All </button></Nav.Link>
         </div>
           </div>
         </div>
         <div className="container">
           <div className="losdown row">
-            <div className="losdownleft col-md-6 col-lg-6 col-sm-6">
+            <div className="losdownleft col-md-6 col-lg-6 col-sm-6 justify-between">
               {allDoctorData.slice(0, 3).map((item,index) =>
 
                 (
@@ -133,9 +129,10 @@ const OurDoctors = () => {
         </div>
 
         <div className="py-2 pb-3 text-center col d-block d-md-none">
-        <button type="button" className="btn btn-outline-primary rounded-pill">
+        <Nav.Link href="/doctorsList"><button className="btn btn-outline-primary rounded-pill">View All Doctors</button></Nav.Link>
+        {/* <button type="button" className="btn btn-outline-primary rounded-pill">
         View All Doctors
-        </button>
+        </button> */}
       </div>
       </div>
       }

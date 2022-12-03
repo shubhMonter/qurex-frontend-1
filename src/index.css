@@ -253,6 +253,7 @@
   position: relative;
   right: 50%;
   width:200px;
+  top: 50px;
 }
 .losdownleft {
   align-items: flex-end;

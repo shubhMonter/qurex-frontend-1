@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tab, Tabs } from 'react-bootstrap';
+import { Nav, Tab, Tabs } from 'react-bootstrap';
 import Slider from 'react-slick';
 import cardimage1 from '../../assets/pngs/cardImage1.png';
 import cardImage2 from '../../assets/pngs/cardImage2.png';
@@ -66,12 +66,7 @@ const Features = () => {
               </h1>
             </div>
             <div className="py-2 col text-end d-none d-md-block">
-              <button
-                type="button"
-                className="btn btn-outline-primary featureViewBtn rounded-pill"
-              >
-                View All
-              </button>
+              <Nav.Link href="/treatment"><button className="btn btn-outline-primary rounded-pill">View All</button></Nav.Link>
             </div>
           </div>
 
