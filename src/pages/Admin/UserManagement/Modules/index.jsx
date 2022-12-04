@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import {
-  AiFillDelete,
-  AiOutlineDelete,
   AiOutlineLock,
   AiOutlinePlus,
 } from 'react-icons/ai';
-import { BsPencilSquare } from 'react-icons/bs';
 import { FiUsers } from 'react-icons/fi';
 import { get, headers } from '../../../../api';
 import { BaseSetting } from '../../../../utils/common';

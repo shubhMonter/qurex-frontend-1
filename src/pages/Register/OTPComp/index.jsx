@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { headers, post } from '../../../api';
 import UserApi from '../../../api/UserAPI';
 import { BaseSetting } from '../../../utils/common';
-import Countdown from 'react-countdown';
 import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { setAuth } from '../../../state/auth/Actions';
-import * as Yup from 'yup';
-import { useFormik } from 'formik';
 import DiscMsg from '../../../common/components/DisclaimerMsg';
 
 const OTPComp = () => {

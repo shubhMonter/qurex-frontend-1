@@ -2,8 +2,7 @@ import React from 'react'
 import Slider from 'react-slick';
 import privately from '../../assets/svgs/Privately.svg';
 import arrow from '../../assets/svgs/arrow.svg';
-import { Link, useNavigate } from 'react-router-dom';
-import { Container, Nav, Navbar, NavDropdown, Button } from 'react-bootstrap';
+import { Nav } from 'react-bootstrap';
 
 const Hero = () => {
 

@@ -1,9 +1,5 @@
 import React from "react";
-import { Nav, Tab, Tabs } from "react-bootstrap";
 import Slider from "react-slick";
-import cardimage1 from "../../assets/pngs/cardImage1.png";
-import cardImage2 from "../../assets/pngs/cardImage2.png";
-import cardImage3 from "../../assets/pngs/cardImage3.png";
 import mi1 from "../../assets/svgs/mi1.svg";
 import mi2 from "../../assets/svgs/mi2.svg";
 import mi3 from "../../assets/svgs/mi3.svg";
@@ -14,6 +10,7 @@ import fi3 from "../../assets/svgs/fi3.svg";
 import ci1 from "../../assets/svgs/ci1.svg";
 import ci2 from "../../assets/svgs/ci2.svg";
 import "../../styles/home.css";
+// import cardImage4 from "../../assets/pngs/cardImage4.png";
 
 const Features = () => {
   var settings = {

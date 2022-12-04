@@ -1,14 +1,8 @@
 import React from 'react';
-import { BsFillStarFill, BsStar } from 'react-icons/bs';
-import { BiRupee } from 'react-icons/bi';
-import star from '../../assets/star.png';
-import courseImage1 from '../../assets/pngs/courseImage1.png';
-import courseImage2 from '../../assets/pngs/courseImage2.png';
-//import star from '../../assets/svgs/star.svg';
+import { BsFillStarFill} from 'react-icons/bs';
 import course1 from '../../assets/svgs/course1.svg';
 import course2 from '../../assets/svgs/course2.svg';
 import playBtn from '../../assets/svgs/playBtn.svg';
-import buynowArrow from '../../assets/svgs/buynowArrow.svg';
 import Slider from 'react-slick';
 
 const CoursesVideos = () => {

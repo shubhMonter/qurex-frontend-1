@@ -1,13 +1,5 @@
 import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
-import {
-  AiFillDelete,
-  AiOutlineDownload,
-  AiOutlineEye,
-  AiOutlineDelete,
-  AiOutlinePlus,
-} from 'react-icons/ai';
-import { BsPencilSquare } from 'react-icons/bs';
 const Prescription = () => {
   const [filterText, setFilterText] = useState('');
   const [resetPaginationToggle, setResetPaginationToggle] = useState(false);

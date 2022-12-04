@@ -1,6 +1,6 @@
 import React from 'react'
 import { VideoRoom } from '../components/VideoRoom'
-import { Route, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 
 export default function VideoCall() {
 	// get unique room id
