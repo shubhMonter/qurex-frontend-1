@@ -3,8 +3,6 @@ import AgoraRTC, { createClient } from 'agora-rtc-sdk-ng';
 import { VideoPlayer } from './VideoPlayer';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { headers, put } from '../api';
-import { BaseSetting } from '../utils/common';
 import { useSelector } from 'react-redux';
 import { IoMdMicOff, IoMdMic } from 'react-icons/io';
 import { HiOutlinePhoneMissedCall } from 'react-icons/hi';
@@ -17,7 +15,7 @@ import consultationAPI from "../api/consultation"
 
 const APP_ID = '487313108aca464bb93de894daedc887';
 const TOKEN =
-  '007eJxTYLh1aXXCJ0/FDuOU9bM14nZXCUjwqoeuCb8nVrV04ZmsY7cUGEwszI0NjQ0NLBKTE03MTJKSLI1TUi0sTVISU1OSLSzMHWM6khsCGRnOeC5nZWSAQBCflSGwtCi1goEBAE8oH40=';
+  '007eJxTYBA89oix9f9zub2Ml2YUeTzZ8fi293EVxoXbcgO0ihqiMgMVGEwszI0NjQ0NLBKTE03MTJKSLI1TUi0sTVISU1OSLSzM177uSm4IZGSIYj/JxMgAgSA+K0NgaVFqBQMDAJ6sIHo=';
 
 const CHANNEL = 'Qurex';
 
@@ -198,27 +196,30 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
         .required('Required'),
       since: Yup.string().required('Required'),
     }),
-    onSubmit: async (values) => {
+    onSubmit: async (values,{resetForm}) => {
       const postUpdatedData = {
         issue: values.issue,
         since: values.since,
         diagnosis: values.diagnosis,
-        medication: values.medication,
-        advice: values.advice,
+        medicine: values.medicine,
+        doctorAdvice: values.advice,
         patientId:bookingDetails.patientId,
         bookingId:bookingDetails.bookingId,
         consultationId:bookingDetails.bookingId,
+        doctorId:bookingDetails.doctorId,
       };
       
       try {
         if (navigator.onLine) {
           const response = await consultationAPI.createConsultation(postUpdatedData,auth.token)
           if (response) {
+            resetForm()
             alert('Succesfully Updated');
           }
         } else {
         }
       } catch (error) {
+        console.log(error);
         alert('Error Updating Data');
       }
     },
@@ -397,10 +398,10 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
                   <input
                     className="py-2 pl-2 rounded-md border w-full text-[12px] font-normal text-[#666666] outline-none"
                     placeholder="e.g: Ibuprofen 500mg"
-                    id="medication"
-                    name="medication"
+                    id="medicine"
+                    name="medicine"
                     type="text"
-                    value={formik.values.medication}
+                    value={formik.values.medicine}
                     onChange={formik.handleChange}
                   />
                 </div>

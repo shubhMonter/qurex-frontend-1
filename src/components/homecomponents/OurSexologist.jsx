@@ -1,26 +1,16 @@
 import React, { useEffect, useState } from 'react';
-// import doc1 from '../../assets/doc1.png';
-// import doc2 from '../../assets/doc2.png';
-// import doc3 from '../../assets/doc3.png';
 import doc1 from '../../assets/svgs/doc1.svg';
-import doc2 from '../../assets/svgs/doc2.svg';
-import doc3 from '../../assets/svgs/doc3.svg';
 import loader from '../../assets/loader.gif';
-import star from '../../assets/star.png';
-import hat from '../../assets/hat.png';
-import globe from '../../assets/globe.png';
-import cal from '../../assets/cal.png';
 import doctorApi from '../../api/doctorAPI';
 import moment from 'moment/moment';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector} from 'react-redux';
 import { addData } from '../../state/doctor/Actions';
 import '../../index.css';
 import '../../styles/home.css';
 const LandingOs = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [allDoctorData, setAllDoctorData] = useState([]);
   // let [selectedHomeDoc,setSelectedHomeDoc] = useState([]);
   const [selectedDoc,setSelectedDoc] = useState([]);
@@ -37,7 +27,7 @@ const LandingOs = () => {
   var userData = auth?.user;
 
   const getAllDoctors = async() => {
-
+    try{
     setShowLoader(true);
     
     // let response = await doctorApi.getAllDoctors();
@@ -63,6 +53,11 @@ const LandingOs = () => {
       console.log("default doc.");
     }
     setShowLoader(false);
+    } catch (error) {
+      console.log(error);
+    }
+
+   
   };
   // console.log(allDoctorData);
   useEffect(() => {
@@ -76,7 +71,7 @@ const LandingOs = () => {
 
   const doctorDetail = async (id) => {
     try {
-      setShowLoader(true);
+     // setShowLoader(true);
       // console.log(id);
       let filterDr = allDoctorData.filter((item) => {
         return item._id === id;

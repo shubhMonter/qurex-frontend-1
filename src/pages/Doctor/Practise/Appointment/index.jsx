@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import {
   AiOutlineMessage,
-  AiOutlineFileText,
   AiOutlineClockCircle,
 } from 'react-icons/ai';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import drimg from '../../../../assets/pngs/doctor.png';
 import DoctorAPI from '../../../../api/doctorAPI';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const Appointment = () => {
   const auth = useSelector((state) => state.auth.authData);
@@ -113,7 +112,7 @@ const AppointmentComponent = ({ booking }) => {
           <div className="flex w-full pl-5 justify-content-between align-items-start">
             <div>
               <div className="flex flex-row">
-                <div className="font-semibold">Patient Name</div>
+                <div className="font-semibold">{booking?.patientId?.name}</div>
                 <div className="ml-3 px-5 py-1 bg-opacity-30 text-xs bg-[#655af4] text-[#655af4] rounded-5 font-bold">
                   Gynecologist
                 </div>

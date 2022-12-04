@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { useNavigate } from 'react-router-dom';
 import ManageUser from './Manage';
 import ManageDurationFee from './ManageDurationFee';
 import {
-  AiFillDelete,
   AiOutlineEye,
   AiOutlineDelete,
   AiOutlinePlus,
 } from 'react-icons/ai';
-import { BsPencilSquare } from 'react-icons/bs';
-import { get, headers } from '../../../../api';
-import { BaseSetting } from '../../../../utils/common';
+
 const Users = () => {
   const [filterText, setFilterText] = useState('');
   const [resetPaginationToggle, setResetPaginationToggle] = useState(false);

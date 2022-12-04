@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
-import { BsPencil } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
 import consultationAPI from '../../../../api/consultation';
 const Consultation = () => {
-  const [filterText, setFilterText] = useState('');
   const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
   const [data ,setData] =  useState();
   const auth = useSelector((state)=> state.auth.authData);
@@ -16,7 +14,6 @@ const Consultation = () => {
   const getConsultationData = async(id,token) =>{
     try {
       const response =  await consultationAPI.getByUserId(id,token);
-      console.log({response});
       if(response){
         setData(response);
       }else{
@@ -39,12 +36,16 @@ const Consultation = () => {
     //   selector: (row) => row.,
     // },
     {
-      name: 'Patient Id',
-      selector: (row) => row.patientId,
+      name: 'Patient Name',
+      selector: (row) => row.patientId.name,
     },
     {
-      name: 'Issue',
+      name: 'Symtoms/Issue',
       selector: (row) => row.issue,
+    },
+    {
+      name: 'Facing Since',
+      selector: (row) => row.since,
     },
     {
       name: 'Dignosis',
@@ -55,12 +56,8 @@ const Consultation = () => {
       selector: (row) => row.medicine,
     },
     {
-      name: 'Frequency',
-      selector: (row) => row.frequency,
-    },
-    {
-      name: 'Lab Test',
-      selector: (row) => row.labTests.map(x=>(<span>{x}{", "}</span>)),
+      name: 'General Advice',
+      selector: (row) => row.doctorAdvice,
     }
   ];
 

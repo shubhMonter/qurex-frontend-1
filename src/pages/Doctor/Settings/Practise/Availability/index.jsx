@@ -1,14 +1,9 @@
 //import './styles.css';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { BiPlusMedical } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
-import { capitalize } from 'lodash';
 import UserApi from '../../../../../api/UserAPI';
-import { setAuth } from '../../../../../state/auth/Actions';
 import Accordion from 'react-bootstrap/Accordion';
-
-// import { getBusinessHours } from '../../../../../api/UserAPI'
-
 const days = [
   'monday',
   'tuesday',
@@ -18,45 +13,81 @@ const days = [
   'saturday',
   'sunday',
 ];
+const bsInitialData = [{
+  day: 'monday',
+  slots: [
+    {
+      from: '17:00',
+      to: '22:00',
+    },
+  ],
+},{
+  day: 'tuesday',
+  slots: [
+    {
+      from: '00:00',
+      to: '00:00',
+    },
+  ],
+},{
+  day: 'wednesday',
+  slots: [
+    {
+      from: '00:00',
+      to: '00:00',
+    },
+  ],
+},{
+  day: 'thursday',
+  slots: [
+    {
+      from: '00:00',
+      to: '00:00',
+    },
+  ],
+},{
+  day: 'friday',
+  slots: [
+    {
+      from: '00:00',
+      to: '00:00',
+    },
+  ],
+},{
+  day: 'saturday',
+  slots: [
+    {
+      from: '00:00',
+      to: '00:00',
+    },
+  ],
+},{
+  day: 'sunday',
+  slots: [
+    {
+      from: '00:00',
+      to: '00:00',
+    },
+  ],
+},];
+
 const Availability = () => {
   const [success, setSuccess] = useState('');
   const [fail, setFail] = useState('');
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
-  let authData = auth?.data;
-  //console.log({ authData });
-
-  // useEffect(() => {
-  //   (async () => {
-  //     const userData = await UserApi.getByUserId(authData?._id);
-  //     //console.log(authData?._id);
-  //     if (userData) {
-  //       dispatch(setAuth({ ...authData, userData }));
-  //     }
-  //   })();
-  // }, []);
-  const businessHours = authData?.drData?.businessHours;
-  const calendarComponentRef = React.createRef();
-  const bsInitialData = {
-    day: 'monday',
-    slots: [
-      {
-        from: '17:00',
-        to: '22:00',
-      },
-    ],
-  };
+  const auth = useSelector((state) => state.auth.authData);
+  const businessHours = useSelector((state) => state.doctor.businessHours);
   const [businessHoursData, setBusinessHoursData] = useState(
-    businessHours || days.map((day) => ({ ...bsInitialData, day }))
+    businessHours.length > 0 ? businessHours : bsInitialData
   );
-
+  
+ 
+console.log({businessHoursData});
   const handleChange = (value) => {
-    console.log(businessHoursData);
     const data = businessHoursData.map((item) => {
       console.log(item?.day == value?.day ? value : item);
       return item?.day == value?.day ? value : item;
     });
-    console.log('🚀 ~ file: index.jsx ~ line 41 ~ handleChange ~ data', data);
     setBusinessHoursData(data);
   };
   const handleSubmit = async (key, value) => {
@@ -75,19 +106,16 @@ const Availability = () => {
         }),
       };
     });
-    // console.log(convertedData);
-    let drData = await UserApi.getByUserId(authData?._id);
-    let drId = drData?._id;
-
     let businessHoursData1 = { businessHours: convertedData };
+    let drData = await UserApi.getByUserId(auth.user.id);
+    let drId = drData?._id;    
     // console.log({ businessHoursData1 });
     let response = await UserApi.update(businessHoursData1, drId);
     if (response?.status) {
-      // console.log(response?.data);
-      let drData = response?.data;
-      console.log(drData?.businessHours);
-      setBusinessHoursData(drData?.businessHours);
-      dispatch(setAuth({ ...authData, drData: drData }));
+      const {businessHours :timeline } = response?.data;
+      console.log("check",timeline);
+      //setBusinessHoursData(timeline);
+    // doctorActions.businessHours({ businessHours:timeline })
 
       setSuccess('Business hours updated successfully!!');
       return;
@@ -97,8 +125,7 @@ const Availability = () => {
   const addNewRow = () => {
     setBusinessHoursData((state) => [...state, bsInitialData]);
   };
-  //console.log(businessHoursData[0].slots[index]);
-  console.log(businessHoursData);
+
   return (
     <>
       <div className="flex flex-col px-10 font-montserrat">
@@ -132,31 +159,45 @@ const Availability = () => {
               <div className="col-span-1">Add</div>
             </div>
 
-            {days.map((itemDay, key) => 
+           
+            <Accordion>            {
+            days.map((itemDay, key) => 
 
-            <Accordion>
-              <Accordion.Item eventKey={key}>
-                <Accordion.Header>{itemDay.toUpperCase()}</Accordion.Header>
-                <Accordion.Body>
-                {businessHoursData.map((time, key) =>
 
-                time.day == itemDay ?
-                  time.slots.map((slot, index) => (
-                    <PerDayBussinessHours
-                      key={`${key}-${index}`}
-                      number={key}
-                      {...time}
-                      index={index}
-                      addNewRow={addNewRow}
-                      handleChange={handleChange}
-                    />
-                  ))
-                  : <span></span>
-                )}
-                </Accordion.Body>
-              </Accordion.Item>
-            </Accordion>
-            )}
+  <Accordion.Item eventKey={key}>
+    <Accordion.Header>{itemDay.toUpperCase()}</Accordion.Header>
+    <Accordion.Body>
+   
+
+    { businessHoursData[key]?.day == itemDay ?
+      businessHoursData[key]?.slots.map((slot, index) => (
+        <PerDayBussinessHours
+          key={`${key}-${index}`}
+          number={key}
+          {...businessHoursData[key]}
+          index={index}
+          addNewRow={addNewRow}
+          handleChange={handleChange}
+        />
+      ))
+      : <PerDayBussinessHours
+      number={0}
+      slots={{slots:[{
+        from: '00:00',
+        to: '00:00',
+      }],day:itemDay}}
+      index={0}
+      addNewRow={addNewRow}
+      handleChange={handleChange}
+    />}
+   
+    </Accordion.Body>
+  </Accordion.Item>
+
+)}
+</Accordion>
+               
+            
             {/* {businessHoursData.map((time, key) =>
               time.slots.map((slot, index) => (
                 <PerDayBussinessHours
@@ -237,9 +278,9 @@ const PerDayBussinessHours = ({
   return (
     <div className="grid grid-cols-9 col-span-1 mt-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 md:pl-5 lg:pl-5 xl:pl-5">
       <div className="col-span-2 font-bold md:col-span-1 lg:col-span-1 xl:col-span-1">
-        <div className="mr-2 h-8 sm:h-10 md:h-10 lg:h-10 xl:h-10  border rounded-md flex overflow-hidden justify-center items-center bg-gray-100 text-[#655af4] border-[#655af4] ">
+        {/* <div className="mr-2 h-8 sm:h-10 md:h-10 lg:h-10 xl:h-10  border rounded-md flex overflow-hidden justify-center items-center bg-gray-100 text-[#655af4] border-[#655af4] ">
           {day}
-        </div>
+        </div> */}
       </div>
 
       <div className="flex flex-row col-span-3 md:col-span-2 lg:col-span-2 xl:col-span-2">

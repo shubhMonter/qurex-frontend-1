@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { UpdateDoctorsDetails } from '../../../../../../preseneter/DashBoard/Doctor';
+import moment from 'moment';
 const ExperienceDetail = () => {
   const auth = useSelector((state) => state.auth.authData);
   const doctor  = useSelector((state) => state.doctor);
@@ -91,7 +92,7 @@ const ExperienceDetail = () => {
         id="from"
         name="from"
         type="text"
-        value={x.from}
+        value={moment(x.from).format('YYYY')}
         disabled
       />
     </div>
@@ -106,7 +107,7 @@ const ExperienceDetail = () => {
         name="to"
         type="text"
         placeholder="to"
-        value={x.to}
+        value={moment(x.to).format('YYYY')}
         disabled
       />
     </div>
@@ -167,7 +168,7 @@ const ExperienceDetail = () => {
                   className="text-xs py-3 pl-3 w-full outline-none"
                   id="from"
                   name="from"
-                  type="number"
+                  type="month"
                   placeholder="from"
                   value={formik.values.from}
                   onChange={formik.handleChange}
@@ -184,7 +185,7 @@ const ExperienceDetail = () => {
                   className="text-xs py-3 pl-3 w-full outline-none"
                   id="to"
                   name="to"
-                  type="number"
+                  type="month"
                   placeholder="to"
                   value={formik.values.to}
                   onChange={formik.handleChange}

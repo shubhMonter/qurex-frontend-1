@@ -1,10 +1,8 @@
 import { useRef, useState } from 'react';
 import DiscMsg from '../../../common/components/DisclaimerMsg';
-import OTPComp from '../OTP';
-import { get, headers, post, put } from '../../../api';
+import { get, post} from '../../../api';
 import { BaseSetting } from '../../../utils/common';
 import { Link } from 'react-router-dom';
-import RegisterDetails from '../RegisterDetails';
 import { useDispatch } from 'react-redux';
 import { setAuth } from '../../../state/auth/Actions';
 import { useNavigate } from 'react-router-dom';

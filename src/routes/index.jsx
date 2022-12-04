@@ -59,9 +59,7 @@ import VideoCall from '../pages/VideoCall';
 import LandingOs from '../components/homecomponents/OurSexologist';
 import DoctorsList from '../components/DoctorsList';
 const AppRouter = () => {
-  const auth = useSelector((state) => state.auth);
-  let authData = auth?.data;
-
+  const auth = useSelector((state) => state.auth.authData.isAuthenticated);
   return (
     <Routes>
       <Route path="/" element={<FrontLayout />}>
@@ -71,18 +69,18 @@ const AppRouter = () => {
         <Route path="treatment" element={<TreatmentPage />} />
         <Route path="discover" element={<DiscoverPage />} />
         <Route path="doctorsList" element={<DoctorsList />} />
-        <Route path="doctor/:name" element={<Doctor />} />
+        <Route path="doctor/:id" element={<Doctor />} />
         <Route
-          path="booking-calendar"
-          element={authData === null ? <Navigate to="/login" /> : <Consult />}
+          path="booking-calendar/:id"
+          element={!auth ? <Navigate to="/login" /> : <Consult />}
         />
         <Route
           path="confirm-payment"
-          element={authData === null ? <Navigate to="/login" /> : <Confirm />}
+          element={!auth ? <Navigate to="/login" /> : <Confirm />}
         />
         <Route
           path="video-call"
-          element={authData === null ? <Navigate to="/login" /> : <VideoCall />}
+          element={!auth ? <Navigate to="/login" /> : <VideoCall />}
         />
         <Route path="*" element={<NoPage />} />
       </Route>
