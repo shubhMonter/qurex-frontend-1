@@ -2,6 +2,7 @@ import doctor from '../../../../../assets/pngs/doctor.png';
 import { useParams, useNavigate } from 'react-router-dom';
 import { BiMessageRoundedAdd } from 'react-icons/bi';
 import DataTable from 'react-data-table-component';
+import { AiOutlineDelete, AiOutlineEye } from 'react-icons/ai';
 import React, { useState } from 'react';
 
 const ManageUser = () => {

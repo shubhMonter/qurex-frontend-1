@@ -1,10 +1,11 @@
 import try01 from '../assets/try01.png';
+import dr01 from '../assets/drimage.png';
 import cal from '../assets/cal.png';
 import card from '../assets/credit-card.png';
 import clock from '../assets/clock.png';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logo from '../assets/pngs/doctor.png';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import DoctorAPI from "../api/doctorAPI"
 import loaderGif from '../assets/loader.gif';
 import '../styles/Confirm.css';
