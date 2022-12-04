@@ -8,7 +8,7 @@ import { BaseSetting } from '../utils/common';
 import '../styles/Confirm.css';
 import { useSelector } from 'react-redux';
 import loader from '../assets/loader.gif';
-
+import { Link } from 'react-router-dom';
 
 const Consult = () => {
   const {id}= useParams();

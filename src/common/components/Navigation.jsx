@@ -1,5 +1,5 @@
-import React from "react";
-import { Container, Nav, Navbar} from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Container, Nav, Navbar, NavDropdown, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
@@ -15,8 +15,12 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 const Navigation = () => {
+  const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth.authData);
+
   const navigate = useNavigate();
+
+  //console.log(auth);
   const signOut = () => {
     emptyAuth();
 

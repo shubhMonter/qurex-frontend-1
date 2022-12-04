@@ -1,5 +1,7 @@
 import React from 'react';
 import Slider from 'react-slick';
+import globe from '../../assets/globe.png';
+//import feedbackQuote from '../../assets/svgs/feedbackQuote.svg';
 import feedback1 from '../../assets/pngs/feedback1.png';
 import doubleQuotes from '../../assets/svgs/doubleQuotes.svg';
 

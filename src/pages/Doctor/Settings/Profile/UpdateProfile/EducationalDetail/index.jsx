@@ -1,6 +1,11 @@
 import React from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
 import { RiDeleteBinLine } from 'react-icons/ri';
-import { useSelector } from 'react-redux';
+import { get, headers, put } from '../../../../../../api';
+import { BaseSetting } from '../../../../../../utils/common';
+import jwt_decode from 'jwt-decode';
+import { useSelector, useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { UpdateDoctorsDetails } from '../../../../../../preseneter/DashBoard/Doctor';

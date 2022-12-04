@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   AiOutlineMessage,
+  AiOutlineFileText,
   AiOutlineClockCircle,
 } from 'react-icons/ai';
 import moment from 'moment';

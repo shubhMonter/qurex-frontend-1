@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
-import { BsEye} from 'react-icons/bs';
+import {
+  AiOutlineDelete,
+  AiOutlinePlus,
+  AiOutlineDownload,
+  AiOutlineUpload,
+} from 'react-icons/ai';
+import { BsEye, BsPencilSquare } from 'react-icons/bs';
 const Logs = () => {
   const [filterText, setFilterText] = useState('');
   const [resetPaginationToggle, setResetPaginationToggle] = useState(false);

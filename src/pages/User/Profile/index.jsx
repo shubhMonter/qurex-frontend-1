@@ -1,7 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
+import { put } from '../../../api';
+import { BaseSetting } from '../../../utils/common';
 import '../../../styles/Profile.css';
-import { useSelector} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setAuth } from '../../../state/auth/Actions';
 import { ProfileUpdate } from '../../../preseneter/DashBoard/Profile';
 
 const PersonalDetail = () => {

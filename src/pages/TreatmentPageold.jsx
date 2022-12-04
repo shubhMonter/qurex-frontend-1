@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 import LearnMore from '../components/treatmentComponents/LearnMore';
 import TreatmentHero from '../components/treatmentComponents/TreatmentHero';
 import FAQ from '../components/homecomponents/FAQ';
+import TreatmentDocSlider from '../components/treatmentComponents/TreatmentDocSlider';
 
 const TreatmentPage = () => {
   return (

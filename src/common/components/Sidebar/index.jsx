@@ -35,12 +35,15 @@ import {
 } from 'react-icons/bi';
 import { BsBox } from 'react-icons/bs';
 import { MdFilter1 } from 'react-icons/md';
+
 import { AiOutlineQuestionCircle, AiOutlineLink } from 'react-icons/ai';
+import { NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import logo from '../../../assets/pngs/logo.jpg';
 import { Link } from 'react-router-dom';
+import { Cookies } from 'react-cookie';
 import useWindowSize from '../../../hooks/useWindowSize';
-import { useSelector} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Sidebar = ({ isMobileOpen, toggleSidebar, isFixedSidebar }) => {
   const auth = useSelector((state) => state.auth.authData);

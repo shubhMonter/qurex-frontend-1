@@ -4,7 +4,8 @@ import { AiOutlineDelete, AiOutlinePlus } from 'react-icons/ai';
 import { BsPencilSquare } from 'react-icons/bs';
 import { get, headers, post, put } from '../../../../api';
 import { BaseSetting } from '../../../../utils/common';
-import {useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import * as specActions from '../../../../state/specialization/Actions';
 import think from '../../../../assets/pngs/think.svg';
 import axios from 'axios';
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import Slider from 'react-slick';
+import { CgProfile } from 'react-icons/cg';
 import { SlGraduation } from 'react-icons/sl';
 // import TreatmentDoctorCard1 from '../../assets/pngs/TreatmentDoctorCard1.png'
 // import TreatmentDoctorCard2 from '../../assets/pngs/TreatmentDoctorCard2.png'

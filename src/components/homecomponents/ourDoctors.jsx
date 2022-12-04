@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import doc1 from '../../assets/svgs/doc1.svg';
 import loader from '../../assets/loader.gif';
 import doctorApi from '../../api/doctorAPI';
 import { Link } from 'react-router-dom';

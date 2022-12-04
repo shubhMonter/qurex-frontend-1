@@ -1,18 +1,18 @@
-import { persistStore } from "redux-persist";
-import store from "./state/store";
-import crossBrowserListener from "./utils/redux-persist-listner";
-import storage from "redux-persist/lib/storage";
-import hardSet from "redux-persist/lib/stateReconciler/hardSet";
-import AppRouter from "./routes";
-import { PersistGate } from "redux-persist/integration/react";
-import { Provider } from "react-redux";
-
-import { CookiesProvider } from "react-cookie";
-import React from "react";
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import { persistStore } from 'redux-persist';
+import store from './state/store';
+import crossBrowserListener from './utils/redux-persist-listner';
+import storage from 'redux-persist/lib/storage';
+import hardSet from 'redux-persist/lib/stateReconciler/hardSet';
+import AppRouter from './routes';
+import { PersistGate } from 'redux-persist/integration/react';
+import { Provider } from 'react-redux';
+import Loader from './assets/svgs/Loader.svg';
+import { CookiesProvider } from 'react-cookie';
+import React, { Component }  from 'react';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 const App = () => {
   const persistConfig = {
-    key: "root",
+    key: 'root',
     storage,
     stateReconciler: hardSet,
   };
@@ -20,7 +20,7 @@ const App = () => {
   store.persistor = persistor;
 
   window.addEventListener(
-    "storage",
+    'storage',
     crossBrowserListener(store, persistConfig)
   );
 

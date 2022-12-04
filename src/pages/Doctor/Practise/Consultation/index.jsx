@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
+import { BsPencil } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
 import consultationAPI from '../../../../api/consultation';
 const Consultation = () => {
+  const [filterText, setFilterText] = useState('');
   const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
   const [data ,setData] =  useState();
   const auth = useSelector((state)=> state.auth.authData);

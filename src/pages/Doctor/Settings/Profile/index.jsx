@@ -7,6 +7,7 @@ import {
   FaFemale,
   FaMale,
   FaMedkit,
+  FaStar,
   FaThumbsUp,
 } from 'react-icons/fa';
 import {
@@ -14,9 +15,12 @@ import {
   AiOutlineInfoCircle,
   AiOutlineStar,
 } from 'react-icons/ai';
-import { BiMessageRounded } from 'react-icons/bi';
-
-import { useSelector } from 'react-redux';
+import { BiMessageRounded, BiMessageRoundedAdd } from 'react-icons/bi';
+import { useEffect } from 'react';
+import { dheaders, get, headers } from '../../../../api';
+import { BaseSetting } from '../../../../utils/common';
+import jwt_decode from 'jwt-decode';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Profile = () => {
   const [about, setAbout] = useState(true);

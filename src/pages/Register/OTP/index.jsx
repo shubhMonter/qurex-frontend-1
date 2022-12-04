@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { headers, post } from '../../../api';
 import { BaseSetting } from '../../../utils/common';
+import DiscMsg from '../../../common/components/DisclaimerMsg';
 import RegisterDetails from '../RegisterDetails';
 import { useDispatch } from 'react-redux';
 import { setAuth } from '../../../state/auth/Actions';

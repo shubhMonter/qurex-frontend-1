@@ -1,5 +1,6 @@
 import React from 'react';
-import { BsFillStarFill} from 'react-icons/bs';
+import { BsFillStarFill, BsStar, BsPlayBtn } from 'react-icons/bs';
+import { BiRupee } from 'react-icons/bi';
 import '../../styles/doctor.css';
 
 const DoctorcoursesVideo = () => {

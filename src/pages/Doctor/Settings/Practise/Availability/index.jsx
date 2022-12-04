@@ -1,9 +1,12 @@
 //import './styles.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { BiPlusMedical } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
+import { capitalize } from 'lodash';
 import UserApi from '../../../../../api/UserAPI';
+import { setAuth } from '../../../../../state/auth/Actions';
 import Accordion from 'react-bootstrap/Accordion';
+import doctorActions from "../../../../../state/doctor/Actions"
 const days = [
   'monday',
   'tuesday',
