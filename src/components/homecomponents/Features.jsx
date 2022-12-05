@@ -1,5 +1,6 @@
 import React from "react";
 import Slider from "react-slick";
+import { Nav } from "react-bootstrap";
 import mi1 from "../../assets/svgs/mi1.svg";
 import mi2 from "../../assets/svgs/mi2.svg";
 import mi3 from "../../assets/svgs/mi3.svg";
