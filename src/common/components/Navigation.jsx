@@ -32,18 +32,30 @@ const Navigation = () => {
         variant="light"
       >
         <Container>
-          <Navbar.Brand href="/">
-            <img src="https://quer.vercel.app/static/media/mainlogo.56893844f2e5355be159f95257b797af.svg" />
+          <Navbar.Brand href="">
+            <Link to="/">
+              <img src="https://quer.vercel.app/static/media/mainlogo.56893844f2e5355be159f95257b797af.svg" />
+            </Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto col-lg-8 justify-content-around">
-              <Nav.Link href="/treatment">Sexual Issues - We Treat</Nav.Link>
-              <Nav.Link href="/#doctorsSection">Our Sexologists</Nav.Link>
-              <Nav.Link href="/discover">Sexual Health Guide</Nav.Link>
-              <Nav.Link href="/discover">Sex-ed (for kids)</Nav.Link>
+              <Nav.Link href="">
+                <Link to="/treatment" className="no-underline">Sexual Issues - We Treat</Link>
+              </Nav.Link>
+              <Nav.Link href="">
+                <Link to="/#doctorsSection" className="no-underline">
+                  Our Sexologists
+                </Link>
+              </Nav.Link>
+              <Nav.Link href="">
+                <Link to="/discover" className="no-underline">Sexual Health Guide</Link>
+              </Nav.Link>
+              <Nav.Link href="">
+                <Link to="/discover" className="no-underline">Sex-ed (for kids)</Link>
+              </Nav.Link>
             </Nav>
-            <Nav className="col-lg-4 justify-content-around">
+            <Nav className="col-lg-4 justify-content-around items-center">
               <Nav.Link href="#deets">
                 {/*<span>
                    <img src="iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAIuSURBVHgBvVXBbtNAEJ0ZO4lrySUpjUQbpJ44oN4QcOTCD8AFiQOBUy" />
@@ -80,7 +92,7 @@ const Navigation = () => {
                           />
                         </>
                       ) : (
-                        <Link to="/login">Login</Link>
+                        <Link to="/login" className="no-underline">Login</Link>
                       )}
                     </Menu.Button>
                   </div>
