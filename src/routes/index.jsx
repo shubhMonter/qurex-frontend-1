@@ -1,17 +1,17 @@
-import React from 'react';
-import { BrowserRouter, Routes, Outlet } from 'react-router-dom';
-import { Router, Route, browserHistory } from 'react-router';
-import Register from '../pages/Register';
-import Login from '../pages/Login';
-import TreatmentPage from '../pages/TreatmentPage';
-import DiscoverPage from '../pages/DiscoverPage';
-import Doctor from '../pages/DoctorCmp';
-import Consult from '../components/Consult';
-import Confirm from '../components/Confirm';
-import Home from '../components/Home';
-import NoPage from '../pages/404';
+import React from "react";
+import { Routes } from "react-router-dom";
+import { Route } from "react-router";
+import Register from "../pages/Register";
+import Login from "../pages/Login";
+import TreatmentPage from "../pages/TreatmentPage";
+import DiscoverPage from "../pages/DiscoverPage";
+import Doctor from "../pages/DoctorCmp";
+import Consult from "../components/Consult";
+import Confirm from "../components/Confirm";
+import Home from "../components/Home";
+import NoPage from "../pages/404";
 
-import DashboardLayout from '../pages/Layout';
+import DashboardLayout from "../pages/Layout";
 import {
   DoctorVerification,
   AiTestHelpers,
@@ -36,7 +36,7 @@ import {
   Users,
   ManageUser,
   ManageDurationFee,
-} from '../pages/Admin';
+} from "../pages/Admin";
 import {
   BusinessDashboard,
   PractiseDashboard,
@@ -46,18 +46,15 @@ import {
   Profile,
   UpdateProfile,
   Ticket,
-} from '../pages/Doctor';
-import UserProfile from '../pages/User/Profile';
-import UserBooking from '../pages/User/Booking';
-import FrontLayout from '../pages/FrontLayout';
-import Dashboard from '../pages/Admin/Dashboard';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import UserApi from '../api/UserAPI';
-import { Navigate } from 'react-router';
-import VideoCall from '../pages/VideoCall';
-import LandingOs from '../components/homecomponents/OurSexologist';
-import DoctorsList from '../components/DoctorsList';
+} from "../pages/Doctor";
+import UserProfile from "../pages/User/Profile";
+import UserBooking from "../pages/User/Booking";
+import FrontLayout from "../pages/FrontLayout";
+import Dashboard from "../pages/Admin/Dashboard";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router";
+import VideoCall from "../pages/VideoCall";
+import DoctorsList from "../components/DoctorsList";
 const AppRouter = () => {
   const auth = useSelector((state) => state.auth.authData.isAuthenticated);
   return (

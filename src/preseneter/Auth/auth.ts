@@ -60,8 +60,8 @@ export const SignInOTP = async (req: VerifyOTP) => {
         token: response.headers["x-auth-token"] as string,
       };
       setAuth(data);
-      if(role === Role.DR){
-        getDoctorDetails(id,data.token)
+      if (role === Role.DR) {
+        getDoctorDetails(id, data.token);
       }
     } else {
       setError(
@@ -119,6 +119,9 @@ export const SubmitVerifyOTP = async (req: VerifyOTP) => {
         token: response.headers["x-auth-token"] as string,
       };
       setAuth(data);
+      if (role === Role.DR) {
+        getDoctorDetails(id, data.token);
+      }
     } else {
       setError(
         {
@@ -172,6 +175,9 @@ export const SignInWithPass = async (req: Login) => {
         token: response.headers["x-auth-token"] as string,
       };
       setAuth(data);
+      if (role === Role.DR) {
+        getDoctorDetails(id, data.token);
+      }
     } else {
       setError(
         {

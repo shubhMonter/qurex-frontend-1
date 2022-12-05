@@ -1,88 +1,105 @@
 //import './styles.css';
-import React, { useState } from 'react';
-import { BiPlusMedical } from 'react-icons/bi';
-import { useDispatch, useSelector } from 'react-redux';
-import UserApi from '../../../../../api/UserAPI';
-import Accordion from 'react-bootstrap/Accordion';
+import React, { useEffect, useState } from "react";
+import { BiPlusMedical } from "react-icons/bi";
+import { useDispatch, useSelector } from "react-redux";
+import UserApi from "../../../../../api/UserAPI";
+import Accordion from "react-bootstrap/Accordion";
+import doctorActions from "../../../../../state/doctor/Actions";
 const days = [
-  'monday',
-  'tuesday',
-  'wednesday',
-  'thursday',
-  'friday',
-  'saturday',
-  'sunday',
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+  "sunday",
 ];
-const bsInitialData = [{
-  day: 'monday',
-  slots: [
-    {
-      from: '17:00',
-      to: '22:00',
-    },
-  ],
-},{
-  day: 'tuesday',
-  slots: [
-    {
-      from: '00:00',
-      to: '00:00',
-    },
-  ],
-},{
-  day: 'wednesday',
-  slots: [
-    {
-      from: '00:00',
-      to: '00:00',
-    },
-  ],
-},{
-  day: 'thursday',
-  slots: [
-    {
-      from: '00:00',
-      to: '00:00',
-    },
-  ],
-},{
-  day: 'friday',
-  slots: [
-    {
-      from: '00:00',
-      to: '00:00',
-    },
-  ],
-},{
-  day: 'saturday',
-  slots: [
-    {
-      from: '00:00',
-      to: '00:00',
-    },
-  ],
-},{
-  day: 'sunday',
-  slots: [
-    {
-      from: '00:00',
-      to: '00:00',
-    },
-  ],
-},];
+const bsInitialData = [
+  {
+    day: "monday",
+    slots: [
+      {
+        from: "17:00",
+        to: "22:00",
+      },
+    ],
+  },
+  {
+    day: "tuesday",
+    slots: [
+      {
+        from: "00:00",
+        to: "00:00",
+      },
+    ],
+  },
+  {
+    day: "wednesday",
+    slots: [
+      {
+        from: "00:00",
+        to: "00:00",
+      },
+    ],
+  },
+  {
+    day: "thursday",
+    slots: [
+      {
+        from: "00:00",
+        to: "00:00",
+      },
+    ],
+  },
+  {
+    day: "friday",
+    slots: [
+      {
+        from: "00:00",
+        to: "00:00",
+      },
+    ],
+  },
+  {
+    day: "saturday",
+    slots: [
+      {
+        from: "00:00",
+        to: "00:00",
+      },
+    ],
+  },
+  {
+    day: "sunday",
+    slots: [
+      {
+        from: "00:00",
+        to: "00:00",
+      },
+    ],
+  },
+];
 
 const Availability = () => {
-  const [success, setSuccess] = useState('');
-  const [fail, setFail] = useState('');
+  const [success, setSuccess] = useState("");
+  const [fail, setFail] = useState("");
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth.authData);
   const businessHours = useSelector((state) => state.doctor.businessHours);
-  const [businessHoursData, setBusinessHoursData] = useState(
-    businessHours.length > 0 ? businessHours : bsInitialData
-  );
-  
- 
-console.log({businessHoursData});
+  const [businessHoursData, setBusinessHoursData] = useState();
+  console.log({ businessHours });
+  useEffect(() => {
+    setBusinessHoursData(businessHoursData);
+  }, [JSON.stringify(businessHours)]);
+  useEffect(() => {
+    if (businessHours && businessHours.length > 0) {
+      setBusinessHoursData(businessHours);
+    } else {
+      setBusinessHoursData(bsInitialData);
+    }
+  }, []);
+
+  console.log({ businessHoursData });
   const handleChange = (value) => {
     const data = businessHoursData.map((item) => {
       console.log(item?.day == value?.day ? value : item);
@@ -96,11 +113,11 @@ console.log({businessHoursData});
         day: item?.day,
         slots: item?.slots?.map((slot) => {
           return {
-            from: `${toTwoDigits(slot?.from.split(':')[0])}:${toTwoDigits(
-              slot?.from.split(':')[1]
+            from: `${toTwoDigits(slot?.from.split(":")[0])}:${toTwoDigits(
+              slot?.from.split(":")[1]
             )}`,
-            to: `${toTwoDigits(slot?.to.split(':')[0])}:${toTwoDigits(
-              slot?.to.split(':')[1]
+            to: `${toTwoDigits(slot?.to.split(":")[0])}:${toTwoDigits(
+              slot?.to.split(":")[1]
             )}`,
           };
         }),
@@ -108,23 +125,22 @@ console.log({businessHoursData});
     });
     let businessHoursData1 = { businessHours: convertedData };
     let drData = await UserApi.getByUserId(auth.user.id);
-    let drId = drData?._id;    
+    let drId = drData?._id;
     // console.log({ businessHoursData1 });
     let response = await UserApi.update(businessHoursData1, drId);
     if (response?.status) {
-      const {businessHours :timeline } = response?.data;
-      console.log("check",timeline);
+      const { businessHours: timeline } = response?.data;
+      console.log("check", timeline);
       //setBusinessHoursData(timeline);
-    // doctorActions.businessHours({ businessHours:timeline })
-
-      setSuccess('Business hours updated successfully!!');
+      doctorActions.businessHours(timeline);
+      setSuccess("Business hours updated successfully!!");
       return;
     }
-    setFail('Unable to process the request!');
+    setFail("Unable to process the request!");
   };
-  const addNewRow = () => {
-    setBusinessHoursData((state) => [...state, bsInitialData]);
-  };
+  // const addNewRow = () => {
+  //   setBusinessHoursData((state) => [...state, bsInitialData]);
+  // };
 
   return (
     <>
@@ -141,7 +157,7 @@ console.log({businessHoursData});
             {fail}
           </div>
         ) : (
-          ''
+          ""
         )}
 
         <div className="font-montserrat text-[#636363] shadow-lg rounded-lg bg-white flex flex-col ">
@@ -159,45 +175,49 @@ console.log({businessHoursData});
               <div className="col-span-1">Add</div>
             </div>
 
-           
-            <Accordion>            {
-            days.map((itemDay, key) => 
+            <Accordion>
+              {" "}
+              {days.map((itemDay, key) => (
+                <Accordion.Item eventKey={key}>
+                  <Accordion.Header>{itemDay.toUpperCase()}</Accordion.Header>
+                  <Accordion.Body>
+                    {businessHoursData &&
+                    businessHoursData.length > 0 &&
+                    businessHoursData[key]?.day == itemDay ? (
+                      businessHoursData &&
+                      businessHoursData.length > 0 &&
+                      businessHoursData[key]?.slots.map((slot, index) => (
+                        <PerDayBussinessHours
+                          key={`${key}-${index}`}
+                          number={key}
+                          {...businessHoursData[key]}
+                          index={index}
+                          // addNewRow={addNewRow}
+                          handleChange={handleChange}
+                        />
+                      ))
+                    ) : (
+                      <PerDayBussinessHours
+                        number={0}
+                        slots={{
+                          slots: [
+                            {
+                              from: "00:00",
+                              to: "00:00",
+                            },
+                          ],
+                          day: itemDay,
+                        }}
+                        index={0}
+                        //addNewRow={addNewRow}
+                        handleChange={handleChange}
+                      />
+                    )}
+                  </Accordion.Body>
+                </Accordion.Item>
+              ))}
+            </Accordion>
 
-
-  <Accordion.Item eventKey={key}>
-    <Accordion.Header>{itemDay.toUpperCase()}</Accordion.Header>
-    <Accordion.Body>
-   
-
-    { businessHoursData[key]?.day == itemDay ?
-      businessHoursData[key]?.slots.map((slot, index) => (
-        <PerDayBussinessHours
-          key={`${key}-${index}`}
-          number={key}
-          {...businessHoursData[key]}
-          index={index}
-          addNewRow={addNewRow}
-          handleChange={handleChange}
-        />
-      ))
-      : <PerDayBussinessHours
-      number={0}
-      slots={{slots:[{
-        from: '00:00',
-        to: '00:00',
-      }],day:itemDay}}
-      index={0}
-      addNewRow={addNewRow}
-      handleChange={handleChange}
-    />}
-   
-    </Accordion.Body>
-  </Accordion.Item>
-
-)}
-</Accordion>
-               
-            
             {/* {businessHoursData.map((time, key) =>
               time.slots.map((slot, index) => (
                 <PerDayBussinessHours
@@ -235,18 +255,18 @@ const PerDayBussinessHours = ({
   handleChange,
 }) => {
   let slot = slots && slots.length > 0 ? slots[index] : {};
-  let ot_hours = slot?.from?.split(':')[0];
-  let ot_minutes = slot?.from?.split(':')[1];
-  let ct_hours = slot?.to?.split(':')[0];
-  let ct_minutes = slot?.to?.split(':')[1];
-  let ot_meredium = 'AM';
-  let ct_meredium = 'PM';
+  let ot_hours = slot?.from?.split(":")[0];
+  let ot_minutes = slot?.from?.split(":")[1];
+  let ct_hours = slot?.to?.split(":")[0];
+  let ct_minutes = slot?.to?.split(":")[1];
+  let ot_meredium = "AM";
+  let ct_meredium = "PM";
   if (ot_hours > 12) {
-    ot_meredium = 'PM';
+    ot_meredium = "PM";
     ot_hours = parseInt(ot_hours) - 12;
   }
   if (ct_hours > 12) {
-    ct_meredium = 'PM';
+    ct_meredium = "PM";
     ct_hours = parseInt(ct_hours) - 12;
   }
 
@@ -255,7 +275,7 @@ const PerDayBussinessHours = ({
   }
 
   const validatedHour = (value) => {
-    if (!isNumber(value)) return '';
+    if (!isNumber(value)) return "";
     let hour = parseInt(value);
     if (hour > 12) {
       hour = 12;
@@ -265,7 +285,7 @@ const PerDayBussinessHours = ({
     return hour;
   };
   const validatedMinute = (value) => {
-    if (!isNumber(value)) return '';
+    if (!isNumber(value)) return "";
     let min = parseInt(value);
     if (min > 60) {
       min = 60;
@@ -287,7 +307,7 @@ const PerDayBussinessHours = ({
         <div className="">
           <input
             maxLength="2"
-            name={'ot_hours[]'}
+            name={"ot_hours[]"}
             value={ot_hours}
             onChange={(e) => {
               handleChange({
@@ -297,7 +317,7 @@ const PerDayBussinessHours = ({
                     ? {
                         ...item,
                         from: `${
-                          validatedHour(e.target.value) && ot_meredium == 'PM'
+                          validatedHour(e.target.value) && ot_meredium == "PM"
                             ? 12 + validatedHour(e.target.value)
                             : validatedHour(e.target.value)
                         }:${validatedMinute(ot_minutes)}`,
@@ -314,7 +334,7 @@ const PerDayBussinessHours = ({
         <div className="ml-1">
           <input
             maxLength="2"
-            name={'ot_minutes[]'}
+            name={"ot_minutes[]"}
             value={ot_minutes}
             onChange={(e) => {
               handleChange({
@@ -335,7 +355,7 @@ const PerDayBussinessHours = ({
         </div>
         <div className="w-22 h-8 sm:h-10 md:h-10 lg:h-10 xl:h-10 ml-2 border rounded-md flex overflow-hidden justify-center items-center bg-gray-100 text-[#655af4] border-[#655af4] ">
           <select
-            name={'ot_meredium[]'}
+            name={"ot_meredium[]"}
             defaultValue={ot_meredium}
             onChange={(e) => {
               handleChange({
@@ -345,7 +365,7 @@ const PerDayBussinessHours = ({
                     ? {
                         ...item,
                         from: `${
-                          e.target.value == 'PM'
+                          e.target.value == "PM"
                             ? 12 + validatedHour(ot_hours)
                             : validatedHour(ot_hours)
                         }:${validatedMinute(ot_minutes)}`,
@@ -356,10 +376,10 @@ const PerDayBussinessHours = ({
             }}
             className="py-1.5 pl-3 w-full outline-none"
           >
-            <option key={'AM' + number} value="AM" className="outline-none">
+            <option key={"AM" + number} value="AM" className="outline-none">
               AM
             </option>
-            <option key={'PM' + number} value="PM" className="outline-none">
+            <option key={"PM" + number} value="PM" className="outline-none">
               PM
             </option>
           </select>
@@ -370,7 +390,7 @@ const PerDayBussinessHours = ({
         <div className="">
           <input
             maxLength="2"
-            name={'ct_hours[]'}
+            name={"ct_hours[]"}
             value={ct_hours}
             onChange={(e) => {
               handleChange({
@@ -380,7 +400,7 @@ const PerDayBussinessHours = ({
                     ? {
                         ...item,
                         to: `${
-                          validatedHour(e.target.value) && ct_meredium == 'PM'
+                          validatedHour(e.target.value) && ct_meredium == "PM"
                             ? 12 + validatedHour(e.target.value)
                             : validatedHour(e.target.value)
                         }:${validatedMinute(ct_minutes)}`,
@@ -397,7 +417,7 @@ const PerDayBussinessHours = ({
         <div className="ml-1">
           <input
             maxLength="2"
-            name={'ct_minutes[]'}
+            name={"ct_minutes[]"}
             value={ct_minutes}
             onChange={(e) => {
               handleChange({
@@ -418,7 +438,7 @@ const PerDayBussinessHours = ({
         </div>
         <div className="w-22 h-8 sm:h-10 md:h-10 lg:h-10 xl:h-10 ml-2 border rounded-md flex overflow-hidden justify-center items-center bg-gray-100 text-[#655af4] border-[#655af4] ">
           <select
-            name={'ct_meridium[]'}
+            name={"ct_meridium[]"}
             defaultValue={ct_meredium}
             onChange={(e) => {
               handleChange({
@@ -428,7 +448,7 @@ const PerDayBussinessHours = ({
                     ? {
                         ...item,
                         to: `${
-                          e.target.value == 'PM'
+                          e.target.value == "PM"
                             ? 12 + validatedHour(ct_hours)
                             : validatedHour(ct_hours)
                         }:${validatedMinute(ct_minutes)}`,
@@ -439,10 +459,10 @@ const PerDayBussinessHours = ({
             }}
             className="py-1.5 pl-3 w-full outline-none"
           >
-            <option key={'AM' + number} value="AM" className="outline-none">
+            <option key={"AM" + number} value="AM" className="outline-none">
               AM
             </option>
-            <option key={'PM' + number} value="PM" className="outline-none">
+            <option key={"PM" + number} value="PM" className="outline-none">
               PM
             </option>
           </select>
@@ -470,8 +490,8 @@ const PerDayBussinessHours = ({
   );
 };
 
-const validateTimeInput = (num) => num.replace(/[^0-9]/g, '');
-const toTwoDigits = (num) => String(num).padStart(2, '0');
+const validateTimeInput = (num) => num.replace(/[^0-9]/g, "");
+const toTwoDigits = (num) => String(num).padStart(2, "0");
 function tConvert(time) {
   // Check correct time format and split into components
   time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [
@@ -481,10 +501,10 @@ function tConvert(time) {
   if (time.length > 1) {
     // If time format correct
     time = time.slice(1); // Remove full string match value
-    time[5] = +time[0] < 12 ? 'AM' : 'PM'; // Set AM/PM
+    time[5] = +time[0] < 12 ? "AM" : "PM"; // Set AM/PM
     time[0] = +time[0] % 12 || 12; // Adjust hours
   }
-  return time.join(''); // return adjusted time or original string
+  return time.join(""); // return adjusted time or original string
 }
 
 export default Availability;
