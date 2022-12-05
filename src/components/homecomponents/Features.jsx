@@ -1,17 +1,16 @@
-import React from 'react';
-import { Nav, Tab, Tabs } from 'react-bootstrap';
-import Slider from 'react-slick';
-import mi1 from '../../assets/svgs/mi1.svg';
-import mi2 from '../../assets/svgs/mi2.svg';
-import mi3 from '../../assets/svgs/mi3.svg';
-import mi4 from '../../assets/svgs/mi4.svg';
-import fi1 from '../../assets/svgs/fi1.svg';
-import fi2 from '../../assets/svgs/fi2.svg';
-import fi3 from '../../assets/svgs/fi3.svg';
-import ci1 from '../../assets/svgs/ci1.svg';
-import ci2 from '../../assets/svgs/ci2.svg';
-import '../../styles/home.css';
-
+import React from "react";
+import Slider from "react-slick";
+import { Nav } from "react-bootstrap";
+import mi1 from "../../assets/svgs/mi1.svg";
+import mi2 from "../../assets/svgs/mi2.svg";
+import mi3 from "../../assets/svgs/mi3.svg";
+import mi4 from "../../assets/svgs/mi4.svg";
+import fi1 from "../../assets/svgs/fi1.svg";
+import fi2 from "../../assets/svgs/fi2.svg";
+import fi3 from "../../assets/svgs/fi3.svg";
+import ci1 from "../../assets/svgs/ci1.svg";
+import ci2 from "../../assets/svgs/ci2.svg";
+import "../../styles/home.css";
 
 const Features = () => {
   var settings = {
@@ -58,20 +57,20 @@ const Features = () => {
         <div className="container">
           <div className="row">
             <div className="col">
-            <h1 className="featureTitle font-bold ms-md-0">
+              <h1 className="featureTitle font-bold ms-md-0">
                 Sexual Issues we Treat
               </h1>
             </div>
             <div className="py-2 col text-end d-none d-md-block">
-              <Nav.Link href="/treatment"><button className="btn btn-outline-primary rounded-pill">View All</button></Nav.Link>
+              <Nav.Link href="/treatment">
+                <button className="btn btn-outline-primary rounded-pill">
+                  View All
+                </button>
+              </Nav.Link>
             </div>
           </div>
 
-          <ul
-            className="my-3 nav nav-pills my-md-5"
-            id="myTab"
-            role="tablist"
-          >
+          <ul className="my-3 nav nav-pills my-md-5" id="myTab" role="tablist">
             <li className="nav-item" role="presentation">
               <button
                 className="nav-link active "
@@ -124,16 +123,14 @@ const Features = () => {
               tabindex="0"
             >
               <Slider {...settings} className="mb-5">
-
                 {/* Male tab */}
                 <div className="CardContainer featureCard">
                   <div className="card">
-                    <img
-                      src={mi1}
-                      className="card-img-top featureCardImage"
-                    />
+                    <img src={mi1} className="card-img-top featureCardImage" />
                     <div className="card-body">
-                    <span className="featureCardTitle text-2xl font-bold ms-5 ms-md-0 text-2xl font-bold ms-5 ms-md-0">Erectile Dysfunction</span>
+                      <span className="featureCardTitle text-2xl font-bold ms-5 ms-md-0 text-2xl font-bold ms-5 ms-md-0">
+                        Erectile Dysfunction
+                      </span>
                       <p className="featureCardText mt-2">
                         It is defined by difficulty getting and keeping an
                         erection.
@@ -144,12 +141,11 @@ const Features = () => {
 
                 <div className="CardContainer featureCard">
                   <div className="card">
-                    <img
-                      src={mi2}
-                      className="card-img-top featureCardImage"
-                    />
+                    <img src={mi2} className="card-img-top featureCardImage" />
                     <div className="card-body">
-                      <span className="featureCardTitle text-2xl font-bold ms-5 ms-md-0">Low Sex Drive</span>
+                      <span className="featureCardTitle text-2xl font-bold ms-5 ms-md-0">
+                        Low Sex Drive
+                      </span>
                       <p className="featureCardText mt-2">
                         People with hypogonadism may have low sex drives.
                       </p>
@@ -159,10 +155,7 @@ const Features = () => {
 
                 <div className="CardContainer featureCard">
                   <div className="card">
-                    <img
-                      src={mi3}
-                      className="card-img-top featureCardImage"
-                    />
+                    <img src={mi3} className="card-img-top featureCardImage" />
                     <div className="card-body">
                       <span className="featureCardTitle text-2xl font-bold ms-5 ms-md-0">
                         Premature Ejaculation
@@ -177,12 +170,11 @@ const Features = () => {
 
                 <div className="CardContainer featureCard">
                   <div className="card">
-                    <img
-                      src={mi4}
-                      className="card-img-top featureCardImage"
-                    /> 
+                    <img src={mi4} className="card-img-top featureCardImage" />
                     <div className="card-body">
-                      <span className="featureCardTitle text-2xl font-bold ms-5 ms-md-0">Male Infertility</span>
+                      <span className="featureCardTitle text-2xl font-bold ms-5 ms-md-0">
+                        Male Infertility
+                      </span>
                       <p className="featureCardText mt-2">
                         A man is not able to start a pregnancy with his female
                         partner.
@@ -200,15 +192,14 @@ const Features = () => {
               tabindex="1"
             >
               <Slider {...settings} className="mb-5">
-              {/* Female tab */}
-              <div className="CardContainer featureCard">
+                {/* Female tab */}
+                <div className="CardContainer featureCard">
                   <div className="card">
-                    <img
-                      src={fi1}
-                      className="card-img-top featureCardImage"
-                    />
+                    <img src={fi1} className="card-img-top featureCardImage" />
                     <div className="card-body">
-                      <span className="featureCardTitle text-2xl font-bold ms-5 ms-md-0">Painful Sex</span>
+                      <span className="featureCardTitle text-2xl font-bold ms-5 ms-md-0">
+                        Painful Sex
+                      </span>
                       <p className="featureCardText mt-2">
                         It is defined by difficulty getting and keeping an
                         erection.
@@ -219,12 +210,11 @@ const Features = () => {
 
                 <div className="CardContainer featureCard">
                   <div className="card">
-                    <img
-                      src={fi2}
-                      className="card-img-top featureCardImage"
-                    />
+                    <img src={fi2} className="card-img-top featureCardImage" />
                     <div className="card-body">
-                      <span className="featureCardTitle text-2xl font-bold ms-5 ms-md-0">Low Sex Drive</span>
+                      <span className="featureCardTitle text-2xl font-bold ms-5 ms-md-0">
+                        Low Sex Drive
+                      </span>
                       <p className="featureCardText mt-2">
                         People with hypogonadism may have low sex drives.
                       </p>
@@ -234,12 +224,11 @@ const Features = () => {
 
                 <div className="CardContainer featureCard">
                   <div className="card">
-                    <img
-                      src={fi3}
-                      className="card-img-top featureCardImage"
-                    />
+                    <img src={fi3} className="card-img-top featureCardImage" />
                     <div className="card-body">
-                      <span className="featureCardTitle text-2xl font-bold ms-5 ms-md-0">No Orgasm</span>
+                      <span className="featureCardTitle text-2xl font-bold ms-5 ms-md-0">
+                        No Orgasm
+                      </span>
                       <p className="featureCardText mt-2">
                         It is defined by difficulty getting and keeping an
                         erection.
@@ -247,8 +236,7 @@ const Features = () => {
                     </div>
                   </div>
                 </div>
-
-                </Slider>
+              </Slider>
             </div>
             <div
               className="tab-pane fade"
@@ -258,17 +246,16 @@ const Features = () => {
               tabindex="2"
             >
               <Slider {...settings} className="mb-5">
-              {/* Couples tab */}
-              <div className="CardContainer featureCard">
+                {/* Couples tab */}
+                <div className="CardContainer featureCard">
                   <div className="card">
-                    <img
-                      src={ci1}
-                      className="card-img-top featureCardImage"
-                    />
+                    <img src={ci1} className="card-img-top featureCardImage" />
                     <div className="card-body">
-                      <span className="featureCardTitle text-2xl font-bold ms-5 ms-md-0">Painful Sex</span>
+                      <span className="featureCardTitle text-2xl font-bold ms-5 ms-md-0">
+                        Painful Sex
+                      </span>
                       <p className="featureCardText mt-2">
-                      Sexless Relationship
+                        Sexless Relationship
                       </p>
                     </div>
                   </div>
@@ -276,20 +263,16 @@ const Features = () => {
 
                 <div className="CardContainer featureCard">
                   <div className="card">
-                    <img
-                      src={ci2}
-                      className="card-img-top featureCardImage"
-                    />
+                    <img src={ci2} className="card-img-top featureCardImage" />
                     <div className="card-body">
-                      <span className="featureCardTitle text-2xl font-bold ms-5 ms-md-0">Low Sex Drive</span>
-                      <p className="featureCardText mt-2">
-                        Sexless Issue
-                      </p>
+                      <span className="featureCardTitle text-2xl font-bold ms-5 ms-md-0">
+                        Low Sex Drive
+                      </span>
+                      <p className="featureCardText mt-2">Sexless Issue</p>
                     </div>
                   </div>
                 </div>
-
-                </Slider>
+              </Slider>
             </div>
           </div>
           {/* <div className="mb-5 text-center d-block d-md-none">
