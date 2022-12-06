@@ -16,6 +16,10 @@ const Appointment = () => {
   const [activeTab, setActiveTab] = useState("upcomming");
   const [myBookings, setMyBookings] = useState([]);
   const [eventList, setEventList] = useState();
+  const [showModal, setShowModal] = useState(false);
+  const [evtTitle, setEvtTitle] = useState("");
+  const [topY, setTopY] = useState("");
+  const [leftX, setLeftX] = useState("");
   //   [
   //   {
   //     title: "All Day Event",
@@ -88,14 +92,30 @@ const Appointment = () => {
   useEffect(() => {
     getBookings();
   }, []);
+
+  const showBookingDetails = (evtInfo,evt) => {
+    // const editFilterData = data.filter((item) => {
+    //   return item._id == id;
+    // })[0];
+    // setEditData(editFilterData);
+    setEvtTitle(evtInfo.event.Title);
+    setTopY(evt.pageY);
+    setLeftX(evt.pageX);
+    setShowModal(true);
+  };
+
+
+
   const renderEventContent = (eventInfo) => {
     console.log(eventInfo);
     return (
       <>
-        <b>{moment(eventInfo.event.startStr).format("hh:mm")}</b>
-        {/* //use str only  to render */}
-        <br />
-        <i>{eventInfo.event.title}</i>
+      <span onClick= {() => showBookingDetails(eventInfo,Event)}>
+          <b>{moment(eventInfo.event.startStr).format("hh:mm")}</b>
+          {/* //use str only  to render */}
+          <br />
+          <i>{eventInfo.event.title}</i>
+        </span>
       </>
     );
   };
@@ -153,7 +173,15 @@ const Appointment = () => {
             eventContent={renderEventContent}
             //timeZone="UTC"
           />
+          {showModal ? (
+          <>
+            <div className="bookingDetails shadow rounded">
+              <span className="closeModal" onClick={() => setShowModal(false)}>x</span>
+              <h3>{evtTitle}</h3>
+            </div>
+          </> ) : null }
         </div>
+        
       )}
     </div>
   );
