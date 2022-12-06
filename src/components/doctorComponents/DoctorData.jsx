@@ -63,7 +63,10 @@ const DoctorData = ({ drDetailData }) => {
                     <h5 className="font-bold pb-3">Awards & Affiliations</h5>
 
                     {drDetailData?.awards?.map((item, index) => (
-                      <div className="expDoc row m-auto pb-2 inline-flex text-sm">
+                      <div
+                        className="expDoc row m-auto pb-2 inline-flex text-sm"
+                        key={index}
+                      >
                         <div className="col-md-3 col-sm-3 col-lg-3">
                           <img src={pointerIcon} />
                         </div>
