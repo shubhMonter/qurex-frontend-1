@@ -1,4 +1,3 @@
-import { Axios } from "axios";
 import { headers, put } from "../../api";
 import { profileUpdate } from "../../state/auth/Actions";
 import { setError } from "../../state/error/actions";
