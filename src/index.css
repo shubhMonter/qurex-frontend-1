@@ -644,3 +644,25 @@ button.opacity-50 {
   padding-bottom: 2px;
   margin: 10px;
 }
+a.fc-col-header-cell-cushion {
+  color: #2c3e50 !important;
+  text-decoration: none;
+}
+table.fc-scrollgrid {
+  background: white;
+}
+a.fc-daygrid-event {
+  color: #2c3e50;
+  padding: 10px;
+  font-size: 15px;
+  cursor:pointer;
+}
+.fc-event-main, .fc-daygrid-block-event {
+  background: #655af4;
+}
+
+.fc .fc-daygrid-day-frame {
+    min-height: 100%;
+    height: 300px;
+    overflow-y: auto;
+}
