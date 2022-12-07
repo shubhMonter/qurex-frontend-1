@@ -62,12 +62,12 @@ const Specialization = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     postData();
-    getData();
+    // getData();
   };
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    const file = e.target.files[0];
+    // const file = e.target.files[0];
     setInputs((values) => ({ ...values, [name]: value }));
   };
   const postData = async () => {
@@ -84,6 +84,7 @@ const Specialization = () => {
           getData();
 
           setPending(false);
+          // console.log("successfully added");
           alert('Succesfully Added');
         }
       } else {
