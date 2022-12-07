@@ -72,10 +72,6 @@ const AppRouter = () => {
           element={!auth ? <Navigate to="/login" /> : <Consult />}
         />
         <Route
-          path="booking-calendar/:id/:bookingId"
-          element={!auth ? <Navigate to="/login" /> : <Consult />}
-        />
-        <Route
           path="confirm-payment"
           element={!auth ? <Navigate to="/login" /> : <Confirm />}
         />
