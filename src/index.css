@@ -628,10 +628,12 @@ button.opacity-50 {
 
 .bookingDetails
 {
-  width: 500px;
-  height: 250px;
+  width: 650px;
+  height: 400px;
   background: white;
   border-radius: 10px;
+  z-index: 1;
+  position: absolute;
 }
 .closeModal
 {
@@ -639,10 +641,12 @@ button.opacity-50 {
   background: gray;
   float: right;
   padding-right: 10px;
-  padding-left: 10px;
+  padding-left: 11px;
   padding-top: 2px;
-  padding-bottom: 2px;
+  padding-bottom: 3px;
   margin: 10px;
+  cursor:pointer;
+  color:white;
 }
 a.fc-col-header-cell-cushion {
   color: #2c3e50 !important;

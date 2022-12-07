@@ -108,7 +108,7 @@ const TreatmentDocSlider = () => {
         
         <div className="row">
           <div className="col">
-            <h1 className="FeedBackTitle font-bold ml-4">Our Doctors</h1>
+            <h1 className="FeedBackTitle font-bold ml-4 mb-10">Our Doctors</h1>
           </div>
           <div className="py-2 col text-end d-none d-md-block">
             <Link to={'/DoctorsList'}>
