@@ -15,7 +15,7 @@ import consultationAPI from "../api/consultation"
 
 const APP_ID = '487313108aca464bb93de894daedc887';
 const TOKEN =
-  '007eJxTYGjmKOd82dNy1uBZ2Y4jM8tmsG0/FaPS2ueaVWppXfTs/24FBhMLc2NDY0MDi8TkRBMzk6QkS+OUVAtLk5TE1JRkCwvzlbf6khsCGRmuPTZlYIRCEJ+VIbC0KLWCgQEArvwhdQ==';
+  '007eJxTYDhne/fVjw27L26es005RsjpI/dRlQa5WWXP77KriZ86e6RQgcHEwtzY0NjQwCIxOdHEzCQpydI4JdXC0iQlMTUl2cLCfO3DSckNgYwMD1d3MDBCIYjPyhBYWpRawcAAACYpIqs=';
 
 const CHANNEL = 'Qurex';
 
