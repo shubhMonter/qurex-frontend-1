@@ -4,10 +4,11 @@ import {
   createMicrophoneAndCameraTracks,
 } from "agora-rtc-react";
 
-export const appId: string = "b4460bd6e13b4a6db3ffb706eac9de9f";
-export const token: string =
-  "007eJxTYEjRUm7OrJkx821Cseoyx3ela1uy5mmypzBIzlkeZj2/4oUCQ5KJiZlBUopZqqFxkkmiWUqScVpakrmBWWpismVKqmXap0vTkhsCGRnkXzMzMzJAIIjPylBYWpRawcAAACssH9I=";
+export const appId = "487313108aca464bb93de894daedc887";
+export const token =
+  "007eJxTYAgRvZivzK/DtYhRgmPWEqUV11eospcsTVBODN0hN/VJ6V4FBhMLc2NDY0MDi8TkRBMzk6QkS+OUVAtLk5TE1JRkCwvzgOPTkhsCGRmu7f7KwsgAgSA+K0NgaVFqBQMDAFaaHcM=";
+
 export const config: ClientConfig = { mode: "rtc", codec: "vp8" };
 export const useClient = createClient(config);
 export const useMicrophoneAndCameraTracks = createMicrophoneAndCameraTracks();
-export const Channel = "qurex";
+export const Channel = "Qurex";

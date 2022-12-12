@@ -1,18 +1,23 @@
 import AgoraRTC, {
   ConnectionState,
+  IAgoraRTCRemoteUser,
   ICameraVideoTrack,
   IMicrophoneAudioTrack,
 } from "agora-rtc-sdk-ng";
-import { useState } from "react";
-import { appId, token, useClient } from "./setting";
+import { useEffect, useState } from "react";
+import {
+  appId,
+  Channel,
+  token,
+  useClient,
+  useMicrophoneAndCameraTracks,
+} from "./setting";
 export interface Controls {
-  tracks: [IMicrophoneAudioTrack, ICameraVideoTrack] | null;
   setStart: Function;
   setInCall: Function;
   user_id: string;
   room_id: string;
-  onVideoTrack: Function;
-  onUserDisconnected: Function;
+  setUsers: Function;
 }
 
 export enum mediaType {
@@ -20,19 +25,14 @@ export enum mediaType {
   Video = "video",
 }
 export const Controls = (props: Controls) => {
-  const {
-    tracks,
-    setStart,
-    setInCall,
-    user_id,
-    room_id,
-    onVideoTrack,
-    onUserDisconnected,
-  } = props;
+  const { setStart, setInCall, setUsers } = props;
   const [trackState, setTrackState] = useState({ video: true, audio: true });
+  const { ready, tracks } = useMicrophoneAndCameraTracks();
   const client = useClient();
   const mute = async (type: mediaType) => {
     if (type === mediaType.Audio && tracks && tracks.length > 0) {
+      console.log(tracks);
+
       await tracks[0].setEnabled(!trackState.audio);
       setTrackState((ps) => {
         return { ...ps, audio: !ps.audio };
@@ -44,7 +44,20 @@ export const Controls = (props: Controls) => {
       });
     }
   };
-  console.log("check");
+  const disconnect = async () => {
+    try {
+      console.log("disconnect");
+
+      await client.leave();
+      client.removeAllListeners();
+      tracks && tracks[0].close();
+      tracks && tracks[1].close();
+      setStart(false);
+      setInCall(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   //   const leaveChannel = async () => {
   //     await client.leave();
@@ -54,59 +67,63 @@ export const Controls = (props: Controls) => {
   //     setStart(false);
   //     setInCall(false);
   //   };
-  const waitForConnectionState = (connectionState: ConnectionState) => {
-    return new Promise<void>((resolve): void => {
-      const interval = setInterval(() => {
-        if (client.connectionState === connectionState) {
-          clearInterval(interval);
-          resolve();
+
+  useEffect(() => {
+    let init = async (name: string) => {
+      client.on("user-published", async (user, mediaType) => {
+        console.log(user, "test usr");
+
+        await client.subscribe(user, mediaType);
+        if (mediaType === "video") {
+          setUsers((prevUsers: IAgoraRTCRemoteUser[]) => {
+            return [...prevUsers, user];
+          });
         }
-      }, 200);
-    });
-  };
+        if (mediaType === "audio") {
+          user?.audioTrack?.play();
+        }
+      });
 
-  const connect = async () => {
-    try {
-      await waitForConnectionState("DISCONNECTED");
-
-      const uid = await client.join(appId, "qurex" || room_id, token, user_id);
-      console.log({ uid }, "controls");
-
-      client.on("user-published", (user, mediaType) => {
-        client.subscribe(user, mediaType).then(() => {
-          if (mediaType === "video") {
-            onVideoTrack(user);
-          }
-        });
+      client.on("user-unpublished", (user, mediaType) => {
+        if (mediaType === "audio") {
+          if (user.audioTrack) user.audioTrack.stop();
+        }
+        if (mediaType === "video") {
+          setUsers((prevUsers: IAgoraRTCRemoteUser[]) => {
+            return prevUsers?.filter(
+              (User: IAgoraRTCRemoteUser) => User.uid !== user.uid
+            );
+          });
+        }
       });
 
       client.on("user-left", (user) => {
-        onUserDisconnected(user);
+        setUsers((prevUsers: IAgoraRTCRemoteUser[]) => {
+          return prevUsers.filter((User) => User.uid !== user.uid);
+        });
       });
 
-      //tracks = await AgoraRTC.createMicrophoneAndCameraTracks();
+      try {
+        await client.join(appId, name, token, null);
+      } catch (error) {
+        console.log(error);
 
-      if (tracks) await client.publish(tracks);
-
-      return { uid };
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const disconnect = async () => {
-    await waitForConnectionState("CONNECTED");
-    client.removeAllListeners();
-    if (tracks)
-      for (let track of tracks) {
-        track.stop();
-        track.close();
+        console.log("error");
       }
-    tracks && (await client.unpublish(tracks));
-    await client.leave();
-    setStart(false);
-    setInCall(false);
-  };
 
-  return { trackState, mute, connect, disconnect, client };
+      if (tracks) await client.publish([tracks[0], tracks[1]]);
+      setStart(true);
+    };
+    console.log({ ready, tracks }, "test controls");
+
+    if (ready && tracks) {
+      try {
+        init(Channel);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, [Channel, client, ready, tracks]);
+
+  return { trackState, mute, disconnect, client, tracks, ready };
 };

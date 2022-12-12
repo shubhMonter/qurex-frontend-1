@@ -107,27 +107,14 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
   const [patientDetails, setPatientDetail] = useState();
   const [start, setStart] = useState(false);
   const [inCall, setInCall] = useState(false);
-  const tracks = useMicrophoneAndCameraTracks();
-  const onVideoTrack = (user) => {
-    if (user) {
-      user?.audioTrack?.play();
-      setUsers((previousUsers) => [...previousUsers, user]);
-    }
-  };
 
-  const onUserDisconnected = (user) => {
-    setUsers((previousUsers) =>
-      previousUsers.filter((u) => u.uid !== user.uid)
-    );
-  };
-  const { connect, disconnect, client, mute, trackState } = Controls({
-    tracks,
+  const { disconnect, client, mute, trackState, tracks, ready } = Controls({
     setStart,
     setInCall,
     room_id,
     user_id,
-    onVideoTrack,
-    onUserDisconnected,
+    setUsers,
+    user: users,
   });
   React.useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -152,37 +139,20 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
       console.log(error);
     }
   };
-  const setup = async () => {
-    try {
-      console.log("setup trigger");
-      const { uid } = await connect();
-      console.log({ uid }, "videoRoom");
-
-      setCurrentUser({
-        uid,
-        //   audioTrack: tracks[0],
-        //  videoTrack: tracks[1],
-      });
-      setUid(uid);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const cleanup = async (disconnect) => {
     if (typeof disconnect === "function") await disconnect();
-
     setUid(null);
     setUsers([]);
   };
-
+  console.log({ users });
   useEffect(() => {
     // connect = createAC?.connect;
     // disconnect = createAC?.disconnect;
     // client = createAC?.client;
 
-    setup();
-    agoraCommandQueue = agoraCommandQueue.then(setup);
+    // setup();
+    //agoraCommandQueue = agoraCommandQueue.then(setup);
     if (!reload || !currentUser?.videoTrack) {
       setTimeout(() => {
         setReload(true);
@@ -275,10 +245,7 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
   //   console.log("client leaves channel success");
   //   navigate(-1);
   // }
-  console.log({
-    currentUser,
-  });
-  console.log({ users });
+
   return (
     <>
       <div
@@ -306,10 +273,11 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
                 />
               )} */}
               <div className="absolute inset-0 z-10 flex w-40 h-40 bg-red-900">
-                {currentUser?.uid && (
+                {ready && tracks && tracks.length > 0 && (
                   <VideoPlayer
-                    key={currentUser.uid + new Date().getTime()}
+                    //  key={currentUser.uid + new Date().getTime()}
                     user={currentUser}
+                    tracks={tracks}
                   />
                 )}
               </div>
@@ -337,7 +305,7 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
                 </button>
                 <button
                   className="ml-3 btn btn-lg btn-danger rounded-pill "
-                  onClick={() => disconnect}
+                  onClick={() => disconnect()}
                 >
                   <HiOutlinePhoneMissedCall />
                 </button>
