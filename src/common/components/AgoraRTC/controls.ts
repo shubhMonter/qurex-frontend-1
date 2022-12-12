@@ -69,7 +69,7 @@ export const Controls = (props: Controls) => {
     try {
       await waitForConnectionState("DISCONNECTED");
 
-      const uid = await client.join(token, "Qurex" || room_id, appId, user_id);
+      const uid = await client.join(appId, "qurex" || room_id, token, user_id);
       console.log({ uid }, "controls");
 
       client.on("user-published", (user, mediaType) => {
