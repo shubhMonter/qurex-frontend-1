@@ -105,9 +105,9 @@ const Appointment = () => {
         <div className="flex flex-row p-3 mx-3 font-bold ">
           <div
             className={`flex flex-row cursor-pointer hover:text-[#655af4]  ${
-              activeTab == 'upcomming' ? activeTabClasses : ''
+              activeTab == "upcomming" ? activeTabClasses : ""
             }`}
-            onClick={() => setActiveTab('upcomming')}
+            onClick={() => setActiveTab("upcomming")}
           >
             <div className="">
               <AiOutlineMessage className="mt-[2px] " />
@@ -116,9 +116,9 @@ const Appointment = () => {
           </div>
           <div
             className={`ml-10 flex flex-row cursor-pointer hover:text-[#655af4]  ${
-              activeTab == 'previous' ? activeTabClasses : ''
+              activeTab == "previous" ? activeTabClasses : ""
             }`}
-            onClick={() => setActiveTab('previous')}
+            onClick={() => setActiveTab("previous")}
           >
             <div className="">
               <AiOutlineMessage className="mt-[2px] " />
@@ -129,9 +129,9 @@ const Appointment = () => {
 
         {myBookings?.map(
           (booking, key) =>
-            (activeTab == 'upcomming'
-              ? moment(booking.to).diff(moment(), 'minute') > 0
-              : moment(booking.to).diff(moment(), 'minute') < 0) && (
+            (activeTab == "upcomming"
+              ? moment(booking.to).diff(moment(), "minute") > 0
+              : moment(booking.to).diff(moment(), "minute") < 0) && (
               <AppointmentComponent key={key} booking={booking} />
             )
         )}
@@ -221,7 +221,7 @@ const AppointmentComponent = ({ booking, cancelButton }) => {
               </div>
               {/* <div className="text-xs">View Profile</div> */}
             </div>
-            <br/>
+            <br />
             {true ||
             (channel &&
               moment(booking.from).diff(moment(), "minute") < 5 &&
@@ -255,13 +255,16 @@ const AppointmentComponent = ({ booking, cancelButton }) => {
             ) : (
               <></>
             )}
-            <br/>
-            <button  className={`bg-[#d10000]  w-52 no-underline rounded-lg text-white flex justify-center p-2 font-semibold ${
-                  !timeOngoing ? "opacity-75" : ""
-                }`} onClick={() => cancelButton(booking._id)}>
+            <br />
+            <button
+              className={`bg-[#d10000]  w-52 no-underline rounded-lg text-white flex justify-center p-2 font-semibold ${
+                !timeOngoing ? "opacity-75" : ""
+              }`}
+              onClick={() => cancelButton(booking._id)}
+            >
               X Cancel Appointment
             </button>
-            <br/>
+            <br />
             <Link
               to={
                 timeOngoing &&
