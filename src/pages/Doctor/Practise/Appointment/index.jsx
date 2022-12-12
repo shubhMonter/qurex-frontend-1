@@ -1,16 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { AiOutlineMessage, AiOutlineClockCircle } from "react-icons/ai";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import drimg from "../../../../assets/pngs/doctor.png";
 import DoctorAPI from "../../../../api/doctorAPI";
+import BookingAPI from "../../../../api/bookingAPI";
 import { useSelector } from "react-redux";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
 
 const Appointment = () => {
   const auth = useSelector((state) => state.auth.authData);
   let doctorData = auth.user;
   const [activeTab, setActiveTab] = useState("upcomming");
   const [myBookings, setMyBookings] = useState([]);
+  const [eventList, setEventList] = useState();
+  const [showModal, setShowModal] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState();
+  const [topY, setTopY] = useState("");
+  const [leftX, setLeftX] = useState("");
+
   const getBookings = async () => {
     const bookings = await DoctorAPI.getMyBookings(doctorData, auth.token);
     //console.log(bookings);
@@ -20,18 +31,77 @@ const Appointment = () => {
       });
       console.log(bookings);
       setMyBookings(bookings);
+      setEventList(
+        bookings.map((x) => {
+          return {
+            id: x._id,
+            title: x.patientId.name,
+            start: moment(x.from).toISOString(),
+            end: moment(x.to).toISOString(),
+          };
+        })
+      );
     }
   };
+  const cancelBooking = async (id) => {
+    try {
+      const update = await BookingAPI.cancelBookingById(id, auth.token);
+      if (update) {
+        console.log(update);
+      } else {
+        console.log("error");
+      }
+    } catch (error) {}
+  };
+  console.log({ eventList });
   const activeTabClasses =
     " pb-3 border-2 border-transparent border-b-[#655af4] ";
   useEffect(() => {
     getBookings();
   }, []);
 
+  const showBookingDetails = async (evtInfo, evt) => {
+    // const editFilterData = data.filter((item) => {
+    //   return item._id == id;
+    // })[0];
+    // setEditData(editFilterData);
+
+    // const booked = await BookingAPI.getBookingById(
+    //   evtInfo.event.id,
+    //   auth.token
+    // );
+    setSelectedEvent(myBookings.find((x) => x._id === evtInfo.event.id));
+    setTopY(evt.pageY);
+    setLeftX(evt.pageX > 1400 ? evt.pageX - 720 : evt.pageX + 80);
+    console.log("evt");
+    console.log(evt);
+    setShowModal(true);
+  };
+
+  const renderEventContent = (eventInfo) => {
+    const activeDate = moment(eventInfo.event.startStr).isSameOrAfter(
+      new Date()
+    );
+    return (
+      <>
+        <span
+          className={`${activeDate ? "" : "disabled"}`}
+          onClick={(e) => {
+            if (activeDate) showBookingDetails(eventInfo, e);
+          }}
+        >
+          <b>{moment(eventInfo.event.startStr).format("hh:mm A")}</b>
+          {/* //use str only  to render */}
+          <br />
+          <i>{eventInfo.event.title}</i>
+        </span>
+      </>
+    );
+  };
   return (
     <div className="flex flex-col px-10 font-montserrat">
       <div className="py-6 font-semibold text-2xl text-[#636363]"></div>
-      <div className=" font-montserrat text-[#636363] shadow-lg rounded-lg bg-white flex flex-col ">
+      {/* <div className=" font-montserrat text-[#636363] shadow-lg rounded-lg bg-white flex flex-col ">
         <div className="flex flex-row p-3 mx-3 font-bold ">
           <div
             className={`flex flex-row cursor-pointer hover:text-[#655af4]  ${
@@ -65,12 +135,53 @@ const Appointment = () => {
               <AppointmentComponent key={key} booking={booking} />
             )
         )}
-      </div>
+      </div> */}
+      {eventList?.length > 0 && (
+        <div className="calendar">
+          <FullCalendar
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            initialView="dayGridMonth"
+            headerToolbar={{
+              left: "prev,next today",
+              center: "title",
+              right: "dayGridMonth,timeGridWeek,timeGridDay",
+            }}
+            nowIndicator={true}
+            selectable={true}
+            initialEvents={eventList}
+            eventContent={renderEventContent}
+            //timeZone="UTC"
+          />
+          {showModal ? (
+            <>
+              <div
+                className="bookingDetails shadow rounded"
+                style={{ top: topY, left: leftX }}
+              >
+                <span
+                  className="closeModal"
+                  onClick={() => {
+                    setSelectedEvent(undefined);
+                    setShowModal(false);
+                  }}
+                >
+                  x
+                </span>
+
+                <AppointmentComponent
+                  booking={selectedEvent}
+                  cancelButton={cancelBooking}
+                />
+              </div>
+            </>
+          ) : null}
+        </div>
+      )}
     </div>
   );
 };
 
-const AppointmentComponent = ({ booking }) => {
+const AppointmentComponent = ({ booking, cancelButton }) => {
   const channel = "test";
   const timeOngoing =
     true ||
@@ -78,7 +189,7 @@ const AppointmentComponent = ({ booking }) => {
       moment(booking.from).diff(moment(), "minute") > 0);
   return (
     <>
-      <div className="px-3 my-8 pt-2 mx-16 border-l-4 border-[#655af4]  shadow shadow-sm flex flex-col">
+      <div className="px-3 pt-2 border-l-4 border-[#655af4] flex flex-col">
         <div className="p-2 font-semibold">
           <h6>Appointment Date</h6>{" "}
         </div>
@@ -87,23 +198,20 @@ const AppointmentComponent = ({ booking }) => {
             <AiOutlineClockCircle />
           </div>
           <div className="pl-1 font-semibold">
-            {moment(booking?.from).utc().format("Do MMMM YYYY")}
+            {moment(booking?.from).format("Do MMMM YYYY")}
           </div>
-          <div className="pl-4">
-            {" "}
-            {moment(booking?.from).utc().format("dddd")}
-          </div>
+          <div className="pl-4"> {moment(booking?.from).format("dddd")}</div>
           <li className="pl-4">
             {" "}
-            {moment(booking?.from).utc().format("hh:mm A")} -{" "}
-            {moment(booking?.to).utc().format("hh:mm A")}
+            {moment(booking?.from).format("hh:mm A")} -{" "}
+            {moment(booking?.to).format("hh:mm A")}
           </li>
         </div>
         <div className="flex flex-row py-6 mt-4 border-t border-t-gray-100">
           <div>
             <img className="w-16 h-16 rounded-3xl" src={drimg} alt="" />
           </div>
-          <div className="flex w-full pl-5 justify-content-between align-items-start">
+          <div className="w-full pl-5 justify-content-between align-items-start">
             <div>
               <div className="flex flex-row">
                 <div className="font-semibold">{booking?.patientId?.name}</div>
@@ -111,7 +219,7 @@ const AppointmentComponent = ({ booking }) => {
                   Gynecologist
                 </div>
               </div>
-              <div className="text-xs">View Profile</div>
+              {/* <div className="text-xs">View Profile</div> */}
             </div>
             <br />
             {true ||

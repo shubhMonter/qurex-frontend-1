@@ -17,7 +17,7 @@ import { useMicrophoneAndCameraTracks } from "../common/components/AgoraRTC/sett
 
 const APP_ID = "487313108aca464bb93de894daedc887";
 const TOKEN =
-  "007eJxTYBA89oix9f9zub2Ml2YUeTzZ8fi293EVxoXbcgO0ihqiMgMVGEwszI0NjQ0NLBKTE03MTJKSLI1TUi0sTVISU1OSLSzM177uSm4IZGSIYj/JxMgAgSA+K0NgaVFqBQMDAJ6sIHo=";
+  "007eJxTYDhne/fVjw27L26es005RsjpI/dRlQa5WWXP77KriZ86e6RQgcHEwtzY0NjQwCIxOdHEzCQpydI4JdXC0iQlMTUl2cLCfO3DSckNgYwMD1d3MDBCIYjPyhBYWpRawcAAACYpIqs=";
 
 const CHANNEL = "Qurex";
 

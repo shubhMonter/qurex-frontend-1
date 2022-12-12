@@ -7,7 +7,7 @@ const CSatisfaction = () => {
         <div className="col text-center">
           <div className="d-flex justify-content-center">
             <h1 className="counterTitle mx-0 me-md-3">89%</h1>
-            <h5 className="text-start ms-2">
+            <h5 className="text-start ms-2 font-semibold mt-7">
               Customer <br />
               Satisfaction
             </h5>

@@ -5,7 +5,7 @@ const TCounter = () => {
     <div className="container my-5">
         <div className='row'>
             <div className='col-12 col-md-4 my-1 d-flex flex-column justify-content-center align-items-center'>
-                <p className='counterTitle '>49%</p>
+                <h1 className='counterTitle'>49%</h1>
                 <p className='text-break text-start counterParagraph'>men over the age of 40 <br/> experience erectile <br/> dysfunction.</p>
             </div>
             <div className='col-12 col-md-4 my-1 d-flex flex-column justify-content-center align-items-center'>

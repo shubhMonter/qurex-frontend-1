@@ -6,6 +6,7 @@ import TCounter from '../components/treatmentComponents/TCounter';
 import Footer from '../components/Footer';
 import LearnMore from '../components/treatmentComponents/LearnMore';
 import TreatmentHero from '../components/treatmentComponents/TreatmentHero';
+import TreatmentArticles from '../components/treatmentComponents/TreatmentArticles';
 import FAQ from '../components/homecomponents/FAQ';
 import TreatmentDocSlider from '../components/treatmentComponents/TreatmentDocSlider';
 
@@ -22,6 +23,7 @@ const TreatmentPage = () => {
       <div className="my-5"></div>
       <FeedBack />
       <FAQ />
+      <TreatmentArticles />
       <Footer />
       </div>
     </>
