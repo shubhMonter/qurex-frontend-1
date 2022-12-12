@@ -1,150 +1,113 @@
-import React, { useEffect, useState } from 'react';
-import AgoraRTC, { createClient } from 'agora-rtc-sdk-ng';
-import { VideoPlayer } from './VideoPlayer';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { useSelector } from 'react-redux';
-import { IoMdMicOff, IoMdMic } from 'react-icons/io';
-import { HiOutlinePhoneMissedCall } from 'react-icons/hi';
-import { AiOutlineFileAdd } from 'react-icons/ai';
-import { BsCameraVideo, BsCameraVideoOff, BsChatDots } from 'react-icons/bs';
-import { useNavigate } from 'react-router';
-import BookingAPI from '../api/bookingAPI';
-import UserApi from '../api/UserAPI'
-import consultationAPI from "../api/consultation"
+import React, { useEffect, useState } from "react";
+import AgoraRTC, { createClient } from "agora-rtc-sdk-ng";
+import { VideoPlayer } from "./VideoPlayer";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { useSelector } from "react-redux";
+import { IoMdMicOff, IoMdMic } from "react-icons/io";
+import { HiOutlinePhoneMissedCall } from "react-icons/hi";
+import { AiOutlineFileAdd } from "react-icons/ai";
+import { BsCameraVideo, BsCameraVideoOff, BsChatDots } from "react-icons/bs";
+import { useNavigate } from "react-router";
+import BookingAPI from "../api/bookingAPI";
+import UserApi from "../api/UserAPI";
+import consultationAPI from "../api/consultation";
+import { Controls, mediaType } from "../common/components/AgoraRTC/controls";
+import { useMicrophoneAndCameraTracks } from "../common/components/AgoraRTC/setting";
 
-const APP_ID = '487313108aca464bb93de894daedc887';
+const APP_ID = "487313108aca464bb93de894daedc887";
 const TOKEN =
-  '007eJxTYBA89oix9f9zub2Ml2YUeTzZ8fi293EVxoXbcgO0ihqiMgMVGEwszI0NjQ0NLBKTE03MTJKSLI1TUi0sTVISU1OSLSzM177uSm4IZGSIYj/JxMgAgSA+K0NgaVFqBQMDAJ6sIHo=';
+  "007eJxTYBA89oix9f9zub2Ml2YUeTzZ8fi293EVxoXbcgO0ihqiMgMVGEwszI0NjQ0NLBKTE03MTJKSLI1TUi0sTVISU1OSLSzM177uSm4IZGSIYj/JxMgAgSA+K0NgaVFqBQMDAJ6sIHo=";
 
-const CHANNEL = 'Qurex';
+const CHANNEL = "Qurex";
 
 AgoraRTC.setLogLevel(4);
 
 let agoraCommandQueue = Promise.resolve();
 
-const createAgoraClient = ({
-  onVideoTrack,
-  onUserDisconnected,
-  room_id,
-  user_id,
-}) => {
-  const client = createClient({
-    mode: 'rtc',
-    codec: 'vp8',
-  });
+// const Controls = ({
+//   onVideoTrack,
+//   onUserDisconnected,
+//   room_id,
+//   user_id,
+// }) => {
+//   const client = createClient({
+//     mode: 'rtc',
+//     codec: 'vp8',
+//   });
 
-  let tracks;
+//   let tracks;
 
-  const waitForConnectionState = (connectionState) => {
-    return new Promise((resolve) => {
-      const interval = setInterval(() => {
-        if (client.connectionState === connectionState) {
-          clearInterval(interval);
-          resolve();
-        }
-      }, 200);
-    });
-  };
+//   const waitForConnectionState = (connectionState) => {
+//     return new Promise((resolve) => {
+//       const interval = setInterval(() => {
+//         if (client.connectionState === connectionState) {
+//           clearInterval(interval);
+//           resolve();
+//         }
+//       }, 200);
+//     });
+//   };
 
-  const connect = async () => {
-   
-    await waitForConnectionState('DISCONNECTED');
+//   const connect = async () => {
 
-    const uid = await client.join(APP_ID, 'Qurex' || room_id, TOKEN, user_id);
+//     await waitForConnectionState('DISCONNECTED');
 
-    client.on('user-published', (user, mediaType) => {
-      client.subscribe(user, mediaType).then(() => {
-        if (mediaType === 'video') {
-          onVideoTrack(user);
-        }
-      });
-    });
+//     const uid = await client.join(APP_ID, 'Qurex' || room_id, TOKEN, user_id);
 
-    client.on('user-left', (user) => {
-      onUserDisconnected(user);
-    });
+//     client.on('user-published', (user, mediaType) => {
+//       client.subscribe(user, mediaType).then(() => {
+//         if (mediaType === 'video') {
+//           onVideoTrack(user);
+//         }
+//       });
+//     });
 
-    tracks = await AgoraRTC.createMicrophoneAndCameraTracks();
+//     client.on('user-left', (user) => {
+//       onUserDisconnected(user);
+//     });
 
-    await client.publish(tracks);
+//     tracks = await AgoraRTC.createMicrophoneAndCameraTracks();
 
-    return {
-      tracks,
-      uid,
-    };
-  };
+//     await client.publish(tracks);
 
-  const disconnect = async () => {
-    await waitForConnectionState('CONNECTED');
-    client.removeAllListeners();
-    for (let track of tracks) {
-      track.stop();
-      track.close();
-    }
-    await client.unpublish(tracks);
-    await client.leave();
-  };
+//     return {
+//       tracks,
+//       uid,
+//     };
+//   };
 
-  return {
-    disconnect,
-    connect,
-    client,
-  };
-};
+//   const disconnect = async () => {
+//     await waitForConnectionState('CONNECTED');
+//     client.removeAllListeners();
+//     for (let track of tracks) {
+//       track.stop();
+//       track.close();
+//     }
+//     await client.unpublish(tracks);
+//     await client.leave();
+//   };
+
+//   return {
+//     disconnect,
+//     connect,
+//     client,
+//   };
+// };
 
 export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
   const navigate = useNavigate();
-
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
-  const [muteText, setMuteText] = useState('Mute');
-  const [pauseVideoText, setPauseVideoText] = useState('Pause Video');
   const [uid, setUid] = useState(user_id);
   const [reload, setReload] = useState(false);
   const [onForm, setOnForm] = useState(false);
   const auth = useSelector((state) => state.auth.authData);
-  const [bookingDetails,setBookingDetails] = useState();
-  const [patientDetails,setPatientDetail] = useState();
-  React.useEffect(() => {
-    const params = new URLSearchParams(window.location.search) 
-    const id = params.get('user_id') // 123 
-    getBookingDetails(id,auth.token)
-}, [])
-  const getBookingDetails =async(id,token) =>{
-   try {
-    const bookingData = await BookingAPI.getBookingById(id,token)
-    if(bookingData){
-      setBookingDetails(bookingData)
-        const patientData = await UserApi.getUser(bookingData.patientId);
-        if(patientData){
-          setPatientDetail(patientData);
-        }else{
-          console.log(patientData);
-        }
-    }else{
-      console.log(bookingData);
-    }
-   } catch (error) {
-    console.log(error);
-   } 
-  } 
-  const setup = async () => {
-    const { tracks, uid } = await connect();
-    setCurrentUser({
-      uid,
-      audioTrack: tracks[0],
-      videoTrack: tracks[1],
-    });
-    setUid(uid);
-  };
-
-  const cleanup = async (disconnect) => {
-    if (typeof disconnect === 'function') await disconnect();
-
-    setUid(null);
-    setUsers([]);
-  };
+  const [bookingDetails, setBookingDetails] = useState();
+  const [patientDetails, setPatientDetail] = useState();
+  const [start, setStart] = useState(false);
+  const [inCall, setInCall] = useState(false);
+  const tracks = useMicrophoneAndCameraTracks();
   const onVideoTrack = (user) => {
     if (user) {
       user?.audioTrack?.play();
@@ -157,19 +120,68 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
       previousUsers.filter((u) => u.uid !== user.uid)
     );
   };
-  let connect, disconnect, client;
-  useEffect(() => {
-    const createAC = createAgoraClient({
-      onVideoTrack,
-      onUserDisconnected,
-      room_id,
-      user_id,
-    });
-    connect = createAC?.connect;
-    disconnect = createAC?.disconnect;
-    client = createAC?.client;
+  const { connect, disconnect, client, mute, trackState } = Controls({
+    tracks,
+    setStart,
+    setInCall,
+    room_id,
+    user_id,
+    onVideoTrack,
+    onUserDisconnected,
+  });
+  React.useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("user_id"); // 123
+    getBookingDetails(id, auth.token);
+  }, []);
+  const getBookingDetails = async (id, token) => {
+    try {
+      const bookingData = await BookingAPI.getBookingById(id, token);
+      if (bookingData) {
+        setBookingDetails(bookingData);
+        const patientData = await UserApi.getUser(bookingData.patientId);
+        if (patientData) {
+          setPatientDetail(patientData);
+        } else {
+          console.log(patientData);
+        }
+      } else {
+        console.log(bookingData);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const setup = async () => {
+    try {
+      console.log("setup trigger");
+      const { uid } = await connect();
+      console.log({ uid }, "videoRoom");
 
-    // setup();
+      setCurrentUser({
+        uid,
+        //   audioTrack: tracks[0],
+        //  videoTrack: tracks[1],
+      });
+      setUid(uid);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const cleanup = async (disconnect) => {
+    if (typeof disconnect === "function") await disconnect();
+
+    setUid(null);
+    setUsers([]);
+  };
+
+  useEffect(() => {
+    // connect = createAC?.connect;
+    // disconnect = createAC?.disconnect;
+    // client = createAC?.client;
+
+    setup();
     agoraCommandQueue = agoraCommandQueue.then(setup);
     if (!reload || !currentUser?.videoTrack) {
       setTimeout(() => {
@@ -178,98 +190,100 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
     }
     return () => {
       // cleanup();
-      leave();
+      disconnect();
       agoraCommandQueue = agoraCommandQueue.then(cleanup);
     };
   }, []);
   const formik = useFormik({
     initialValues: {
-      issue: '',
-      since: '',
-      diagnosis: '',
-      medication: '',
-      advice: '',
+      issue: "",
+      since: "",
+      diagnosis: "",
+      medication: "",
+      advice: "",
     },
     validationSchema: Yup.object({
       issue: Yup.string()
-        .max(20, 'Name must be 20 Characters or less')
-        .required('Required'),
-      since: Yup.string().required('Required'),
+        .max(20, "Name must be 20 Characters or less")
+        .required("Required"),
+      since: Yup.string().required("Required"),
     }),
-    onSubmit: async (values,{resetForm}) => {
+    onSubmit: async (values, { resetForm }) => {
       const postUpdatedData = {
         issue: values.issue,
         since: values.since,
         diagnosis: values.diagnosis,
         medicine: values.medicine,
         doctorAdvice: values.advice,
-        patientId:bookingDetails.patientId,
-        bookingId:bookingDetails.bookingId,
-        consultationId:bookingDetails.bookingId,
-        doctorId:bookingDetails.doctorId,
+        patientId: bookingDetails.patientId,
+        bookingId: bookingDetails.bookingId,
+        consultationId: bookingDetails.bookingId,
+        doctorId: bookingDetails.doctorId,
       };
-      
+
       try {
         if (navigator.onLine) {
-          const response = await consultationAPI.createConsultation(postUpdatedData,auth.token)
+          const response = await consultationAPI.createConsultation(
+            postUpdatedData,
+            auth.token
+          );
           if (response) {
-            resetForm()
-            alert('Succesfully Updated');
+            resetForm();
+            alert("Succesfully Updated");
           }
         } else {
         }
       } catch (error) {
         console.log(error);
-        alert('Error Updating Data');
+        alert("Error Updating Data");
       }
     },
   });
 
-  const handleMute = () => {
-    if (muteText == 'Mute') {
-      currentUser?.audioTrack?.setMuted(true);
-      setMuteText('Unmute');
-    } else {
-      currentUser?.audioTrack?.setMuted(false);
-      setMuteText('Mute');
-    }
-  };
-  const handlePauseVideo = () => {
-    if (pauseVideoText == 'Pause Video') {
-      currentUser?.videoTrack.setMuted(true);
-      setPauseVideoText('Unpause Video');
-    } else {
-      currentUser?.videoTrack.setMuted(false);
-      setPauseVideoText('Pause Video');
+  // const handleMute = () => {
+  //   if (muteText == "Mute") {
+  //     currentUser?.audioTrack?.setMuted(true);
+  //     setMuteText("Unmute");
+  //   } else {
+  //     currentUser?.audioTrack?.setMuted(false);
+  //     setMuteText("Mute");
+  //   }
+  // };
+  // const handlePauseVideo = () => {
+  //   if (pauseVideoText == "Pause Video") {
+  //     currentUser?.videoTrack.setMuted(true);
+  //     setPauseVideoText("Unpause Video");
+  //   } else {
+  //     currentUser?.videoTrack.setMuted(false);
+  //     setPauseVideoText("Pause Video");
 
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
-    }
-  };
+  //     setTimeout(() => {
+  //       window.location.reload();
+  //     }, 2000);
+  //   }
+  // };
 
-  async function leave() {
-    currentUser?.audioTrack.setMuted(true);
-    currentUser?.videoTrack.setMuted(true);
-    cleanup(disconnect);
-    // remove remote users and player views
-    setUsers({});
+  // async function leave() {
+  //   currentUser?.audioTrack.setMuted(true);
+  //   currentUser?.videoTrack.setMuted(true);
+  //   cleanup(disconnect);
+  //   // remove remote users and player views
+  //   setUsers({});
 
-    // leave the channel
-    // await client?.leave();
-    console.log('client leaves channel success');
-    navigate(-1);
-  }
-  console.log(
-    '🚀 ~ file: VideoRoom.jsx ~ line 190 ~ handleMute ~ currentUser',
-    currentUser
-  );
-  console.log(users);
+  //   // leave the channel
+  //   // await client?.leave();
+  //   console.log("client leaves channel success");
+  //   navigate(-1);
+  // }
+  console.log({
+    currentUser,
+  });
+  console.log({ users });
   return (
     <>
       <div
         className={`mx-3 grid grid-cols-1 ${
-          auth?.role === 'doctor' ? 'md:grid-cols-4' : 'md:grid-cols-3'
+          auth?.role === "doctor" ? "md:grid-cols-4" : "md:grid-cols-3"
         }  gap-5`}
       >
         <div className="col-span-3">
@@ -283,7 +297,7 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
                       user={user}
                     />
                   ))
-                : ''}
+                : ""}
               {/* {currentUser?.uid && (
                 <VideoPlayer
                   className="h-96"
@@ -302,19 +316,15 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
               <div className="absolute inset-0 flex justify-center items-center z-10 mt-[34rem]">
                 <button
                   className="btn btn-lg btn-primary rounded-pill "
-                  onClick={handleMute}
+                  onClick={() => mute(mediaType.Audio)}
                 >
-                  {muteText === 'Mute' ? <IoMdMic /> : <IoMdMicOff />}
+                  {trackState.audio ? <IoMdMic /> : <IoMdMicOff />}
                 </button>
                 <button
                   className="ml-3 btn btn-lg btn-light rounded-pill "
-                  onClick={handlePauseVideo}
+                  onClick={() => mute(mediaType.Video)}
                 >
-                  {pauseVideoText === 'Pause Video' ? (
-                    <BsCameraVideo />
-                  ) : (
-                    <BsCameraVideoOff />
-                  )}
+                  {trackState.video ? <BsCameraVideo /> : <BsCameraVideoOff />}
                 </button>
                 <button className="ml-3 btn btn-lg btn-light rounded-pill ">
                   <BsChatDots />
@@ -327,7 +337,7 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
                 </button>
                 <button
                   className="ml-3 btn btn-lg btn-danger rounded-pill "
-                  onClick={leave}
+                  onClick={() => disconnect}
                 >
                   <HiOutlinePhoneMissedCall />
                 </button>
@@ -335,7 +345,7 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
             </div>
           </div>
         </div>
-        {auth?.role === 'doctor' && onForm ? (
+        {auth?.role === "doctor" && onForm ? (
           <div className="col-span-1">
             <form>
               <div className="sticky flex flex-col col-span-2 px-3 py-2 shadow-lg md:col-span-1 xl:col-span-1 lg:col-span-1">
@@ -343,7 +353,9 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
                   Please fill the prescription or check prescription not
                   required before leaving consultation.
                 </div>
-                <div className="t414 text-[#1C1C1C] mt-4">Name: {patientDetails?.name} </div>
+                <div className="t414 text-[#1C1C1C] mt-4">
+                  Name: {patientDetails?.name}{" "}
+                </div>
                 <div className="t414 text-[#1C1C1C] mt-4">Symtoms/Issue</div>
                 <div className="mt-1">
                   <input
@@ -437,7 +449,7 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
             </form>
           </div>
         ) : (
-          ''
+          ""
         )}
       </div>
     </>

@@ -1,24 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import {
-  AiOutlineMessage,
-  AiOutlineClockCircle,
-} from 'react-icons/ai';
-import moment from 'moment';
-import { Link } from 'react-router-dom';
-import drimg from '../../../../assets/pngs/doctor.png';
-import DoctorAPI from '../../../../api/doctorAPI';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { AiOutlineMessage, AiOutlineClockCircle } from "react-icons/ai";
+import moment from "moment";
+import { Link } from "react-router-dom";
+import drimg from "../../../../assets/pngs/doctor.png";
+import DoctorAPI from "../../../../api/doctorAPI";
+import { useSelector } from "react-redux";
 
 const Appointment = () => {
   const auth = useSelector((state) => state.auth.authData);
   let doctorData = auth.user;
-  const [activeTab, setActiveTab] = useState('upcomming');
+  const [activeTab, setActiveTab] = useState("upcomming");
   const [myBookings, setMyBookings] = useState([]);
   const getBookings = async () => {
-    const bookings = await DoctorAPI.getMyBookings(
-      doctorData,
-      auth.token
-    );
+    const bookings = await DoctorAPI.getMyBookings(doctorData, auth.token);
     //console.log(bookings);
     if (bookings && bookings?.length > 0) {
       bookings.sort(function (a, b) {
@@ -29,7 +23,7 @@ const Appointment = () => {
     }
   };
   const activeTabClasses =
-    ' pb-3 border-2 border-transparent border-b-[#655af4] ';
+    " pb-3 border-2 border-transparent border-b-[#655af4] ";
   useEffect(() => {
     getBookings();
   }, []);
@@ -41,9 +35,9 @@ const Appointment = () => {
         <div className="flex flex-row p-3 mx-3 font-bold ">
           <div
             className={`flex flex-row cursor-pointer hover:text-[#655af4]  ${
-              activeTab == 'upcomming' ? activeTabClasses : ''
+              activeTab == "upcomming" ? activeTabClasses : ""
             }`}
-            onClick={() => setActiveTab('upcomming')}
+            onClick={() => setActiveTab("upcomming")}
           >
             <div className="">
               <AiOutlineMessage className="mt-[2px] " />
@@ -52,9 +46,9 @@ const Appointment = () => {
           </div>
           <div
             className={`ml-10 flex flex-row cursor-pointer hover:text-[#655af4]  ${
-              activeTab == 'previous' ? activeTabClasses : ''
+              activeTab == "previous" ? activeTabClasses : ""
             }`}
-            onClick={() => setActiveTab('previous')}
+            onClick={() => setActiveTab("previous")}
           >
             <div className="">
               <AiOutlineMessage className="mt-[2px] " />
@@ -65,9 +59,9 @@ const Appointment = () => {
 
         {myBookings?.map(
           (booking, key) =>
-            (activeTab == 'upcomming'
-              ? moment(booking.to).diff(moment(), 'minute') > 0
-              : moment(booking.to).diff(moment(), 'minute') < 0) && (
+            (activeTab == "upcomming"
+              ? moment(booking.to).diff(moment(), "minute") > 0
+              : moment(booking.to).diff(moment(), "minute") < 0) && (
               <AppointmentComponent key={key} booking={booking} />
             )
         )}
@@ -77,32 +71,32 @@ const Appointment = () => {
 };
 
 const AppointmentComponent = ({ booking }) => {
-  const channel = 'test';
+  const channel = "test";
   const timeOngoing =
     true ||
-    (moment(booking.from).diff(moment(), 'minute') < 0 &&
-      moment(booking.from).diff(moment(), 'minute') > 0);
+    (moment(booking.from).diff(moment(), "minute") < 0 &&
+      moment(booking.from).diff(moment(), "minute") > 0);
   return (
     <>
       <div className="px-3 my-8 pt-2 mx-16 border-l-4 border-[#655af4]  shadow shadow-sm flex flex-col">
         <div className="p-2 font-semibold">
-          <h6>Appointment Date</h6>{' '}
+          <h6>Appointment Date</h6>{" "}
         </div>
         <div className="flex flex-row py-2">
           <div className="mt-[2px] ">
             <AiOutlineClockCircle />
           </div>
           <div className="pl-1 font-semibold">
-            {moment(booking?.from).utc().format('Do MMMM YYYY')}
+            {moment(booking?.from).utc().format("Do MMMM YYYY")}
           </div>
           <div className="pl-4">
-            {' '}
-            {moment(booking?.from).utc().format('dddd')}
+            {" "}
+            {moment(booking?.from).utc().format("dddd")}
           </div>
           <li className="pl-4">
-            {' '}
-            {moment(booking?.from).utc().format('hh:mm A')} -{' '}
-            {moment(booking?.to).utc().format('hh:mm A')}
+            {" "}
+            {moment(booking?.from).utc().format("hh:mm A")} -{" "}
+            {moment(booking?.to).utc().format("hh:mm A")}
           </li>
         </div>
         <div className="flex flex-row py-6 mt-4 border-t border-t-gray-100">
@@ -119,10 +113,11 @@ const AppointmentComponent = ({ booking }) => {
               </div>
               <div className="text-xs">View Profile</div>
             </div>
+            <br />
             {true ||
             (channel &&
-              moment(booking.from).diff(moment(), 'minute') < 5 &&
-              moment(booking.to).diff(moment(), 'minute') > 0) ? (
+              moment(booking.from).diff(moment(), "minute") < 5 &&
+              moment(booking.to).diff(moment(), "minute") > 0) ? (
               // {channel && moment(booking.to).diff(moment(), 'minute') > 0 ? (
               <Link
                 to={
@@ -130,7 +125,7 @@ const AppointmentComponent = ({ booking }) => {
                   `/video-call?room_id=${channel}&user_id=${booking?._id}`
                 }
                 className={`bg-[#7367f0]  w-52 no-underline rounded-lg text-white flex justify-center py-2 font-semibold ${
-                  !timeOngoing ? 'opacity-75' : ''
+                  !timeOngoing ? "opacity-75" : ""
                 }`}
               >
                 <div className="mt-1">
@@ -152,6 +147,27 @@ const AppointmentComponent = ({ booking }) => {
             ) : (
               <></>
             )}
+            <br />
+            <button
+              className={`bg-[#d10000]  w-52 no-underline rounded-lg text-white flex justify-center p-2 font-semibold ${
+                !timeOngoing ? "opacity-75" : ""
+              }`}
+              onClick={() => cancelButton(booking._id)}
+            >
+              X Cancel Appointment
+            </button>
+            <br />
+            <Link
+              to={
+                timeOngoing &&
+                `/booking-calendar/${booking.doctorId._id}/${booking?._id}`
+              }
+              className={`bg-[#6b6b6b] no-underline rounded-lg text-white font-semibold inline-flex ${
+                !timeOngoing ? "opacity-75" : ""
+              }`}
+            >
+              <div className="pl-1 p-2">&#8634; Reschedule Appointment</div>
+            </Link>
           </div>
         </div>
       </div>
