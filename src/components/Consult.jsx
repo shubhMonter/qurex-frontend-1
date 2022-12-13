@@ -98,7 +98,7 @@ const Consult = () => {
 
     if (dateData && Object.keys(dateData)?.length > 0) {
       // console.log(tConvert(dateData[date1][0].time));
-      let ctime = dateData[date2]?.filter((item) => {
+      let ctime = dateData[date1]?.filter((item) => {
         let aDate = moment(date2 + ' ' + tConvert(item?.time));
         let bDate = moment(currentTime)
           .add(15, 'minutes')
