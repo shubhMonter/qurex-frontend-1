@@ -255,7 +255,7 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
       >
         <div className="col-span-3">
           <div className="flex w-full h-96">
-            <div className="relative z-0 w-full mx-20 bg-gray-400 h-96">
+            <div className="relative z-0 w-full mx-20 bg-gray-400 h-[30rem]">
               {users && users.length
                 ? users.map((user) => (
                     <VideoPlayer
@@ -272,7 +272,7 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
                   user={currentUser}
                 />
               )} */}
-              <div className="absolute inset-0 z-10 flex w-40 h-40 bg-red-900">
+              <div className="absolute z-10 flex w-2/4 h-full border-r-4 border-r-black bg-red-900">
                 {ready && tracks && tracks.length > 0 && (
                   <VideoPlayer
                     //  key={currentUser.uid + new Date().getTime()}
