@@ -79,6 +79,8 @@ const Appointment = () => {
   };
 
   const renderEventContent = (eventInfo) => {
+    console.log(eventInfo);
+    console.log("eventInfo");
     const activeDate = moment(eventInfo.event.startStr).isSameOrAfter(
       new Date()
     );
@@ -90,7 +92,7 @@ const Appointment = () => {
             if (activeDate) showBookingDetails(eventInfo, e);
           }}
         >
-          <b>{moment(eventInfo.event.startStr).format("hh:mm A")}</b>
+          <b>{moment.utc(eventInfo.event.startStr).format("hh:mm A")}</b>
           {/* //use str only  to render */}
           <br />
           <i>{eventInfo.event.title}</i>
