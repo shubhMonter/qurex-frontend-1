@@ -94,7 +94,7 @@ const Consult = () => {
     var date2 = moment(date).format('MM-DD-YYYY'); // Or your date here
     console.log(date1);
     // console.log(date2);
-    setMyDate(date1);
+    setMyDate(date);
 
     if (dateData && Object.keys(dateData)?.length > 0) {
       // console.log(tConvert(dateData[date1][0].time));
@@ -116,7 +116,10 @@ const Consult = () => {
       const slotResp = await get(
         BaseSetting.doctorApiDomain + '/availableSlots/' +id
       );
+      
       const slotRes = slotResp?.data;
+      console.log("slotRes");
+      console.log(slotRes.data);
       setDateData(slotRes?.data);
     } catch (error) {}
     setShowLoader(false)
@@ -136,7 +139,7 @@ const Consult = () => {
           </div>
 
           <div className="col-md-6 col-sm-12">
-            <span className="slot pt-5">Slots Available on {moment(mydate).format("MM-DD-yyyy")}</span>
+            <span className="slot pt-5">Slots Available on {moment(mydate).format("DD/MM/YYYY")}</span>
             <span className="gryline"></span>
             <div className="container">
            {showLoader ? <div className="losup"><img className="block m-auto" src={loader}/></div>:   
