@@ -13,6 +13,7 @@ export const getDoctorDetails = async (id: string, token: string) => {
     if (result.status == 1) {
       const {
         professionalDetail,
+        bankDetail,
         education,
         awards,
         experience,
@@ -22,6 +23,7 @@ export const getDoctorDetails = async (id: string, token: string) => {
 
       addData({
         professionalDetail,
+        bankDetail,
         education,
         awards,
         businessHours,

@@ -8,11 +8,15 @@ import UserAPI from "../../../../../../api/UserAPI"
 import languages from '../../../../../../constants/langauges';
 import Select from 'react-select';
 import { createOptions } from '../../../../../../utils/utils';
+import { Player } from "video-react";
+import { Upload, Button } from "antd";
+
 const PersonalDetail = () => {
  
   const auth = useSelector((state) => state.auth.authData);
   const [inputs, setInputs] = useState();
   const [loader, setLoader] = useState(false);
+  const [videoSrc , seVideoSrc] = useState("");
   
   // const {user} = auth
   
@@ -37,6 +41,13 @@ const PersonalDetail = () => {
     const value = e.target.value;
     setInputs((values) => ({ ...values, [name]: value }));
   };
+
+  const handleVideoChange = ({file}) => {
+    var reader = new FileReader();
+    console.log(file);
+    var url = URL.createObjectURL(file.originFileObj);
+    seVideoSrc(url);
+};
 
   const handleUpdate = (e) => {
     e.preventDefault();
@@ -63,12 +74,30 @@ const PersonalDetail = () => {
       <div className="text-[#626262] grid grid-cols-3 gap-5 mt-10">
         <div className="col-span-3 md:col-span-1 lg:col-span-1 xl:col-span-1 flex flex-col">
           <div className="flex justify-center">
-            <img className="rounded-xl" src={inputs?.profilePic} alt="" />
+            <img className="rounded-xl ml-7" src={inputs?.profilePic} alt="" />
           </div>
           <div className="mx-32 sm:mx-52 md:mx-16  mt-5 border-4 border-transparent border-t-gray-500"></div>
-          <div className="my-4 flex justify-center">
-            <div className="hover:bg-[#7468ef] cursor-pointer hover:bg-opacity-10 px-5 py-3 border border-[#7468ef] rounded-md">
-              <BsUpload className="h-5 w-5 " />
+          <div className="my-4 flex ml-14">
+            <div className="hover:bg-[#7468ef] cursor-pointer hover:bg-opacity-10 px-5 py-3 rounded-md">
+              <Upload className="mt-3 mb-3"
+                    accept=".mp4"
+                    // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                    action=""
+                    listType="picture"
+                    maxCount={1}
+                    onChange={handleVideoChange}>
+                    <Button>
+                       <BsUpload className="h-5 w-5 " /><br/>
+                       Upload Video
+                    </Button>
+                </Upload>
+                {/* <Player
+                  playsInline
+                  src={videoSrc}
+                  fluid={false}
+                  width={480}
+                  height={272}
+              /> */}
             </div>
           </div>
         </div>

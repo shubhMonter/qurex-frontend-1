@@ -5,7 +5,9 @@ import {
   ADD_EDUCATION_DATA,
   ADD_EXPERIENCE_DATA,
   ADD_PROFESSIONAL_DATA,
+  ADD_BANK_DATA,
   Awards,
+  BankDetails,
   BusinessHours,
   Doctor,
   Education,
@@ -23,6 +25,12 @@ export default {
   professionalDetail: (payload: ProfessionDetails) => {
     dispatch({
       type: ADD_PROFESSIONAL_DATA,
+      payload,
+    });
+  },
+  bankDetail: (payload: BankDetails) => {
+    dispatch({
+      type: ADD_BANK_DATA,
       payload,
     });
   },

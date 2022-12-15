@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { BsFillStarFill, BsSearch } from 'react-icons/bs';
+import { BsSearch } from 'react-icons/bs';
 import loader from '../assets/loader.gif';
 import doctorApi from '../api/doctorAPI';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment/moment';
@@ -16,9 +16,13 @@ import { addData } from '../state/doctor/Actions';
 const DoctorsList = () => {
 
   const [allDoctorData, setAllDoctorData] = useState([]);
+  const [newDocs, setNewDocs] = useState([]);
+  const [allTreatments, setAllTreatments] = useState([]);
   const [showLoader,setShowLoader] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [searchQ,setSearchQ] = useState("");
+  const [searchQTreatment,setSearchQTreatment] = useState("");
   const slug = (x) => {
     return x.replace(/ /g, '').toLowerCase();
   };
@@ -27,13 +31,16 @@ const DoctorsList = () => {
   
     setShowLoader(true);
     
-    // let response = await doctorApi.getAllDoctors();
+    // let response1 = await doctorApi.getAllDoctors();
     let response = await doctorApi.getHomeDoctors();
     console.log("all doctors..");
     console.log(response);
+    // console.log(response1);
     if (response.length > 0) {
       setAllDoctorData(response);
+      setNewDocs(response);
     }
+    getAllTreatments();
     setShowLoader(false);
   };
   // console.log(allDoctorData);
@@ -52,7 +59,6 @@ const DoctorsList = () => {
     if (drDetailData && Object.keys(drDetailData).length > 0) {
       let response = drDetailData;
       if (response && Object.keys(response).length > 0) {
-        // console.log(response);
         dispatch(addData({ ...drDetailData, drUserData: response }));
         navigate('/doctor/' + slug(response?.userId.name));
       }
@@ -61,6 +67,45 @@ const DoctorsList = () => {
   
     setShowLoader(false);
   };
+
+  const getAllTreatments = () => {
+    // let allTreatments = allDoctorData.map(item => {
+    //   return item.professionalDetail.treatments.map(currTreatment => {
+    //     return currTreatment;
+    //   });
+    // });
+    let allTreatments = allDoctorData.map(item => {
+      return item.professionalDetail.specializations.map(currTreatment => {
+        return currTreatment;
+      });
+    });
+    console.log("allTreatments");
+    console.log(allTreatments);
+    setAllTreatments(allTreatments);
+  }
+
+  const searchDocData = () =>
+  {
+    console.log("searchQ");
+    console.log(searchQ);
+    let newDocs = allDoctorData.filter((item) => {
+      console.log(item.userId.name);
+      return item.userId.name.includes(searchQ);
+    });
+    setNewDocs(newDocs);
+  }
+
+  const treatmentDocData = (optionVal) =>
+  {
+    setSearchQTreatment(optionVal);
+    console.log("searchQTreatment");
+    console.log(searchQTreatment);
+    let newDocs = allDoctorData.filter((item) => {
+      console.log(item.professionalDetail.specializations);
+      return searchQTreatment in item.professionalDetail.specializations;
+    });
+    setNewDocs(newDocs);
+  }
 
 
 
@@ -77,11 +122,16 @@ const DoctorsList = () => {
           <div className="col">
           <InputGroup className="mb-3 p-2.5 w-9/12 m-auto ">
             <Form.Control className="shadow h-10"
-              placeholder="Search for treatment, specialist, location"
+              placeholder="Search for Doctor, specialist"
               aria-label="Search-Box"
               aria-describedby="basic-addon2"
             />
-            <InputGroup.Text id="basic-addon2" className="shadow h-10"><BsSearch color="gray" /></InputGroup.Text>
+            <InputGroup.Text id="basic-addon2" 
+              value={searchQ}
+              onChange={(e) => setSearchQ(e.target.value)}
+              className="shadow h-10">
+              <BsSearch onClick={searchDocData} color="gray" />
+            </InputGroup.Text>
           </InputGroup>
 
           </div>
@@ -104,10 +154,12 @@ const DoctorsList = () => {
                 variant="outline-secondary"
                 title="Select Treatment"
                 id="input-group-dropdown-1"
+                onChange={(e) => treatmentDocData(e.value)}
+                value={searchQTreatment}
               >
-                <Dropdown.Item href="#">Treatment 1</Dropdown.Item>
-                <Dropdown.Item href="#">Treatment 2</Dropdown.Item>
-                <Dropdown.Item href="#">Treatment 3</Dropdown.Item>
+                {allTreatments.map((treatmentVal) => (
+                  <Dropdown.Item href="#">{treatmentVal}</Dropdown.Item>
+                ))}
               </DropdownButton>
             </InputGroup>
             </span>
