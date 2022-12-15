@@ -8,10 +8,12 @@ import { BaseSetting } from '../utils/common';
 import '../styles/Confirm.css';
 import { useSelector } from 'react-redux';
 import loader from '../assets/loader.gif';
+import BookingAPI from '../api/bookingAPI';
+import { Role } from '../state/interface';
 
 
 const Consult = () => {
-  const {id}= useParams();
+  const {id,bookingId}= useParams();
   const [currentTime, setCurrentTime] = useState('');
   const navigate = useNavigate();
   const auth = useSelector((state) => state.auth.authData);
@@ -43,35 +45,48 @@ const Consult = () => {
     setSelected({ [tabId]: !selected[tabId] });
   };
   const handleSubmit = async (e) => {
+
     setShowLoader(true)
     const date = mydate;
     const [day, month, year] = date.split('-');
     const resdate = [year, month, day].join('-');
-    try {
-      const response = await post(
-        BaseSetting.doctorApiDomain + '/bookAppointment',
-        {
-          patientId: auth?.user?.id,
-          doctorId: id,
-          meta: 'test',
-          from: resdate + 'T' + time + ':00.000Z',
-        },
-        headers
-      );
-      const result = response.data;
-      if (result.status === 1) {
-        navigate('/confirm-payment', {
-          state: result.data,
-          time: time,
-          doctorId: id,
-        });
-      } else {
-        alert(result.data);
+    if(bookingId){
+      const response  = await BookingAPI.rescheduleBooking(bookingId,{from:resdate + 'T' + time + ':00.000Z',to:moment(resdate + 'T' + time + ':00.000Z').add(15,"minutes")},auth.token)
+      if(response){
+        navigate(auth.role === Role.DR ? "/dashboard/appointments" : '/dashboard/my-bookings');
+      }else{
+        alert("Something Went Wrong!!")
       }
-    } catch (error) {
-      console.log({ error });
+    }else{
+      try {
+        const response = await post(
+          BaseSetting.doctorApiDomain + '/bookAppointment',
+          {
+            patientId: auth?.user?.id,
+            doctorId: id,
+            meta: 'test',
+            from: resdate + 'T' + time + ':00.000Z',
+          },
+          headers
+        );
+        const result = response.data;
+        if (result.status === 1) {
+          navigate('/confirm-payment', {
+            state: result.data,
+            time: time,
+            doctorId: id,
+          });
+        } else {
+          alert(result.data);
+        }
+      } catch (error) {
+        console.log({ error });
+      }
     }
+   
+    
   };
+  console.log(mydate,moment(mydate));
   function tConvert(time) {
     // Check correct time format and split into components
     time = time
@@ -94,7 +109,7 @@ const Consult = () => {
     var date2 = moment(date).format('MM-DD-YYYY'); // Or your date here
     console.log(date1);
     // console.log(date2);
-    setMyDate(date);
+    setMyDate(date1);
 
     if (dateData && Object.keys(dateData)?.length > 0) {
       // console.log(tConvert(dateData[date1][0].time));
@@ -185,7 +200,7 @@ const Consult = () => {
                         // onClick={() => authData?.name ? handleSubmit : navigate("/login")}>
                         onClick={handleSubmit} disabled={showLoader}>
                           
-                          Book now
+                          {bookingId ? "Reschedule" :"Book now"}
                       </button>
                       
                   </div>
