@@ -31,8 +31,11 @@ const DoctorsList = () => {
   
     setShowLoader(true);
     
-    // let response1 = await doctorApi.getAllDoctors();
-    let response = await doctorApi.getHomeDoctors();
+    let response1 = await doctorApi.getAllDoctors();
+    let response = response1.filter((item) => {
+      return item.userId != null;
+    });
+    // let response = await doctorApi.getHomeDoctors();
     console.log("all doctors..");
     console.log(response);
     // console.log(response1);
@@ -40,12 +43,13 @@ const DoctorsList = () => {
       setAllDoctorData(response);
       setNewDocs(response);
     }
-    getAllTreatments();
+    getAllTreatments(response);
     setShowLoader(false);
   };
   // console.log(allDoctorData);
   useEffect(() => {
     window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+    
     getAllDoctors();    
   }, []);
   
@@ -68,45 +72,76 @@ const DoctorsList = () => {
     setShowLoader(false);
   };
 
-  const getAllTreatments = () => {
-    // let allTreatments = allDoctorData.map(item => {
-    //   return item.professionalDetail.treatments.map(currTreatment => {
-    //     return currTreatment;
-    //   });
-    // });
-    let allTreatments = allDoctorData.map(item => {
-      return item.professionalDetail.specializations.map(currTreatment => {
-        return currTreatment;
+  const getAllTreatments = (allDocs) => {
+    // let totalTreatments = allDocs.reduce(
+    //   (prevValue, currentValue) => prevValue + currentValue.professionalDetail.treatments.reduce((preVal,currVal) => preVal + currVal + ","),
+    //   ","
+    // );
+    // console.log(totalTreatments);
+    let allTreatments = allDocs.map(item => {
+      return item.professionalDetail.treatments.map((currTreatment,index) => {
+        if(index < 1)
+        {
+          return currTreatment;
+        }
       });
     });
-    console.log("allTreatments");
-    console.log(allTreatments);
+    // console.log("allTreatments");
+    // console.log(allTreatments);
     setAllTreatments(allTreatments);
   }
 
   const searchDocData = () =>
   {
+    let searchVal = document.querySelector(".searchName").value;
     console.log("searchQ");
+    console.log(searchVal);
+    setSearchQ(searchVal);
     console.log(searchQ);
-    let newDocs = allDoctorData.filter((item) => {
-      console.log(item.userId.name);
-      return item.userId.name.includes(searchQ);
-    });
+    let newDocs = allDoctorData;
+    if(searchVal != "")
+    {
+      newDocs = allDoctorData.filter((item) => {
+        console.log(item.userId.name);
+        return item.userId.name.indexOf(searchVal) > -1;
+      });
+    }
     setNewDocs(newDocs);
   }
 
-  const treatmentDocData = (optionVal) =>
+  const treatmentDocData = async (optionVal) =>
   {
+    document.getElementById("input-group-dropdown-2").textContent = optionVal;
     setSearchQTreatment(optionVal);
     console.log("searchQTreatment");
+    console.log(optionVal);
     console.log(searchQTreatment);
-    let newDocs = allDoctorData.filter((item) => {
-      console.log(item.professionalDetail.specializations);
-      return searchQTreatment in item.professionalDetail.specializations;
-    });
+    let newDocs = allDoctorData;
+    if(optionVal != "All")
+    {
+      newDocs = allDoctorData.filter((item) => {
+        // console.log(item.professionalDetail.treatments);
+        // return item.professionalDetail.treatments.includes(optionVal);
+        return item.professionalDetail.treatments.includes(optionVal);
+      });
+    }
     setNewDocs(newDocs);
   }
 
+  const genderDocData = async (optionVal) =>
+  {
+    document.getElementById("input-group-dropdown-1").textContent = optionVal;
+    console.log(optionVal);
+    let newDocs = allDoctorData;
+    if(optionVal != "Both")
+    {
+      newDocs = allDoctorData.filter((item) => {
+        console.log(item.professionalDetail.treatments);
+        return searchQTreatment in item.professionalDetail.treatments;
+      });
+    }
+    setNewDocs(newDocs);
+  }
 
 
   return (
@@ -121,16 +156,16 @@ const DoctorsList = () => {
         <div className="row p-2.5">
           <div className="col">
           <InputGroup className="mb-3 p-2.5 w-9/12 m-auto ">
-            <Form.Control className="shadow h-10"
-              placeholder="Search for Doctor, specialist"
+            <Form.Control className="shadow h-10 searchName"
+              placeholder="Search for Doctor"
               aria-label="Search-Box"
               aria-describedby="basic-addon2"
             />
-            <InputGroup.Text id="basic-addon2" 
+            <InputGroup.Text
               value={searchQ}
               onChange={(e) => setSearchQ(e.target.value)}
-              className="shadow h-10">
-              <BsSearch onClick={searchDocData} color="gray" />
+              className="shadow h-10 cursor-pointer">
+              <BsSearch onClick={searchDocData} color="gray cursor-pointer" />
             </InputGroup.Text>
           </InputGroup>
 
@@ -140,27 +175,31 @@ const DoctorsList = () => {
           <div className="col">
             <span className="float-left font-bold mt-3">All Specialist</span>
             <span className="float-right">
+            
             <InputGroup className="mb-3">
-              <DropdownButton
-                variant="outline-secondary"
-                title="Select Gender"
-                id="input-group-dropdown-1"
-              >
-                <Dropdown.Item href="#">Male</Dropdown.Item>
-                <Dropdown.Item href="#">Female</Dropdown.Item>
-              </DropdownButton>
 
-              <DropdownButton
-                variant="outline-secondary"
-                title="Select Treatment"
-                id="input-group-dropdown-1"
-                onChange={(e) => treatmentDocData(e.value)}
-                value={searchQTreatment}
-              >
+            <Dropdown>
+              <Dropdown.Toggle variant="outline-secondary" title="Select Gender" id="input-group-dropdown-1">
+                Select Gender
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item as="button" onClick={() => genderDocData("Male")} href="#">Male</Dropdown.Item>
+                <Dropdown.Item as="button" onClick={() => genderDocData("Female")} href="#">Female</Dropdown.Item>
+                <Dropdown.Item as="button" onClick={() => genderDocData("Both")} href="#">Both</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+
+            <Dropdown>
+              <Dropdown.Toggle variant="outline-secondary" title="Select Gender" id="input-group-dropdown-2">
+                Select Treatment
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item as="button" onClick={() => treatmentDocData("All")} href="#">All</Dropdown.Item>
                 {allTreatments.map((treatmentVal) => (
-                  <Dropdown.Item href="#">{treatmentVal}</Dropdown.Item>
+                  <Dropdown.Item as="button" onClick={() => treatmentDocData(treatmentVal)} href="#">{treatmentVal}</Dropdown.Item>
                 ))}
-              </DropdownButton>
+              </Dropdown.Menu>
+            </Dropdown>
             </InputGroup>
             </span>
           </div>
@@ -176,7 +215,7 @@ const DoctorsList = () => {
          :
             <div className="row justify-content-center">
 
-              {allDoctorData.slice(0, 3).map((item,index) => (
+              {newDocs.map((item,index) => (
               
               <div className="col-12 col-md-4 col-sm-12 CourseContainer pb-2.5">
                 <div className="card shadow border-0">

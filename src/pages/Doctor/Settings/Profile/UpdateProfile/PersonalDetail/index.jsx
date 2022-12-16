@@ -78,7 +78,7 @@ const PersonalDetail = () => {
           </div>
           <div className="mx-32 sm:mx-52 md:mx-16  mt-5 border-4 border-transparent border-t-gray-500"></div>
           <div className="my-4 flex ml-14">
-            <div className="hover:bg-[#7468ef] cursor-pointer hover:bg-opacity-10 px-5 py-3 rounded-md">
+            <div className="cursor-pointer hover:bg-opacity-10 px-5 py-3 rounded-md">
               <Upload className="mt-3 mb-3"
                     accept=".mp4"
                     // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
