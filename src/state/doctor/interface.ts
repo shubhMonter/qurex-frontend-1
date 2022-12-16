@@ -19,9 +19,10 @@ export interface Doctor {
 }
 
 export interface BankDetails {
-  bankName: string;
-  bankAccNo: string;
-  bankIFSC: string;  
+  accountName: string,
+  accountNumber: string,
+  ifsc: string,
+  bankName: string,
 }
 
 export interface ProfessionDetails {

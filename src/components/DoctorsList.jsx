@@ -27,7 +27,7 @@ const DoctorsList = () => {
     return x.replace(/ /g, '').toLowerCase();
   };
   
-  const getAllDoctors = async() => {
+  const getAllDoctors = async() => { 
   
     setShowLoader(true);
     

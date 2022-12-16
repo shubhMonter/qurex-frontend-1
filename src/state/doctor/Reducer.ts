@@ -6,6 +6,7 @@ import {
   ADD_EDUCATION_DATA,
   ADD_EXPERIENCE_DATA,
   ADD_PROFESSIONAL_DATA,
+  ADD_BANK_DATA,
   Awards,
   BusinessHours,
   CLEAR_DOCTOR,
@@ -14,12 +15,19 @@ import {
   Education,
   Experience,
   ProfessionDetails,
+  BankDetails,
 } from "./interface";
 
 const initialState: Doctor = {
   professionalDetail: {
     treatments: [],
     specializations: [],
+  },
+  bankDetail: {
+    accountName: "",
+    accountNumber: "",
+    ifsc: "",
+    bankName: "",
   },
   businessHours: [],
   education: [],
@@ -43,6 +51,11 @@ const doctorReducer: DoctorReducer = (
       return {
         ...state,
         professionalDetail: action.payload as ProfessionDetails,
+      };
+    case ADD_BANK_DATA:
+      return {
+        ...state,
+        bankDetail: action.payload as BankDetails,
       };
     case ADD_BUSINESS_HOURS_DATA:
       return {

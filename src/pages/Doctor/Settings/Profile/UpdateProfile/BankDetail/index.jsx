@@ -65,14 +65,25 @@ const BankDetail = () => {
           />
         </div>
       </div>
-          
+
+      <div className="mt-5 flex flex-col">
+        <div className="text-xs">Account Name</div>
+        <div className=" border-gray-200 border rounded-md">
+          <input
+            name="degree"
+            value={inputs?.accountName}
+            onChange={handleChange}
+            className="py-1 pl-3 w-full outline-none"
+          />
+        </div>
+      </div>
 
       <div className="mt-5 flex flex-col">
         <div className="text-xs">Bank Account No.</div>
         <div className=" border-gray-200 border rounded-md">
           <input
             name="degree"
-            value={inputs?.bankAccNo }
+            value={inputs?.accountNumber}
             onChange={handleChange}
             className="py-1 pl-3 w-full outline-none"
           />
@@ -84,7 +95,7 @@ const BankDetail = () => {
         <div className=" border-gray-200 border rounded-md">
           <input
             name="degree"
-            value={inputs?.bankIFSC }
+            value={inputs?.ifsc}
             onChange={handleChange}
             className="py-1 pl-3 w-full outline-none"
           />
