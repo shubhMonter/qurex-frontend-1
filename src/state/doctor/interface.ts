@@ -1,6 +1,7 @@
 import { GAction } from "../interface";
 export const ADD_DATA = "ADD_DATA";
 export const ADD_PROFESSIONAL_DATA = "ADD_PROFESSIONAL_DATA";
+export const ADD_BANK_DATA = "ADD_BANK_DATA";
 export const ADD_BUSINESS_HOURS_DATA = "ADD_BUSINESS_HOURS_DATA";
 export const ADD_EDUCATION_DATA = "ADD_EDUCATION_DATA";
 export const ADD_EXPERIENCE_DATA = "ADD_EXPERIENCE_DATA";
@@ -8,12 +9,20 @@ export const ADD_AWARDS_DATA = "ADD_AWARDS_DATA";
 export const CLEAR_DOCTOR = "CLEAR_DOCTOR";
 export interface Doctor {
   professionalDetail?: ProfessionDetails;
+  bankDetail?: BankDetails;
   businessHours?: BusinessHours[];
   education?: Education[];
   experience?: Experience[];
   awards?: Awards[];
   affiliation?: Affiliation[];
   id?: string;
+}
+
+export interface BankDetails {
+  accountName: string,
+  accountNumber: string,
+  ifsc: string,
+  bankName: string,
 }
 
 export interface ProfessionDetails {

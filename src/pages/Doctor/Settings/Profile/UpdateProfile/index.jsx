@@ -5,8 +5,9 @@ import EducationalDetail from './EducationalDetail';
 import ExperienceDetail from './ExperienceDetail';
 import PersonalDetail from './PersonalDetail';
 import Professional from './Professional';
+import BankDetail from './BankDetail';
 
-import { BsGlobe, BsNewspaper } from 'react-icons/bs';
+import { BsGlobe, BsNewspaper, BsBank } from 'react-icons/bs';
 import {
   AiOutlineCamera,
   AiOutlineLock,
@@ -20,6 +21,7 @@ const UpdateProfile = () => {
   const auth = useSelector((state) => state.auth.authData);
   const [personal, setPersonal] = useState(true);
   const [professional, setProfessional] = useState(false);
+  const [bank, setBank] = useState(false);
   const [educational, setEducational] = useState(false);
   const [experience, setExperience] = useState(false);
   const [award, setAward] = useState(false);
@@ -43,6 +45,7 @@ const UpdateProfile = () => {
               setExperience(false);
               setAward(false);
               setAccount(false);
+              setBank(false);
             }}
           >
             <div className="mt-[2px] mr-2 ">
@@ -61,6 +64,7 @@ const UpdateProfile = () => {
               setExperience(false);
               setAward(false);
               setAccount(false);
+              setBank(false);
             }}
           >
             <div className="mt-[2px] mr-2 ">
@@ -79,6 +83,7 @@ const UpdateProfile = () => {
               setExperience(false);
               setAward(false);
               setAccount(false);
+              setBank(false);
             }}
           >
             <div className="mt-[2px] mr-2 ">
@@ -97,6 +102,7 @@ const UpdateProfile = () => {
               setExperience(true);
               setAward(false);
               setAccount(false);
+              setBank(false);
             }}
           >
             <div className="mt-[2px] mr-2 ">
@@ -115,12 +121,32 @@ const UpdateProfile = () => {
               setExperience(false);
               setAward(true);
               setAccount(false);
+              setBank(false);
             }}
           >
             <div className="mt-[2px] mr-2 ">
               <FiFeather />
             </div>
             <div className="text-sm ">Awards and Affiliations</div>
+          </div>
+          <div
+            className={`${
+              award ? 'bg-[#7367f0] text-white' : ''
+            } cursor-pointer hover:bg-[#7367f0] pl-3 hover:text-white my-1 rounded-md py-1.5  flex flex-row`}
+            onClick={() => {
+              setPersonal(false);
+              setProfessional(false);
+              setEducational(false);
+              setExperience(false);
+              setAward(false);
+              setAccount(false);
+              setBank(true);
+            }}
+          >
+            <div className="mt-[2px] mr-2 ">
+              <BsBank />
+            </div>
+            <div className="text-sm ">Bank Details</div>
           </div>
           {/* <div
             className={`${
@@ -152,6 +178,8 @@ const UpdateProfile = () => {
             <ExperienceDetail />
           ) : award ? (
             <Award />
+          ) : bank ? (
+            <BankDetail />
           ) : (
             ''
           )}
@@ -168,5 +196,6 @@ export {
   ExperienceDetail,
   PersonalDetail,
   Professional,
+  BankDetail
 };
 export default UpdateProfile;
