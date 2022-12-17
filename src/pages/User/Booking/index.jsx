@@ -11,16 +11,19 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import doctorApi from '../../../api/doctorAPI';
 import { addData } from '../../../state/doctor/Actions';
+import BookingAPI from '../../../api/bookingAPI';
 
 const Booking = () => {
   const [activeTab, setActiveTab] = useState('upcomming');
   const [myBookings, setMyBookings] = useState();
+  const [loader,setLoader] = useState(false);
   const auth = useSelector((state) => state.auth.authData);
   const dispatch = useDispatch();
 
   let userData = auth.user;
 
   const getBookings = async () => {
+    setLoader(true);
     const bookings = await UserAPI.getMyBookings(
       userData,
       auth.token
@@ -34,9 +37,22 @@ const Booking = () => {
         return moment.utc(a.from).diff(moment.utc(b.from));
       });
       console.log(bookings);
-      setMyBookings(bookings);
+      setMyBookings(bookings.filter(x=> x.status !== "Cancelled"));
     }
+    setLoader(false);
     // console.log(moment(bookings[3]?.from).format('MMMM Do YYYY, h:mm A'));
+  };
+  const cancelBooking = async (id) => {
+    try {
+      setLoader(true)
+      const update = await BookingAPI.cancelBookingById(id, auth.token);
+      if (update) {
+        getBookings();
+        
+      } else {
+        console.log("error");
+      }
+    } catch (error) {}
   };
 
   const activeTabClasses =
@@ -73,12 +89,12 @@ const Booking = () => {
             <div className="pl-1">Previous Bookings</div>
           </div>
         </div>
-        {myBookings?.map(
+        {!loader && myBookings?.map(
           (booking, key) =>
             (activeTab == 'upcomming'
               ? moment(booking.to).diff(moment(), 'minute') > 0
               : moment(booking.to).diff(moment(), 'minute') < 0) && (
-              <AppointmentComponent key={key} booking={booking} />
+              <AppointmentComponent key={key} booking={booking} cancelBooking={cancelBooking}/>
             )
         )}
       </div>
@@ -86,7 +102,7 @@ const Booking = () => {
   );
 };
 
-const AppointmentComponent = ({ booking }) => {
+const AppointmentComponent = ({ booking , cancelBooking}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [allDoctorData, setAllDoctorData] = useState([]);
@@ -203,6 +219,25 @@ const AppointmentComponent = ({ booking }) => {
             ) : (
               <></>
             )}
+             <Link
+              to={
+                timeOngoing &&
+                `/booking-calendar/${booking.doctorId._id}/${booking?._id}`
+              }
+              className={`bg-[#6b6b6b] no-underline rounded-lg text-white font-semibold inline-flex ${
+                !timeOngoing ? "opacity-75" : ""
+              }`}
+            >
+              <div className="pl-1 p-2">&#8634; Reschedule Appointment</div>
+            </Link>
+            <button
+              className={`bg-[#d10000]  w-52 no-underline rounded-lg text-white flex justify-center p-2 font-semibold ${
+                !timeOngoing ? "opacity-75" : ""
+              }`}
+              onClick={() => cancelBooking(booking._id)}
+            >
+              X Cancel Appointment
+            </button>
           </div>
         </div>
       </div>

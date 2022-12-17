@@ -246,7 +246,7 @@ const DoctorsList = () => {
                           <span 
                           onClick={() => doctorDetail(item?.userId._id)} 
                           className="cursor-pointer font-bold text-[#0d6efd]">View Details</span>
-                          <Link to={item?.userId.name ? '/booking-calendar': '/login'}>
+                          <Link to={item?.userId?.name ? '/booking-calendar': '/login'}>
                             <button className="btn btn-primary featureViewBtn rounded-pill btnConsultList">Consult Now</button>
                           </Link>
                         </div>

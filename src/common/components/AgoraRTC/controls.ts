@@ -28,6 +28,8 @@ export const Controls = (props: Controls) => {
   const { setStart, setInCall, setUsers } = props;
   const [trackState, setTrackState] = useState({ video: true, audio: true });
   const { ready, tracks } = useMicrophoneAndCameraTracks();
+  console.log(tracks);
+  
   const client = useClient();
   const mute = async (type: mediaType) => {
     if (type === mediaType.Audio && tracks && tracks.length > 0) {
