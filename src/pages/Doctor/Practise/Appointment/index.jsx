@@ -21,8 +21,10 @@ const Appointment = () => {
   const [selectedEvent, setSelectedEvent] = useState();
   const [topY, setTopY] = useState("");
   const [leftX, setLeftX] = useState("");
+  const [loader,setLoader]= useState(false);
 
   const getBookings = async () => {
+    setLoader(true)
     const bookings = await DoctorAPI.getMyBookings(doctorData, auth.token);
     //console.log(bookings);
     if (bookings && bookings?.length > 0) {
@@ -31,16 +33,16 @@ const Appointment = () => {
       });
       console.log(bookings);
       setMyBookings(bookings);
-      setEventList(
-        bookings.map((x) => {
-          return {
-            id: x._id,
-            title: x.patientId.name,
-            start: moment(x.from).toISOString(),
-            end: moment(x.to).toISOString(),
-          };
-        })
-      );
+      const event = bookings.filter(x=> x.status !== "Cancelled").map((x) => {
+        return {
+          id: x._id,
+          title: x.patientId.name,
+          start: moment(x.from).toISOString(),
+          end: moment(x.to).toISOString(),
+        };
+      })
+      setEventList([...event]);
+      setLoader(false)
     }
   };
   const cancelBooking = async (id) => {
@@ -48,6 +50,9 @@ const Appointment = () => {
       const update = await BookingAPI.cancelBookingById(id, auth.token);
       if (update) {
         console.log(update);
+        setShowModal(false);
+        getBookings();
+        
       } else {
         console.log("error");
       }
@@ -138,7 +143,7 @@ const Appointment = () => {
             )
         )}
       </div> */}
-      {eventList?.length > 0 && (
+      {!loader && eventList?.length > 0 && (
         <div className="calendar">
           <FullCalendar
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -205,8 +210,8 @@ const AppointmentComponent = ({ booking, cancelButton }) => {
           <div className="pl-4"> {moment(booking?.from).format("dddd")}</div>
           <li className="pl-4">
             {" "}
-            {moment(booking?.from).format("hh:mm A")} -{" "}
-            {moment(booking?.to).format("hh:mm A")}
+            {moment.utc(booking?.from).local(true).format("hh:mm A")} -{" "}
+            {moment.utc(booking?.to).format("hh:mm A")}
           </li>
         </div>
         <div className="flex flex-row py-6 mt-4 border-t border-t-gray-100">

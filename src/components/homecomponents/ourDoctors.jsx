@@ -77,7 +77,7 @@ const OurDoctors = () => {
               {allDoctorData.slice(0, 3).map((item,index) =>
 
                 (
-                <Link to={'/doctor/'+ item?.userId._id}>
+                <Link to={'/doctor/'+ item?.userId?._id}>
                   <img
                     className={index == 0 ? rangeDoc1 + " " + rangeDoc2 : rangeDoc1}
                     src={item?.userId?.profilePic}

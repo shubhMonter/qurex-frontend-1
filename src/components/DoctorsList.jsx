@@ -124,7 +124,9 @@ const DoctorsList = () => {
          :
             <div className="row justify-content-center">
 
-              {allDoctorData.slice(0, 3).map((item,index) => (
+              {allDoctorData
+              //.slice(0, 3)
+              .map((item,index) => (
               
               <div className="col-12 col-md-4 col-sm-12 CourseContainer pb-2.5">
                 <div className="card shadow border-0">
@@ -155,7 +157,7 @@ const DoctorsList = () => {
                           <span 
                           onClick={() => doctorDetail(item?.userId._id)} 
                           className="cursor-pointer font-bold text-[#0d6efd]">View Details</span>
-                          <Link to={item?.userId.name ? '/booking-calendar': '/login'}>
+                          <Link to={item?.userId?.name ? '/booking-calendar': '/login'}>
                             <button className="btn btn-primary featureViewBtn rounded-pill btnConsultList">Consult Now</button>
                           </Link>
                         </div>
