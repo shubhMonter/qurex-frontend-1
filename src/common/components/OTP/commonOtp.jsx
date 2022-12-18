@@ -57,7 +57,7 @@ const CommonOTP = (props) => {
                 } bg-[#1C5BD9] py-3 rounded-3xl w-8/12 mt-16 text-white t714`}
                 disabled={props.validateDisabled}
               >
-                {props.loginText}
+                {props.validateDisabled ? <span>Loading</span> : <span>Login</span>}
               </button>
             </div>
      

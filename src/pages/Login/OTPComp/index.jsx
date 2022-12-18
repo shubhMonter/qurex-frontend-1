@@ -5,6 +5,7 @@ import { GenerateOTP, SubmitVerifyOTP } from "../../../preseneter/Auth/auth";
 import CommonOTP from "../../../common/components/OTP/commonOtp";
 const OTPComp = () => {
   const [buttonText, setButtonText] = useState("Get OTP");
+  const [showLoader,setShowLoader] = useState(false);
   const [loginText, setLoginText] = useState("Login");
   const [disabled, setDisabled] = useState(false);
   const [errMsg, setErrMsg] = useState({
@@ -32,17 +33,8 @@ const OTPComp = () => {
     postData(otp);
   };
   const postData = async (otp) => {
-    let sec = 10;
     setValidateDisabled(true);
-    let counter = setInterval(() => {
-      if (sec > 0) {
-        setLoginText(sec--);
-      } else {
-        setValidateDisabled(false);
-        setLoginText("Login");
-        clearInterval(counter);
-      }
-    }, 1000);
+    setShowLoader(true);
     SubmitVerifyOTP({ mobile: otpInputs.mobileNo, otp });
   };
   const handleOTPChange = (e) => {
@@ -73,21 +65,9 @@ const OTPComp = () => {
       show: false,
     });
     try {
-      let sec = 10;
       setDisabled(true);
-      let counter = setInterval(() => {
-        if (sec > 0) {
-          setButtonText(sec--);
-        } else {
-          setDisabled(false);
-          setButtonText("Get OTP");
-          clearInterval(counter);
-        }
-      }, 1000);
       const response = await GenerateOTP(otpInputs.mobileNo);
-
       const result = response.data;
-
       if (result.status === 1) {
         setOtp(true);
       } else {
@@ -132,7 +112,7 @@ const OTPComp = () => {
             } shadow-xl hover:shadow-2xl ease-in-out duration-500 py-3 rounded-3xl w-9/12 mt-10 text-white t714`}
             disabled={disabled}
           >
-            {buttonText}
+            {showLoader ? <span>Sending OTP...</span> : buttonText}
           </button>
         </div>
       </form>
