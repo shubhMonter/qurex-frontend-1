@@ -110,6 +110,7 @@ const Consult = () => {
     console.log(date1);
     // console.log(date2);
     setMyDate(date1);
+    console.log(typeof mydate);
 
     if (dateData && Object.keys(dateData)?.length > 0) {
       // console.log(tConvert(dateData[date1][0].time));
@@ -154,7 +155,7 @@ const Consult = () => {
           </div>
 
           <div className="col-md-6 col-sm-12">
-            <span className="slot pt-5">Slots Available on {moment(mydate).format("DD/MM/YYYY")}</span>
+            <span className="slot pt-5">Slots Available on {moment(mydate)._i}</span>
             <span className="gryline"></span>
             <div className="container">
            {showLoader ? <div className="losup"><img className="block m-auto" src={loader}/></div>:   
