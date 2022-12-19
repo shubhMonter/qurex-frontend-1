@@ -109,7 +109,7 @@ const Consult = () => {
     var date2 = moment(date).format('MM-DD-YYYY'); // Or your date here
     console.log(date1);
     // console.log(date2);
-    setMyDate(date1);
+    setMyDate(date);
 
     if (dateData && Object.keys(dateData)?.length > 0) {
       // console.log(tConvert(dateData[date1][0].time));
