@@ -2,15 +2,15 @@ import React from 'react';
 import { BsFillExclamationCircleFill } from 'react-icons/bs';
 const DiscMsg = () => {
   return (
-    <div className="bg-[#F1F1FF] flex flex-col pt-5 rounded-md">
+    <div className="bg-[#F1F1FF] flex flex-col pt-5 mt-5 rounded-md">
       <div className="flex justify-between">
-        <div className="flex flex-row">
+        <div className="flex flex-row ml-4">
           <div className="mt-[2px]">
             <BsFillExclamationCircleFill className=" text-[#6200AF]" />
           </div>
           <div className=" ml-2 t616 text-[#333333] ">Disclaimer Message</div>
         </div>
-        <div className="">x</div>
+        <div className="pr-5 -m-3">x</div>
       </div>
       <div className="text-[#1C1C1C] t414 mt-7">
         <ul className=" list-disc  text-[13px] ">
