@@ -64,7 +64,7 @@ const PersonalDetail = () => {
     } catch (error) {
       alert('Error Updating Data');
     }
-    setLoader(false)
+    setLoader(false);
   };
   console.log({inputs});
   return (
@@ -175,6 +175,48 @@ const PersonalDetail = () => {
                 onChange={(e) => setInputs((values) => ({ ...values, languages: e.map(s=>s.value) }))}
                 closeMenuOnSelect={false}
           />
+            </div>
+          </div>
+          <div className="mt-5 flex flex-col">
+            <div className="text-xs">Fee Charge</div>
+            <div className=" border-gray-200 border rounded-md">
+              <input
+                name="feeCharge"
+                value={inputs?.feeCharge }
+                onChange={handleChange}
+                className="py-1 pl-3 w-full outline-none"
+              />
+            </div>
+          </div>
+          <div className="my-5 flex flex-col">
+            <div className="text-xs">Gender</div>
+            <div className="border rounded-md border-gray-200 ">
+              <select
+                value={inputs?.gender}
+                name="gender"
+                onChange={handleChange}
+                className="py-1.5 pl-3 w-full outline-none"
+              >
+                <option className="outline-none">Male</option>
+                <option className="outline-none">Female</option>
+                <option className="outline-none">Other</option>
+              </select>
+            </div>
+          </div>
+          <div className="my-5 flex flex-col">
+            <div className="text-xs">Session Duration (in mins)</div>
+            <div className="border rounded-md border-gray-200 ">
+              <select
+                value={inputs?.sessionDuration}
+                name="sessionDuration"
+                onChange={handleChange}
+                className="py-1.5 pl-3 w-full outline-none"
+              >
+                <option className="outline-none">15</option>
+                <option className="outline-none">30</option>
+                <option className="outline-none">45</option>
+                <option className="outline-none">60</option>
+              </select>
             </div>
           </div>
           <div className="my-5 flex flex-col">

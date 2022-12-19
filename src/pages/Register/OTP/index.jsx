@@ -4,6 +4,7 @@ import { BaseSetting } from '../../../utils/common';
 import RegisterDetails from '../RegisterDetails';
 import { useDispatch } from 'react-redux';
 import { setAuth } from '../../../state/auth/Actions';
+import loader from '../../../assets/loader.gif';
 const OTP = ({ mobileNo }) => {
   const dispatch = useDispatch();
 
@@ -12,6 +13,7 @@ const OTP = ({ mobileNo }) => {
   const [otpcomp, setOtpComp] = useState(false);
   const [errMsg, setErrMsg] = useState('');
   const [loginText, setLoginText] = useState('Login');
+  const [showLoader,setShowLoader] = useState(false);
   const [validateDisabled, setValidateDisabled] = useState(false);
 
   const ref2 = useRef(null);
@@ -41,11 +43,14 @@ const OTP = ({ mobileNo }) => {
     setValidateDisabled(true);
     let counter = setInterval(() => {
       if (sec > 0) {
-        setLoginText(sec--);
+        // setLoginText(sec--);
+        setShowLoader(true);
+        sec--;
       } else {
         setValidateDisabled(false);
         setLoginText('Login');
         clearInterval(counter);
+        setShowLoader(false);
       }
     }, 1000);
     try {
@@ -141,7 +146,7 @@ const OTP = ({ mobileNo }) => {
                 }bg-[#1C5BD9] py-3 rounded-3xl w-8/12 mt-16 text-white t714`}
                 disabled={validateDisabled}
               >
-                {loginText}
+                {showLoader ? <img className="block m-auto w-5" src={loader}/> : loginText}
               </button>
             </div>
             <div className="mt-5 ml-9 flex flex-row t514 text-[#666666] ">
