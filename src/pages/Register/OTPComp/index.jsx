@@ -6,6 +6,7 @@ import { BaseSetting } from '../../../utils/common';
 import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { setAuth } from '../../../state/auth/Actions';
+import loader from '../../../assets/loader.gif';
 import DiscMsg from '../../../common/components/DisclaimerMsg';
 
 const OTPComp = () => {
@@ -21,6 +22,7 @@ const OTPComp = () => {
   const [otpInputs, setOtpInputs] = useState({});
   const [otp, setOtp] = useState(false);
   const [mobNo, setMobNo] = useState('');
+  const [showLoader,setShowLoader] = useState(false);
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({});
   const [otpcomp, setOtpComp] = useState(false);
@@ -57,13 +59,16 @@ const OTPComp = () => {
     setValidateDisabled(true);
     let counter = setInterval(() => {
       if (sec > 0) {
-        setValidateText(sec--);
-        setLoginText(sec--);
+        // setValidateText(sec--);
+        // setLoginText(sec--);
+        setShowLoader(true);
+        sec--;
       } else {
         setValidateDisabled(false);
         setValidateText('Get OTP');
         setLoginText('Signup');
         clearInterval(counter);
+        setShowLoader(false);
       }
     }, 1000);
     try {
@@ -133,11 +138,14 @@ const OTPComp = () => {
       setDisabled(true);
       let counter = setInterval(() => {
         if (sec > 0) {
-          setButtonText(sec--);
+          // setButtonText(sec--);
+          setShowLoader(true);
+          sec--;
         } else {
           setDisabled(false);
           setButtonText('Get OTP');
           clearInterval(counter);
+          setShowLoader(false);
         }
       }, 1000);
       const response = await post(
@@ -239,7 +247,7 @@ const OTPComp = () => {
               } bg-[#1C5BD9] py-3 rounded-3xl w-8/12 mt-16 text-white t714`}
               disabled={validateDisabled}
             >
-              {loginText}
+              {showLoader ? <img className="block m-auto w-5" src={loader}/> : loginText}
             </button>
           </div>
         </div>
@@ -276,7 +284,7 @@ const OTPComp = () => {
                 } shadow-xl hover:shadow-2xl ease-in-out duration-500 py-3 rounded-3xl w-9/12 mt-10 text-white t714`}
                 disabled={disabled}
               >
-                {buttonText}
+                {showLoader ? <img className="block m-auto w-5" src={loader}/> : buttonText}
               </button>
             </div>
           </div>

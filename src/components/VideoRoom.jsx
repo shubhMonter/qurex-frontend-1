@@ -171,6 +171,7 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
       diagnosis: "",
       medication: "",
       advice: "",
+      notes: "",
     },
     validationSchema: Yup.object({
       issue: Yup.string()
@@ -185,6 +186,7 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
         diagnosis: values.diagnosis,
         medicine: values.medicine,
         doctorAdvice: values.advice,
+        notes: values.notes,
         patientId: bookingDetails.patientId,
         bookingId: bookingDetails.bookingId,
         consultationId: bookingDetails.bookingId,
@@ -402,11 +404,28 @@ export const VideoRoom = ({ roomid: room_id, userID: user_id }) => {
                     onChange={formik.handleChange}
                   />
                 </div>
+                {formik.errors.notes ? (
+                  <p className="text-xs text-red-600 ">
+                    {formik.errors.notes}
+                  </p>
+                ) : null}
                 {formik.errors.advice ? (
                   <p className="text-xs text-red-600 ">
                     {formik.errors.advice}
                   </p>
                 ) : null}
+                <div className="t414 text-[#1C1C1C] mt-4">Notes</div>
+                <div className="mt-1">
+                  <textarea
+                    className="py-2 pl-2 rounded-md border w-full text-[12px] font-normal text-[#666666] outline-none"
+                    placeholder="e.g: Avoid oily foods"
+                    id="notes"
+                    name="notes"
+                    value={formik.values.notes}
+                    onChange={formik.handleChange}
+                  />
+                </div>
+                
                 <div
                   className="mt-4 flex justify-center cursor-pointer hover:shadow-lg bg-[#7367f0] text-white rounded-md px-5 py-1.5 mx-1"
                   onClick={formik.handleSubmit}

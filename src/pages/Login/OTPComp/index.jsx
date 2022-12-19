@@ -34,8 +34,20 @@ const OTPComp = () => {
     postData(otp);
   };
   const postData = async (otp) => {
+    let sec = 10;
     setValidateDisabled(true);
-    setShowLoader(true);
+    let counter = setInterval(() => {
+      if (sec > 0) {
+        //setLoginText(sec--);
+        setShowLoader(true);
+        sec--;
+      } else {
+        setValidateDisabled(false);
+        setLoginText("Login");
+        clearInterval(counter);
+        setShowLoader(false);
+      }
+    }, 1000);
     SubmitVerifyOTP({ mobile: otpInputs.mobileNo, otp });
   };
   const handleOTPChange = (e) => {
@@ -71,8 +83,8 @@ const OTPComp = () => {
       let counter = setInterval(() => {
         if (sec > 0) {
           // setButtonText(sec--);
-          sec--;
           setShowLoader(true);
+          sec--;
         } else {
           setDisabled(false);
           setButtonText("Get OTP");
@@ -99,7 +111,7 @@ const OTPComp = () => {
     <CommonOTP
       handleOtpSubmit={handleSubmit}
       err={errMsg}
-      loginText={loginText}
+      loginText={showLoader ? <img className="block m-auto w-5" src={loader}/> : loginText}
       validateDisabled={validateDisabled}
     />
   ) : (

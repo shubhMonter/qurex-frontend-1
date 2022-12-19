@@ -7,6 +7,7 @@ export interface Profile {
   name: string;
   email: string;
   city: string;
+  gender: string;
 }
 export const ProfileUpdate = async (
   id: string,
@@ -19,8 +20,8 @@ export const ProfileUpdate = async (
       "x-auth-token": token,
     });
     if (response.data.status === 1) {
-      const { city, name, email, profilePic } = response.data.data;
-      profileUpdate({ city, name, email, profilePic });
+      const { city, name, email, gender, profilePic } = response.data.data;
+      profileUpdate({ city, name, email, gender, profilePic });
       return response.data.data;
     } else {
       setError(
