@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { GenerateOTP, SubmitVerifyOTP } from "../../../preseneter/Auth/auth";
+import loader from '../../../assets/loader.gif';
 import CommonOTP from "../../../common/components/OTP/commonOtp";
 const OTPComp = () => {
   const [buttonText, setButtonText] = useState("Get OTP");
@@ -13,6 +14,7 @@ const OTPComp = () => {
   });
   const [validateDisabled, setValidateDisabled] = useState(false);
   const [otpInputs, setOtpInputs] = useState({});
+  const [showLoader,setShowLoader] = useState(false);
   const [otp, setOtp] = useState(false);
   const navigate = useNavigate();
   const auth = useSelector((state) => state.auth.authData);
@@ -77,11 +79,14 @@ const OTPComp = () => {
       setDisabled(true);
       let counter = setInterval(() => {
         if (sec > 0) {
-          setButtonText(sec--);
+          // setButtonText(sec--);
+          sec--;
+          setShowLoader(true);
         } else {
           setDisabled(false);
           setButtonText("Get OTP");
           clearInterval(counter);
+          setShowLoader(false);
         }
       }, 1000);
       const response = await GenerateOTP(otpInputs.mobileNo);
@@ -132,7 +137,7 @@ const OTPComp = () => {
             } shadow-xl hover:shadow-2xl ease-in-out duration-500 py-3 rounded-3xl w-9/12 mt-10 text-white t714`}
             disabled={disabled}
           >
-            {buttonText}
+            {showLoader ? <img className="block m-auto w-5" src={loader}/> : buttonText}
           </button>
         </div>
       </form>

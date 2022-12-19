@@ -34,19 +34,20 @@ const Consult = () => {
     setCurrentTime(moment(today).format('MM-DD-YYYY h:mm A'));
   }, []);
   const [mydate, setMyDate] = useState(new Date());
+  const [slotDate, setSlotDate] = useState(new Date());
   const [time, setTime] = useState('');
   const [dateChanged, setDateChanged] = useState(true);
   const [dateData, setDateData] = useState({});
   const [dateTime, setDateTime] = useState([]);
   const [selected, setSelected] = useState({});
-  const [showLoader,setShowLoader] = useState(false)
+  const [showLoader,setShowLoader] = useState(false);
   
   const SelezionaTab = (tabId = null) => {
     setSelected({ [tabId]: !selected[tabId] });
   };
   const handleSubmit = async (e) => {
 
-    setShowLoader(true)
+    setShowLoader(true);
     const date = mydate;
     const [day, month, year] = date.split('-');
     const resdate = [year, month, day].join('-');
@@ -109,7 +110,8 @@ const Consult = () => {
     var date2 = moment(date).format('MM-DD-YYYY'); // Or your date here
     console.log(date1);
     // console.log(date2);
-    setMyDate(date);
+    setMyDate(date1);
+    setSlotDate(date);
 
     if (dateData && Object.keys(dateData)?.length > 0) {
       // console.log(tConvert(dateData[date1][0].time));
@@ -127,7 +129,7 @@ const Consult = () => {
 
   const getData = async () => {
     try {
-      setShowLoader(true)
+      setShowLoader(true);
       const slotResp = await get(
         BaseSetting.doctorApiDomain + '/availableSlots/' +id
       );
@@ -137,7 +139,7 @@ const Consult = () => {
       console.log(slotRes.data);
       setDateData(slotRes?.data);
     } catch (error) {}
-    setShowLoader(false)
+    setShowLoader(false);
   };
 
 
@@ -154,7 +156,7 @@ const Consult = () => {
           </div>
 
           <div className="col-md-6 col-sm-12">
-            <span className="slot pt-5">Slots Available on {moment(mydate).format("DD/MM/YYYY")}</span>
+            <span className="slot pt-5">Slots Available on {moment(slotDate).format("DD/MM/YYYY")}</span>
             <span className="gryline"></span>
             <div className="container">
            {showLoader ? <div className="losup"><img className="block m-auto" src={loader}/></div>:   
