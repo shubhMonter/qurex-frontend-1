@@ -58,6 +58,10 @@ const Consultation = () => {
     {
       name: 'General Advice',
       selector: (row) => row.doctorAdvice,
+    },
+    {
+      name: 'Notes',
+      selector: (row) => row.notes,
     }
   ];
 

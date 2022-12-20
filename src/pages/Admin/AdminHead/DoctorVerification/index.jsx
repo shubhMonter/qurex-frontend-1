@@ -1,8 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import DataTable from 'react-data-table-component';
+import loader from '../../../../assets/loader.gif';
+import doctorApi from '../../../../api/doctorAPI';
+import { Navigate } from 'react-router';
+import { BsClipboardCheck } from 'react-icons/bs';
+import { get, headers, post, put } from '../../../../api';
+import { BaseSetting } from '../../../../utils/common';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Dropdown from 'react-bootstrap/Dropdown';
+import axios from 'axios';
 
 const DoctorVerification = () => {
-  const [filterText, setFilterText] = useState('');
+  const [allDoctorData, setAllDoctorData] = useState([]);
+  const [filteredItems, setFilteredItems] = useState([]);
+  const [showLoader,setShowLoader] = useState(false);
+  const [showLoader2,setShowLoader2] = useState(false);
   const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
   const customStyles = {
     headCells: {
@@ -11,18 +23,81 @@ const DoctorVerification = () => {
       },
     },
   };
+
+  const getAllDoctors = async() => { 
+    
+    setShowLoader(true);
+    let response = await doctorApi.getAllDoctors();
+    console.log("all doctors..");
+    console.log(response);
+    setAllDoctorData(response);
+    setFilteredItems(response);
+    setShowLoader(false);
+  };
+
+  const verifyDoctor = async (id) => {
+    try {
+      if (navigator.onLine) {
+        document.getElementsByClassName(id)[0].style.display = "block";
+        document.getElementsByClassName(id)[1].style.display = "none";
+        await axios
+          .put(
+            BaseSetting.doctorApiDomain +
+              `/verify/${id}`,
+              { verified: true }
+          )
+          .then((res) => {
+            console.log(res);
+            getAllDoctors();
+            document.getElementsByClassName(id)[0].style.display = "none";
+            document.getElementsByClassName(id)[1].style.display = "block";
+          });
+      } else {
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getAllDoctors();    
+  }, []);
+
   const columns = [
     {
       name: 'Name',
-      selector: (row) => row.name,
+      selector: (row) => row.userId.name,
+    },
+    {
+      name: 'City',
+      selector: (row) => row.userId.city,
     },
     {
       name: 'Degree',
-      selector: (row) => row.degree,
+      selector: (row) => row.professionalDetail.degree,
+    },
+    {
+      name: 'Fee Charge',
+      selector: (row) => row.feeCharge,
+    },
+    {
+      name: 'Contact',
+      selector: (row) => row.userId.mobile,
     },
     {
       name: 'Actions',
-      selector: (row) => row.actions,
+      selector: (row) => (
+        <>
+        <div className={`${row._id} hidden`}><img className="block m-auto w-4" src={loader}/></div>
+        <div className={row._id}>
+          {
+          row.verified ?
+          <span className='text-green-800 font-bold flex'><BsClipboardCheck />&nbsp; Verified</span> :
+          <span onClick={() => verifyDoctor(row._id)} className='btn btn-primary text-sm font-bold pl-5 pr-5'>Verify</span> 
+          }
+        </div>
+        </>
+      ),
     },
   ];
 
@@ -41,34 +116,45 @@ const DoctorVerification = () => {
     },
   ];
 
-  const filteredItems = data.filter(
-    (item) =>
-      item.name && item.name.toLowerCase().includes(filterText.toLowerCase())
-  );
+  
+  const verifyDocData = async (optionVal) =>
+  {
+    console.log(optionVal);
+    let newDocs = allDoctorData;
+    document.getElementById("input-group-dropdown-1").textContent = optionVal;
+    if(optionVal != "Both")
+    {
+      var isVerified = (optionVal === "true");
+      document.getElementById("input-group-dropdown-1").textContent = isVerified ? "Verified" : "Not Verified";
+      newDocs = allDoctorData.filter((item) => {
+        return item.verified == isVerified;
+      });
+    }
+    setFilteredItems(newDocs);
+  };
+
 
   const subHeaderComponentMemo = React.useMemo(() => {
-    const handleClear = () => {
-      if (filterText) {
-        setResetPaginationToggle(!resetPaginationToggle);
-        setFilterText('');
-      }
-    };
-
     return (
-      <div className="flex flex-row">
-        <div className=" pr-1 font-montserrat font-normal text-[12px]">
-          Search:
-        </div>
-        <input
-          className="border px-1 rounded outline-none font-montserrat font-normal text-[12px]"
-          onChange={(e) => setFilterText(e.target.value)}
-          onClear={handleClear}
-          filterText={filterText}
-        />
+      <div className="flex flex-row float-right">
+        <InputGroup className="mb-3">
+              <Dropdown>
+                <Dropdown.Toggle variant="outline-secondary" title="Select status" id="input-group-dropdown-1">
+                Select Status
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item as="button" onClick={() => verifyDocData("true")} href="#">Verified</Dropdown.Item>
+                  <Dropdown.Item as="button" onClick={() => verifyDocData("false")} href="#">Not Verified</Dropdown.Item>
+                  <Dropdown.Item as="button" onClick={() => verifyDocData("Both")} href="#">Both</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+        </InputGroup>
       </div>
     );
-  }, [filterText, resetPaginationToggle]);
+  });
+
   return (
+    <div>
     <div className="flex flex-col px-10 font-montserrat">
       <div className="py-6 font-semibold text-2xl text-[#636363]">
         Doctor Verification
@@ -93,6 +179,8 @@ const DoctorVerification = () => {
         </ol>
       </div>
       <div className="p-1 bg-white rounded-lg shadow-lg">
+      {showLoader? 
+        <div><img className="block m-auto" src={loader}/></div> :
         <DataTable
           title=""
           columns={columns}
@@ -104,8 +192,10 @@ const DoctorVerification = () => {
           subHeaderComponent={subHeaderComponentMemo}
           persistTableHead
         />
+      }
       </div>
     </div>
+  </div>
   );
 };
 

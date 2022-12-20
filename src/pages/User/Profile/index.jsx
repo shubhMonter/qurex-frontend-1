@@ -138,6 +138,23 @@ const PersonalDetail = () => {
               />
             </div>
           </div>
+          
+          <div className="my-5 flex flex-col">
+            <div className="text-xs">Gender</div>
+            <div className="border rounded-md border-gray-200 ">
+              <select
+                value={inputs.gender || userData?.gender}
+                name="gender"
+                onChange={handleChange}
+                className="py-1.5 pl-3 w-full outline-none"
+              >
+                <option className="outline-none">{userData?.gender}</option>
+                <option className="outline-none">Male</option>
+                <option className="outline-none">Female</option>
+                <option className="outline-none">Other</option>
+              </select>
+            </div>
+          </div>
 
           <div className="my-5 flex flex-col">
             <div className="text-xs">City</div>

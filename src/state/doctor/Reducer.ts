@@ -22,6 +22,11 @@ const initialState: Doctor = {
   professionalDetail: {
     treatments: [],
     specializations: [],
+    about: "",
+    feeCharge: "",
+    sessionDuration: "",
+    degree: "",
+
   },
   bankDetail: {
     accountName: "",

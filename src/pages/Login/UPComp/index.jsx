@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { emailRegEx, mobileRegEx } from "../../../utils/regex";
 import { SignInWithPass } from "../../../preseneter/Auth/auth";
+import loader from '../../../assets/loader.gif';
 
 const UPComp = () => {
   const [buttonText, setButtonText] = useState("Login");
   const [disabled, setDisabled] = useState(false);
   const [upInputs, setUpInputs] = useState({});
   const [errMsg, setErrMsg] = useState({ error: "", show: false });
+  const [showLoader,setShowLoader] = useState(false);
   const auth = useSelector((state) => state.auth.authData.isAuthenticated);
   const error = useSelector((state) => state.auth.authError);
 
@@ -77,11 +79,14 @@ const UPComp = () => {
     setDisabled(true);
     let counter = setInterval(() => {
       if (sec > 0) {
-        setButtonText(sec--);
+        // setButtonText(sec--);
+        setShowLoader(true);
+        sec--;
       } else {
         setDisabled(false);
         setButtonText("Login");
         clearInterval(counter);
+        setShowLoader(false);
       }
     }, 1000);
     SignInWithPass(upInputs);
@@ -132,7 +137,7 @@ const UPComp = () => {
           } py-3 rounded-3xl w-9/12 mt-10 text-white t714`}
           disabled={disabled}
         >
-          {buttonText}
+          {showLoader ? <img className="block m-auto w-5" src={loader}/> : buttonText}
         </button>
       </div>
     </form>

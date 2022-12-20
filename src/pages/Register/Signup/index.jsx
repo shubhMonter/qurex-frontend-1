@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setAuth } from '../../../state/auth/Actions';
 import { useNavigate } from 'react-router-dom';
+import loader from '../../../assets/loader.gif';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 
@@ -20,6 +21,7 @@ const Signup = () => {
   const [inputs, setInputs] = useState({});
   const [otpcomp, setOtpComp] = useState(false);
   const [mobileNo, setMobileNo] = useState('');
+  const [showLoader,setShowLoader] = useState(false);
   const mobileRef = useRef(null);
 
   const handleChange = (e) => {
@@ -57,11 +59,14 @@ const Signup = () => {
       setDisabled(true);
       let counter = setInterval(() => {
         if (sec > 0) {
-          setButtonText(sec--);
+          // setButtonText(sec--);
+          setShowLoader(true);
+          sec--;
         } else {
           setDisabled(false);
           setButtonText('Login');
           clearInterval(counter);
+          setShowLoader(false);
         }
       }, 1000);
       try {
@@ -207,7 +212,7 @@ const Signup = () => {
               } bg-[#1C5BD9] py-3 rounded-3xl w-9/12 mt-16 text-white t714`}
               disabled={disabled}
             >
-              {buttonText}
+              {showLoader ? <img className="block m-auto w-5" src={loader}/> : buttonText}
             </button>
           </div>
 

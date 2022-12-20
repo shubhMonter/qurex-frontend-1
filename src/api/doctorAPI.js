@@ -44,6 +44,14 @@ const apis = {
       return false;
     }
   },
+  getAllCities: async () => {
+    try {
+      const response = await get(BaseSetting.adminApiDomain + "/city/getAll");
+      return response?.data?.status === 1 ? response?.data?.data : false;
+    } catch (error) {
+      return error;
+    }
+  },
   getMyBookings: async (doctorData, token) => {
     try {
       if (navigator.onLine) {

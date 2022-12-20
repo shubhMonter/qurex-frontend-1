@@ -3,8 +3,9 @@ import { useState } from 'react';
 import { BsUpload } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
 import { ProfileUpdate } from '../../../../../../preseneter/DashBoard/Profile';
-import loaderGIF from "../../../../../../assets/loader.gif"
-import UserAPI from "../../../../../../api/UserAPI"
+import loaderGIF from "../../../../../../assets/loader.gif";
+import UserAPI from "../../../../../../api/UserAPI";
+import doctorAPI from "../../../../../../api/doctorAPI"
 import languages from '../../../../../../constants/langauges';
 import Select from 'react-select';
 import { createOptions } from '../../../../../../utils/utils';
@@ -15,26 +16,47 @@ const PersonalDetail = () => {
  
   const auth = useSelector((state) => state.auth.authData);
   const [inputs, setInputs] = useState();
+  const [cityList, setCityList] = useState([]);
   const [loader, setLoader] = useState(false);
-  const [videoSrc , seVideoSrc] = useState("");
+  const [imageSrc , setImageSrc] = useState("");
   
   // const {user} = auth
-  
+  let allCities = [];
+
   useEffect(()=>{
     userData(auth.user.id);
-  },[])
+    cityData();
+  },[]);
+
+  
+
+  const cityData = async ()=>{
+    try {
+        const cityResponse = await doctorAPI.getAllCities();
+        if(cityResponse){
+          allCities = cityResponse.map(item => {
+            return item.name;
+          });
+          setCityList(allCities);
+        }
+    } catch (error) {
+      console.log(error);
+    }
+    setLoader(false);
+  };
+
+
   const userData = async(id)=>{
     try {
-      setLoader(true)
-        const response = await UserAPI.getByUserId(id)
+      setLoader(true);
+        const response = await UserAPI.getByUserId(id);
         if(response){
           setInputs(response.userId)
         }
     } catch (error) {
-      
+      console.log(error);
     }
-    setLoader(false)
-  }
+  };
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -42,11 +64,11 @@ const PersonalDetail = () => {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
-  const handleVideoChange = ({file}) => {
+  const handleImageChange = ({file}) => {
     var reader = new FileReader();
     console.log(file);
     var url = URL.createObjectURL(file.originFileObj);
-    seVideoSrc(url);
+    setImageSrc(url);
 };
 
   const handleUpdate = (e) => {
@@ -64,7 +86,7 @@ const PersonalDetail = () => {
     } catch (error) {
       alert('Error Updating Data');
     }
-    setLoader(false)
+    setLoader(false);
   };
   console.log({inputs});
   return (
@@ -80,24 +102,17 @@ const PersonalDetail = () => {
           <div className="my-4 flex ml-14">
             <div className="cursor-pointer hover:bg-opacity-10 px-5 py-3 rounded-md">
               <Upload className="mt-3 mb-3"
-                    accept=".mp4"
-                    // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                    accept=".jpg"
+                    // action="https://www.qurex.io/v2/api"
                     action=""
                     listType="picture"
                     maxCount={1}
-                    onChange={handleVideoChange}>
+                    onChange={handleImageChange}>
                     <Button>
                        <BsUpload className="h-5 w-5 " /><br/>
-                       Upload Video
+                       Upload Photo
                     </Button>
                 </Upload>
-                {/* <Player
-                  playsInline
-                  src={videoSrc}
-                  fluid={false}
-                  width={480}
-                  height={272}
-              /> */}
             </div>
           </div>
         </div>
@@ -178,6 +193,22 @@ const PersonalDetail = () => {
             </div>
           </div>
           <div className="my-5 flex flex-col">
+            <div className="text-xs">Gender</div>
+            <div className="border rounded-md border-gray-200 ">
+              <select
+                value={inputs?.gender}
+                name="gender"
+                onChange={handleChange}
+                className="py-1.5 pl-3 w-full outline-none"
+              >
+                <option className="outline-none">Male</option>
+                <option className="outline-none">Female</option>
+                <option className="outline-none">Other</option>
+              </select>
+            </div>
+          </div>
+          
+          <div className="mb-5 flex flex-col">
             <div className="text-xs">City</div>
             <div className="border rounded-md border-gray-200 ">
               <select
@@ -186,9 +217,10 @@ const PersonalDetail = () => {
                 onChange={handleChange}
                 className="py-1.5 pl-3 w-full outline-none"
               >
-                <option className="outline-none">Banglore</option>
-                <option className="outline-none">Delhi</option>
-                <option className="outline-none">Gurgaon</option>
+                {cityList?.map((cityVal) => (
+                  <option className="outline-none">{cityVal}</option>
+                ))}
+
               </select>
             </div>
           </div>
