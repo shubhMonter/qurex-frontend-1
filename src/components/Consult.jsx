@@ -9,6 +9,7 @@ import '../styles/Confirm.css';
 import { useSelector } from 'react-redux';
 import loader from '../assets/loader.gif';
 import BookingAPI from '../api/bookingAPI';
+import doctorApi from '../api/doctorAPI';
 import { Role } from '../state/interface';
 
 
@@ -40,6 +41,7 @@ const Consult = () => {
   const [dateData, setDateData] = useState({});
   const [dateTime, setDateTime] = useState([]);
   const [selected, setSelected] = useState({});
+  const [timeInterval, setTimeInterval] = useState(20);
   const [showLoader,setShowLoader] = useState(false);
   
   const SelezionaTab = (tabId = null) => {
@@ -119,7 +121,7 @@ const Consult = () => {
       let ctime = dateData[date1]?.filter((item) => {
         let aDate = moment(date2 + ' ' + tConvert(item?.time));
         let bDate = moment(currentTime)
-          .add(15, 'minutes')
+        .add(15, 'minutes')
           .format('MM-DD-YYYY hh:mm A');
         let cDate = moment(bDate);
         return aDate.isAfter(cDate);
@@ -134,6 +136,11 @@ const Consult = () => {
       const slotResp = await get(
         BaseSetting.doctorApiDomain + '/availableSlots/' +id
       );
+
+      let docData = await doctorApi.getDrByUserId(id);
+      console.log("docData");
+      console.log(docData);
+      setTimeInterval(20);
       
       const slotRes = slotResp?.data;
       console.log("slotRes");

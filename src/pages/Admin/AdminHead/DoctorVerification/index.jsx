@@ -38,16 +38,19 @@ const DoctorVerification = () => {
   const verifyDoctor = async (id) => {
     try {
       if (navigator.onLine) {
-        setShowLoader2(true);
+        document.getElementsByClassName(id)[0].style.display = "block";
+        document.getElementsByClassName(id)[1].style.display = "none";
         await axios
-          .delete(
+          .put(
             BaseSetting.doctorApiDomain +
-              `/doctor/verify/${id}`,
-            { headers }
+              `/verify/${id}`,
+              { verified: true }
           )
           .then((res) => {
             console.log(res);
-            setShowLoader2(false);
+            getAllDoctors();
+            document.getElementsByClassName(id)[0].style.display = "none";
+            document.getElementsByClassName(id)[1].style.display = "block";
           });
       } else {
       }
@@ -84,13 +87,16 @@ const DoctorVerification = () => {
     {
       name: 'Actions',
       selector: (row) => (
-        showLoader2? 
-          <div><img className="block m-auto w-4" src={loader}/></div> :
-        row.verified ?
-        <span className='text-green-800 font-bold flex'><BsClipboardCheck />&nbsp; Verified</span> :
-        <span onClick={() => verifyDoctor(row.userId)} className='btn btn-primary text-sm font-bold pl-5 pr-5'>Verify</span>
-        
-        
+        <>
+        <div className={`${row._id} hidden`}><img className="block m-auto w-4" src={loader}/></div>
+        <div className={row._id}>
+          {
+          row.verified ?
+          <span className='text-green-800 font-bold flex'><BsClipboardCheck />&nbsp; Verified</span> :
+          <span onClick={() => verifyDoctor(row._id)} className='btn btn-primary text-sm font-bold pl-5 pr-5'>Verify</span> 
+          }
+        </div>
+        </>
       ),
     },
   ];
@@ -113,7 +119,6 @@ const DoctorVerification = () => {
   
   const verifyDocData = async (optionVal) =>
   {
-    setShowLoader(true);
     console.log(optionVal);
     let newDocs = allDoctorData;
     document.getElementById("input-group-dropdown-1").textContent = optionVal;
@@ -126,7 +131,6 @@ const DoctorVerification = () => {
       });
     }
     setFilteredItems(newDocs);
-    setShowLoader(false);
   };
 
 
