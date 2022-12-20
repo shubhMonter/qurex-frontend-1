@@ -28,6 +28,10 @@ export interface BankDetails {
 export interface ProfessionDetails {
   treatments: string[];
   specializations: string[];
+  degree: string;
+  about: string;
+  feeCharge: string;
+  sessionDuration: string;
 }
 export interface BusinessHours {
   day: string;

@@ -18,6 +18,7 @@ export const getDoctorDetails = async (id: string, token: string) => {
         awards,
         experience,
         businessHours,
+        feeCharge,
         _id: id,
       } = result.data;
 
