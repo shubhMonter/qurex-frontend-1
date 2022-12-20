@@ -55,6 +55,8 @@ export const UpdateDoctorsDetails = async (
       { ...headers, ["x-auth-token"]: token }
     );
     const result = response.data;
+    console.log("result");
+    console.log(result);
     if (result.status == 1) {
       DoctorsAction[key as keyof Doctor](result.data[key]);
       return true;

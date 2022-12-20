@@ -70,7 +70,7 @@ const BankDetail = () => {
         <div className="text-xs">Account Name</div>
         <div className=" border-gray-200 border rounded-md">
           <input
-            name="degree"
+            name="accountName"
             value={inputs?.accountName}
             onChange={handleChange}
             className="py-1 pl-3 w-full outline-none"
@@ -82,7 +82,7 @@ const BankDetail = () => {
         <div className="text-xs">Bank Account No.</div>
         <div className=" border-gray-200 border rounded-md">
           <input
-            name="degree"
+            name="accountNumber"
             value={inputs?.accountNumber}
             onChange={handleChange}
             className="py-1 pl-3 w-full outline-none"
@@ -94,7 +94,7 @@ const BankDetail = () => {
         <div className="text-xs">Bank IFSC Code</div>
         <div className=" border-gray-200 border rounded-md">
           <input
-            name="degree"
+            name="ifsc"
             value={inputs?.ifsc}
             onChange={handleChange}
             className="py-1 pl-3 w-full outline-none"
