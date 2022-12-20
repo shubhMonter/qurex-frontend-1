@@ -130,6 +130,17 @@ const ProfessionalDetail = () => {
         </div>
       </div>
       <div className="mt-5 flex flex-col">
+            <div className="text-xs">Fee Charge</div>
+            <div className=" border-gray-200 border rounded-md">
+              <input
+                name="feeCharge"
+                value={inputs?.feeCharge}
+                onChange={handleChange}
+                className="py-1 pl-3 w-full outline-none"
+              />
+            </div>
+          </div>
+      <div className="mt-5 flex flex-col">
         <div className="text-xs">About Your Practice</div>
         <div className=" border-gray-200 border rounded-md">
           <textarea className="h-32 py-1 pl-3 w-full outline-none" name="about" value={inputs?.about } onChange={handleChange} />
