@@ -14,7 +14,7 @@ import { addData } from '../../../state/doctor/Actions';
 import BookingAPI from '../../../api/bookingAPI';
 
 const Booking = () => {
-  const [activeTab, setActiveTab] = useState('upcomming');
+  const [activeTab, setActiveTab] = useState('upcoming');
   const [myBookings, setMyBookings] = useState();
   const [loader,setLoader] = useState(false);
   const auth = useSelector((state) => state.auth.authData);
@@ -68,14 +68,14 @@ const Booking = () => {
         <div className="flex flex-row p-3 mx-3 font-bold ">
           <div
             className={`flex flex-row cursor-pointer hover:text-[#655af4]  ${
-              activeTab == 'upcomming' ? activeTabClasses : ''
+              activeTab == 'upcoming' ? activeTabClasses : ''
             }`}
-            onClick={() => setActiveTab('upcomming')}
+            onClick={() => setActiveTab('upcoming')}
           >
             <div className="">
               <AiOutlineMessage className="mt-[2px] " />
             </div>
-            <div className="pl-1">Upcomming Bookings</div>
+            <div className="pl-1">Upcoming Bookings</div>
           </div>
           <div
             className={`ml-10 flex flex-row cursor-pointer hover:text-[#655af4]  ${
@@ -91,7 +91,7 @@ const Booking = () => {
         </div>
         {!loader && myBookings?.map(
           (booking, key) =>
-            (activeTab == 'upcomming'
+            (activeTab == 'upcoming'
               ? moment(booking.to).diff(moment(), 'minute') > 0
               : moment(booking.to).diff(moment(), 'minute') < 0) && (
               <AppointmentComponent key={key} booking={booking} cancelBooking={cancelBooking}/>
@@ -170,12 +170,12 @@ const AppointmentComponent = ({ booking , cancelBooking}) => {
             <div>
               <div className="flex flex-row">
                 <div
-                  className="font-semibold cursor-pointer"
+                  className="cursor-pointer"
                   onClick={() => doctorDetail(booking?.sessionId?.doctorId)}
                 >
                   {booking?.doctorId.name}
                 </div>
-                <div className="ml-3 px-5 py-1 bg-opacity-30 text-xs bg-[#655af4] text-[#655af4] rounded-5 font-bold">
+                <div className="ml-3 py-3 px-4 bg-opacity-30 text-xs bg-[#655af4] text-[#655af4] rounded-5">
                   Gynecologist
                 </div>
               </div>
@@ -196,7 +196,7 @@ const AppointmentComponent = ({ booking , cancelBooking}) => {
                   timeOngoing &&
                   `/video-call?room_id=${channel}&user_id=${booking?._id}`
                 }
-                className={`bg-[#7367f0]  w-52 no-underline rounded-lg text-white flex justify-center py-2 font-semibold ${
+                className={`bg-[#7367f0]  w-52 no-underline rounded-lg text-white flex justify-center py-2 px-3 ${
                   !timeOngoing ? 'opacity-75' : ''
                 }`}
               >

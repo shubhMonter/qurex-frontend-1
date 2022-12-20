@@ -73,12 +73,12 @@ const OTPComp = () => {
     postOTPData();
   };
   const postOTPData = async () => {
+    let sec = 10;
     setErrMsg({
       error: "",
       show: false,
     });
     try {
-      let sec = 10;
       setDisabled(true);
       let counter = setInterval(() => {
         if (sec > 0) {
@@ -93,9 +93,7 @@ const OTPComp = () => {
         }
       }, 1000);
       const response = await GenerateOTP(otpInputs.mobileNo);
-
       const result = response.data;
-
       if (result.status === 1) {
         setOtp(true);
       } else {

@@ -36,7 +36,7 @@ const Appointment = () => {
       const event = bookings.filter(x=> x.status !== "Cancelled").map((x) => {
         return {
           id: x._id,
-          title: x.patientId?.name,
+          title: x.patientId ? x.patientId.name : "unname",
           start: moment(x.from).toISOString(),
           end: moment(x.to).toISOString(),
         };

@@ -70,7 +70,7 @@ const DiscoverArticles = () => {
               id="home-tab-pane"
               role="tabpanel"
               aria-labelledby="home-tab"
-              tabindex="0"
+              tabIndex="0"
             >
 
             <div className="row justify-content-center">

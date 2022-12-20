@@ -584,7 +584,7 @@ const Sidebar = ({ isMobileOpen, toggleSidebar, isFixedSidebar }) => {
                   className="no-underline text-black hover:translate-x-3 transition duration-700 ease-in-out flex flex-row pl-1.5 pt-6 "
                 >
                   <div className="cursor-pointer text-xl">
-                    <BsClipboard className="ml-[2px]" />
+                    <FiUser className="ml-[2px]" />
                   </div>
                   <div className="cursor-pointer truncate text-[15px] font-medium pl-4">
                     Profile
@@ -598,7 +598,7 @@ const Sidebar = ({ isMobileOpen, toggleSidebar, isFixedSidebar }) => {
                     <BsClipboard className="ml-[2px]" />
                   </div>
                   <div className="cursor-pointer truncate text-[15px] font-medium pl-4">
-                    Other
+                    Bookings
                   </div>
                 </Link>
 

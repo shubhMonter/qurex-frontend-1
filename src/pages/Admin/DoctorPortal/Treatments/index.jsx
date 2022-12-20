@@ -1,26 +1,26 @@
-import TreatmentCategories from './TreatmentCategories';
-import React, { useState, useEffect } from 'react';
-import DataTable from 'react-data-table-component';
-import { AiOutlineDelete, AiOutlinePlus } from 'react-icons/ai';
-import { BsPencilSquare } from 'react-icons/bs';
-import axios from 'axios';
-import { get, headers, post, put } from '../../../../api/index';
-import { BaseSetting } from '../../../../utils/common';
+import TreatmentCategories from "./TreatmentCategories";
+import React, { useState, useEffect } from "react";
+import DataTable from "react-data-table-component";
+import { AiOutlineDelete, AiOutlinePlus } from "react-icons/ai";
+import { BsPencilSquare } from "react-icons/bs";
+import axios from "axios";
+import { get, headers, post, put } from "../../../../api/index";
+import { BaseSetting } from "../../../../utils/common";
 
 const Treatments = () => {
-  const [filterText, setFilterText] = useState('');
+  const [filterText, setFilterText] = useState("");
   const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [apiData, setApiData] = useState({});
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [data, setData] = useState([]);
-  const [rowId, setRowId] = useState('');
+  const [rowId, setRowId] = useState("");
   const [deleteModal, setDeleteModal] = useState(false);
   const [pending, setPending] = React.useState(true);
   const [inputs, setInputs] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [editData, setEditData] = useState({});
-  const [categoryData, setCategoryData] = useState();
+  const [categoryData, setCategoryData] = useState([]);
 
   const getDatabyId = (id) => {
     const editFilterData = data.filter((item) => {
@@ -48,12 +48,12 @@ const Treatments = () => {
           getData();
 
           setPending(false);
-          alert('Succesfully Updated');
+          alert("Succesfully Updated");
         }
       } else {
       }
     } catch (error) {
-      alert('Error Updating Data');
+      alert("Error Updating Data");
     }
   };
   const handleChange = (e) => {
@@ -70,7 +70,7 @@ const Treatments = () => {
       console.log(inputs);
       if (navigator.onLine) {
         const response = await post(
-          BaseSetting.adminApiDomain + '/treatment/addNewTreatment',
+          BaseSetting.adminApiDomain + "/treatment/addNewTreatment",
           inputs,
           headers
         );
@@ -81,12 +81,12 @@ const Treatments = () => {
           getData();
 
           setPending(false);
-          alert('Succesfully Added');
+          alert("Succesfully Added");
         }
       } else {
       }
     } catch (error) {
-      alert('Error Adding Data');
+      alert("Error Adding Data");
     }
   };
 
@@ -121,13 +121,14 @@ const Treatments = () => {
     try {
       if (navigator.onLine) {
         const response = await get(
-          BaseSetting.adminApiDomain + '/treatment/getAllTreatments',
+          BaseSetting.adminApiDomain + "/treatment/getAllTreatments",
           headers
         );
+        console.log(response);
 
         // setApiData(response.data.data);
         const result = response.data.data.map(
-          ({ active, gender, createdAt, updatedAt, __v, ...rest }) => ({
+          ({ active, createdAt, updatedAt, __v, ...rest }) => ({
             ...rest,
           })
         );
@@ -139,6 +140,7 @@ const Treatments = () => {
         );
 
         setData(filteredItems);
+        console.log(filteredItems);
         setPending(false);
       } else {
       }
@@ -149,7 +151,7 @@ const Treatments = () => {
       if (navigator.onLine) {
         const response = await get(
           BaseSetting.adminApiDomain +
-            '/treatmentcategory/getAllTreatmentCategories',
+            "/treatmentcategory/getAllTreatmentCategories",
           headers
         );
         // setApiData(response.data.data);
@@ -190,7 +192,7 @@ const Treatments = () => {
   const customStyles = {
     headCells: {
       style: {
-        backgroundColor: '#f8f8f8',
+        backgroundColor: "#f8f8f8",
       },
     },
   };
@@ -199,29 +201,34 @@ const Treatments = () => {
   });
   const columns = [
     {
-      name: 'ID',
+      name: "ID",
 
-      width: '10%',
-      selector: 'serial',
+      width: "10%",
+      selector: "serial",
     },
     {
-      name: 'Treatment',
+      name: "Treatment",
       selector: (row) => row.name,
-      width: '20%',
+      width: "20%",
     },
     {
-      name: 'Description',
+      name: "Gender",
+      selector: (row) => row.gender,
+      width: "20%",
+    },
+    {
+      name: "Description",
       selector: (row) => row.description,
-      width: '30%',
-      style: { height: '100px' },
+      width: "20%",
+      style: { height: "100px" },
     },
 
     {
-      name: 'Category',
+      name: "Category",
       selector: (row) => row?.category?.name,
     },
     {
-      name: 'Image',
+      name: "Image",
       selector: (row) => {
         return (
           <div>
@@ -236,7 +243,7 @@ const Treatments = () => {
       },
     },
     {
-      name: 'Actions',
+      name: "Actions",
       selector: (row) => (
         <>
           <div className="flex flex-row py-3" key={row._id}>
@@ -308,7 +315,7 @@ const Treatments = () => {
     const handleClear = () => {
       if (filterText) {
         setResetPaginationToggle(!resetPaginationToggle);
-        setFilterText('');
+        setFilterText("");
       }
     };
 
@@ -404,8 +411,8 @@ const Treatments = () => {
                                 <input
                                   type="radio"
                                   name="gender"
-                                  value="M"
-                                  defaultChecked={inputs.value === 'M'}
+                                  value="Male"
+                                  defaultChecked={inputs.value === "Male"}
                                   onChange={handleChange}
                                 />
                               </div>
@@ -418,8 +425,8 @@ const Treatments = () => {
                                 <input
                                   type="radio"
                                   name="gender"
-                                  value="F"
-                                  defaultChecked={inputs.value === 'F'}
+                                  value="Female"
+                                  defaultChecked={inputs.value === "Female"}
                                   onChange={handleChange}
                                 />
                               </div>
@@ -431,22 +438,24 @@ const Treatments = () => {
                           <div className="mt-5 text-xs text-gray-600">
                             Treatment Category
                           </div>
+                          {categoryData.length > 0 ? 
                           <div className="text-xs text-gray-600 mt-1 flex flex-row">
-                            <select
-                              className="outline-none py-1 w-full rounded border "
-                              value={inputs.name || categoryData[0]._id}
-                              name="category"
-                              onChange={handleChange}
-                            >
-                              {categoryData.map((category) => (
-                                <>
-                                  <option value={category._id}>
-                                    {category.name}
-                                  </option>
-                                </>
-                              ))}
-                            </select>
-                          </div>
+                          <select
+                            className="outline-none py-1 w-full rounded border "
+                            value={inputs.category}
+                            name="category"
+                            onChange={handleChange}
+                          >
+                            {categoryData.map((category) => (
+                              <>
+                                <option value={category.name}>
+                                  {category.name}
+                                </option>
+                              </>
+                            ))}
+                          </select>
+                        </div> : ""  
+                        }
                         </div>
                         <div className="max-w-xl">
                           <label className="flex justify-center w-full h-full px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">

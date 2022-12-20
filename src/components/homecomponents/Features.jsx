@@ -120,7 +120,7 @@ const Features = () => {
               id="home-tab-pane"
               role="tabpanel"
               aria-labelledby="home-tab"
-              tabindex="0"
+              tabIndex="0"
             >
               <Slider {...settings} className="mb-5">
                 {/* Male tab */}
@@ -189,7 +189,7 @@ const Features = () => {
               id="profile-tab-pane"
               role="tabpanel"
               aria-labelledby="profile-tab"
-              tabindex="1"
+              tabIndex="1"
             >
               <Slider {...settings} className="mb-5">
                 {/* Female tab */}
@@ -243,7 +243,7 @@ const Features = () => {
               id="contact-tab-pane"
               role="tabpanel"
               aria-labelledby="contact-tab"
-              tabindex="2"
+              tabIndex="2"
             >
               <Slider {...settings} className="mb-5">
                 {/* Couples tab */}

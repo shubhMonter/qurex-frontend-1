@@ -111,6 +111,7 @@ const Consult = () => {
     console.log(date1);
     // console.log(date2);
     setMyDate(date1);
+    console.log(typeof mydate);
     setSlotDate(date);
 
     if (dateData && Object.keys(dateData)?.length > 0) {
