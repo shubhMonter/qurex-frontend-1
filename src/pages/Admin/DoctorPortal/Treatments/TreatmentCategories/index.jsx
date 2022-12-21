@@ -54,9 +54,17 @@ const TreatmentCategories = () => {
     }
   };
   const handleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setInputs((values) => ({ ...values, [name]: value }));
+    if(e.target.name === "image"){
+      const file = e.target.files[0];
+      console.log(file);
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = function() {
+          setInputs((values) => ({ ...values, image: reader.result }));
+        return;
+      }
+    }
+    setInputs((values) => ({ ...values, [e.target.name]: e.target.value }));
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -172,7 +180,7 @@ const TreatmentCategories = () => {
             <img
               className="py-3"
               height={34}
-              src={`https://media4.s-nbcnews.com/j/newscms/2016_36/1685951/ss-160826-twip-05_8cf6d4cb83758449fd400c7c3d71aa1f.nbcnews-ux-2880-1000.jpg`}
+              src={row.image}
               alt=""
             />
           </div>
@@ -307,7 +315,7 @@ const TreatmentCategories = () => {
                     </h3>
                     <button
                       className="float-right p-1 ml-auto text-3xl font-semibold leading-none text-black bg-transparent border-0 outline-none opacity-5 focus:outline-none"
-                      onClick={() => setShowModal(false)}
+                      onClick={() =>{ setShowModal(false); setEditData({})}}
                     >
                       <span className="block w-6 h-6 text-2xl text-black bg-transparent outline-none opacity-5 focus:outline-none">
                         ×
@@ -345,7 +353,7 @@ const TreatmentCategories = () => {
                         </div>
                         <div className="max-w-xl">
                           <label className="flex justify-center w-full h-full px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
-                            <span className="flex items-center space-x-2">
+                            {inputs.image ? <img src={inputs.image} /> : <span className="flex items-center space-x-2">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="w-6 h-6 text-gray-600"
@@ -366,11 +374,12 @@ const TreatmentCategories = () => {
                                   browse
                                 </span>
                               </span>
-                            </span>
+                            </span>}
                             <input
                               type="file"
-                              name="file_upload"
+                              name="image"
                               className="hidden"
+                              onChange={handleChange}
                             />
                           </label>
                         </div>
@@ -381,7 +390,7 @@ const TreatmentCategories = () => {
                       <button
                         className="px-6 py-2 mb-1 mr-1 text-sm font-bold text-red-500 uppercase transition-all duration-150 ease-linear outline-none background-transparent focus:outline-none"
                         type="button"
-                        onClick={() => setShowModal(false)}
+                        onClick={() => {setShowModal(false); setEditData({})}}
                       >
                         Close
                       </button>
@@ -391,6 +400,7 @@ const TreatmentCategories = () => {
                           onClick={(e) => {
                             handleUpdate(e);
                             setShowModal(false);
+                            setEditData({});
                           }}
                         >
                           Update Changes
@@ -401,6 +411,7 @@ const TreatmentCategories = () => {
                           onClick={(e) => {
                             handleSubmit(e);
                             setShowModal(false);
+                            setEditData({})
                           }}
                         >
                           Save Changes

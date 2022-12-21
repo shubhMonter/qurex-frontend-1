@@ -3,29 +3,16 @@ import { useState } from 'react';
 import '../../../styles/Profile.css';
 import { useSelector} from 'react-redux';
 import { ProfileUpdate } from '../../../preseneter/DashBoard/Profile';
-
+import { Upload, Button } from "antd";
+import { BsUpload } from 'react-icons/bs';
 const PersonalDetail = () => {
   const auth = useSelector((state) => state.auth.authData);
   const error = useSelector((state) => state.auth.authError);
   let userData = auth?.user;
-  const [selectedImages, setSelectedImages] = useState([]);
-
-  const onSelectFile = (event) => {
-    const selectedFiles = event.target.files;
-    const selectedFilesArray = Array.from(selectedFiles);
-
-    const imagesArray = selectedFilesArray.map((file) => {
-      return URL.createObjectURL(file);
-    });
-
-    setSelectedImages((previousImages) => previousImages.concat(imagesArray));
-    
-    // FOR BUG IN CHROME
-    event.target.value = '';
-  };
   const [loader, setLoader] = useState(false);
   const [validateDisabled, setValidateDisabled] = useState(false);
   const [inputs, setInputs] = useState({});
+  const [imageSrc , setImageSrc] = useState("");
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -49,64 +36,38 @@ const PersonalDetail = () => {
       alert('Error Updating Data');
     }
   };
+  const handleImageChange = ({file}) => {
+    var url = URL.createObjectURL(file.originFileObj);
+     setImageSrc(url);
+     let reader = new FileReader();
+     reader.readAsDataURL(file.originFileObj);
+     reader.onloadend = function() {
+         setInputs((values) => ({ ...values, profilePic: reader.result }));
+     }
+     
+};
   return (
     <form>
       <div className="text-[#626262] grid grid-cols-3 gap-5 mt-10 shadow-lg rounded-lg bg-white mx-10 pt-10">
         <div className="col-span-3 md:col-span-1 lg:col-span-1 xl:col-span-1 flex flex-col">
-          <div className="flex justify-center">
-            <section>
-              <label className="text-sm truncate px-2">
-                Upload Your Photo  <br />
-                <input
-                  className="hidden"
-                  type="file"
-                  name="images"
-                  onChange={onSelectFile}
-                  multiple
-                  accept="image/png , image/jpeg, image/webp"
-                />
-<img src={userData.profilePic} />
-              </label>
-              <br />
-                
-              {/* <input className="hidden" type="file" multiple /> */}
-
-              {/* {selectedImages.length > 0 &&
-                (selectedImages.length > 10 ? (
-                  <p className="error">
-                    You can't upload more than 10 images! <br />
-                    <span>
-                      please delete <b> {selectedImages.length - 10} </b> of
-                      them{' '}
-                    </span>
-                  </p>
-                ) : (
-                  <button
-                    className="upload-btn"
-                    onClick={() => {
-                      console.log(selectedImages);
-                    }}
-                  >
-                    UPLOAD {selectedImages.length} IMAGE
-                    {selectedImages.length === 1 ? '' : 'S'}
-                  </button>
-                ))}
-
-              <div className="images">
-                {selectedImages &&
-                  selectedImages.map((image, index) => {
-                    return (
-                      <div key={image} className="image">
-                        <img src={image} height="200" alt="upload" />
-                        <button onClick={() => deleteHandler(image)}>
-                          delete image
-                        </button>
-                        <p>{index + 1}</p>
-                      </div>
-                    );
-                  })}
-              </div> */}
-            </section>
+        <div className="flex justify-center">
+            <img className="rounded-xl ml-7" src={inputs?.profilePic ?  inputs?.profilePic : userData?.proficePic} alt="" />
+          </div>
+          <div className="my-4 flex ml-14">
+            <div className="cursor-pointer hover:bg-opacity-10 px-5 py-3 rounded-md">
+              <Upload className="mt-3 mb-3"
+                    accept=".jpg"
+                    // action="https://www.qurex.io/v2/api"
+                    action=""
+                    listType="picture"
+                    maxCount={1}
+                    onChange={handleImageChange}>
+                    <Button>
+                       <BsUpload className="h-5 w-5 " /><br/>
+                       Upload Photo
+                    </Button>
+                </Upload>
+            </div>
           </div>
           {/* <div className="mx-32 sm:mx-52 md:mx-16  mt-5 border-4 border-transparent border-t-gray-500"></div> */}
           {/* <div className="my-4 flex justify-center">

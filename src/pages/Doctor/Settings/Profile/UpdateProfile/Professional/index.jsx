@@ -99,6 +99,7 @@ const ProfessionalDetail = () => {
               <input
                 name="degree"
                 value={inputs?.degree }
+                defaultValue={doctor?.degree}
                 onChange={handleChange}
                 className="py-1 pl-3 w-full outline-none"
               />
@@ -108,7 +109,8 @@ const ProfessionalDetail = () => {
         <div className="text-xs">Treatment offered</div>
         <div className=" border-gray-200 border rounded-md">
           <Select
-          value={createOptions(inputs?.treatments) || createOptions(doctor?.treatments) }
+          value={createOptions(inputs?.treatments)}
+          defaultValue={createOptions(doctor?.treatments)}
             isMulti
             name="treatments"
             options={treatmentData}
@@ -122,7 +124,8 @@ const ProfessionalDetail = () => {
         <div className="text-xs">Specializations</div>
         <div className=" border-gray-200 border rounded-md">
           <Select
-            value={createOptions(inputs?.specializations) || createOptions(doctor?.specializations)  }
+            value={createOptions(inputs?.specializations)}
+            defaultValue={createOptions(doctor?.specializations)}
             name="specializations"
             isMulti
             options={specData}
@@ -136,7 +139,10 @@ const ProfessionalDetail = () => {
       <div className="mt-5 flex flex-col">
         <div className="text-xs">Treatment provided to</div>
         <div className="border rounded-md border-gray-200 ">
-          <select className="text-xs py-3 pl-3 w-full outline-none" name="treatmentRendered" value={inputs?.treatmentRendered } onChange={handleChange}>
+          <select className="text-xs py-3 pl-3 w-full outline-none" name="treatmentRendered" 
+          value={inputs?.treatmentRendered } 
+          defaultValue={doctor?.treatmentRendered}
+          onChange={handleChange}>
             <option className="outline-none">Men</option>
             <option className="outline-none">Women</option>
             <option className="outline-none">Both men and women</option>
@@ -149,6 +155,7 @@ const ProfessionalDetail = () => {
           <input
             name="feeCharge"
             value={inputs?.feeCharge}
+            defaultValue={doctor?.feeCharge}
             onChange={handleChange}
             className="py-1 pl-3 w-full outline-none"
             type="number"
@@ -161,6 +168,7 @@ const ProfessionalDetail = () => {
         <div className="border rounded-md border-gray-200 ">
           <select
             value={inputs?.sessionDuration}
+            defaultValue={doctor?.sessionDuration}
             name="sessionDuration"
             onChange={handleChange}
             className="py-1.5 pl-3 w-full outline-none"
@@ -175,7 +183,10 @@ const ProfessionalDetail = () => {
       <div className="mt-5 flex flex-col">
         <div className="text-xs">About Your Practice</div>
         <div className=" border-gray-200 border rounded-md">
-          <textarea className="h-32 py-1 pl-3 w-full outline-none" name="about" value={inputs?.about } onChange={handleChange} />
+          <textarea className="h-32 py-1 pl-3 w-full outline-none" name="about" 
+          value={inputs?.about } 
+          defaultValue={doctor?.about} 
+          onChange={handleChange} />
         </div>
       </div>
 

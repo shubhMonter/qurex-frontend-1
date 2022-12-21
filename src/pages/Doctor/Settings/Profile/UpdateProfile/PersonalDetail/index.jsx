@@ -16,10 +16,10 @@ const PersonalDetail = () => {
  
   const auth = useSelector((state) => state.auth.authData);
   const [inputs, setInputs] = useState();
+  const [user,setUser]= useState();
   const [cityList, setCityList] = useState([]);
   const [loader, setLoader] = useState(false);
   const [imageSrc , setImageSrc] = useState("");
-  
   // const {user} = auth
   let allCities = [];
 
@@ -42,7 +42,7 @@ const PersonalDetail = () => {
     } catch (error) {
       console.log(error);
     }
-    setLoader(false);
+   
   };
 
 
@@ -51,24 +51,27 @@ const PersonalDetail = () => {
       setLoader(true);
         const response = await UserAPI.getByUserId(id);
         if(response){
-          setInputs(response.userId)
+          setUser(response.userId)
         }
     } catch (error) {
       console.log(error);
     }
+    setLoader(false);
   };
 
   const handleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setInputs((values) => ({ ...values, [name]: value }));
+    setInputs((values) => ({ ...values, [e.target.name]: e.target.value }));
   };
 
   const handleImageChange = ({file}) => {
-    var reader = new FileReader();
-    console.log(file);
     var url = URL.createObjectURL(file.originFileObj);
-    setImageSrc(url);
+     setImageSrc(url);
+     let reader = new FileReader();
+     reader.readAsDataURL(file.originFileObj);
+     reader.onloadend = function() {
+         setInputs((values) => ({ ...values, profilePic: reader.result }));
+     }
+     
 };
 
   const handleUpdate = (e) => {
@@ -79,16 +82,16 @@ const PersonalDetail = () => {
     setLoader(true)
     try {
      
-    const user = await ProfileUpdate(auth.user.id,inputs,auth.token)
-    if(user){
-      setInputs((values)=>({...values,user}));
+    const userUpdate = await ProfileUpdate(auth.user.id,inputs,auth.token)
+    if(userUpdate){
+      setUser((values)=>({...values,userUpdate}));
     }
     } catch (error) {
       alert('Error Updating Data');
     }
     setLoader(false);
   };
-  console.log({inputs});
+  console.log(user);
   return (
 
     <form>
@@ -96,7 +99,7 @@ const PersonalDetail = () => {
       <div className="text-[#626262] grid grid-cols-3 gap-5 mt-10">
         <div className="col-span-3 md:col-span-1 lg:col-span-1 xl:col-span-1 flex flex-col">
           <div className="flex justify-center">
-            <img className="rounded-xl ml-7" src={inputs?.profilePic} alt="" />
+            <img className="rounded-xl ml-7" src={inputs?.profilePic ?  inputs?.profilePic : user?.proficePic} alt="" />
           </div>
           <div className="mx-32 sm:mx-52 md:mx-16  mt-5 border-4 border-transparent border-t-gray-500"></div>
           <div className="my-4 flex ml-14">
@@ -122,6 +125,7 @@ const PersonalDetail = () => {
             <div className="border rounded-md border-gray-200 ">
               <select
                 value={inputs?.salutation}
+                defaultValue={user?.salutation}
                 name="salutation"
                 onChange={handleChange}
                 className="py-1.5 pl-3 w-full outline-none"
@@ -151,6 +155,7 @@ const PersonalDetail = () => {
               <input
                 name="name"
                 value={inputs?.name }
+                defaultValue={user?.name}
                 onChange={handleChange}
                 className="py-1 pl-3 w-full outline-none"
               />
@@ -162,6 +167,7 @@ const PersonalDetail = () => {
               <input
                 name="email"
                 value={inputs?.email }
+                defaultValue={user?.email}
                 onChange={handleChange}
                 className="py-1 pl-3 w-full outline-none"
               />
@@ -181,7 +187,8 @@ const PersonalDetail = () => {
                 className="py-1 pl-3 w-full outline-none"
               /> */}
                <Select
-                value={inputs?.languages?.map(x=>{return {label:x,value:x}}) || inputs?.languages?.map(x=>{return {label:x,value:x}})}
+                value={createOptions(inputs?.languages)}
+                defaultValue={createOptions(user?.languages)}
                 isMulti
                 name="languages"
                 options={createOptions(languages)}
@@ -197,6 +204,7 @@ const PersonalDetail = () => {
             <div className="border rounded-md border-gray-200 ">
               <select
                 value={inputs?.gender}
+                defaultValue={user?.gender}
                 name="gender"
                 onChange={handleChange}
                 className="py-1.5 pl-3 w-full outline-none"
@@ -213,6 +221,7 @@ const PersonalDetail = () => {
             <div className="border rounded-md border-gray-200 ">
               <select
                 value={inputs?.city}
+                defaultValue={user?.city}
                 name="city"
                 onChange={handleChange}
                 className="py-1.5 pl-3 w-full outline-none"

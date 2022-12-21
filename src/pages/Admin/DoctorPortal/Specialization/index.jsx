@@ -65,10 +65,17 @@ const Specialization = () => {
     // getData();
   };
   const handleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    // const file = e.target.files[0];
-    setInputs((values) => ({ ...values, [name]: value }));
+    if(e.target.name === "image"){
+      const file = e.target.files[0];
+      console.log(file);
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = function() {
+          setInputs((values) => ({ ...values, image: reader.result }));
+        return;
+      }
+    }
+    setInputs((values) => ({ ...values, [e.target.name]:e.target.value }));
   };
   const postData = async () => {
     try {
@@ -349,7 +356,7 @@ const Specialization = () => {
                         </div>
                         <div className="max-w-xl">
                           <label className="flex justify-center w-full h-full px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
-                            <span className="flex items-center space-x-2">
+                            {inputs.image ? <img src={inputs.image}/> : <span className="flex items-center space-x-2">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="w-6 h-6 text-gray-600"
@@ -370,11 +377,11 @@ const Specialization = () => {
                                   browse
                                 </span>
                               </span>
-                            </span>
+                            </span>}
                             <input
                               type="file"
                               onChange={handleChange}
-                              name="file_upload"
+                              name="image"
                               className="hidden"
                             />
                           </label>
